@@ -6,7 +6,7 @@ const productsRoute = require("./routes/products");
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT;
+    this.port = process.env.PORT || 4000;
     this.productsPath = "/products";
 
     // Middlewares
