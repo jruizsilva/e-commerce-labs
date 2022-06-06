@@ -5,9 +5,9 @@ const server = new Server();
 
 const main = async () => {
   try {
-    await db.authenticate();
+    // await db.authenticate();
     console.log("Connection has been established successfully.");
-    await db.sync({ force: false });
+    // await db.sync({ force: false });
     server.listen();
   } catch (error) {
     console.error("Unable to connect to the database:", error);
