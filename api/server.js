@@ -21,7 +21,6 @@ class Server {
     this.app.use(cors());
 
     // Access control
-    /*
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Credentials", "true");
@@ -34,7 +33,7 @@ class Server {
         "GET, POST, OPTIONS, PUT, DELETE"
       );
       next();
-    });*/
+    });
 
     // Lectura y parseo del body
     this.app.use(express.json());
