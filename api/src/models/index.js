@@ -18,19 +18,16 @@ const sequelize = new Sequelize( dbName, dbUser, dbPassword, {
 });
 
 const Product = modelProduct(sequelize)
-modelUser(sequelize)
-modelOrder(sequelize)
-modelCart(sequelize)
 const Category = modelCategory(sequelize)
-modelFeedback(sequelize)
-modelNotification(sequelize)
-modelQuestion(sequelize)
-modelAnswer(sequelize)
-modelProductCart(sequelize)
-console.log(sequelize.models)
+const User = modelUser(sequelize)
+const Order = modelOrder(sequelize)
+const Cart = modelCart(sequelize)
+const Feedback = modelFeedback(sequelize)
+const Notification = modelNotification(sequelize)
+const Question = modelQuestion(sequelize)
+const Answer = modelAnswer(sequelize)
+const ProductCart = modelProductCart(sequelize)
 
-const { User, Order, Cart, Feedback, Notification, Question, Answer, ProductCart} = sequelize.models
-console.log(Product)
 //aca hacemos nuestras relaciones
 Category.belongsToMany(Product, { through: 'ProductCategory'})
 Product.belongsToMany(Category, { through: 'ProductCategory'})
@@ -54,6 +51,12 @@ ProductCart.belongsTo(Product)
 User.hasMany(Product)
 Product.belongsTo(User)
 Order.hasOne(Feedback)
+User.hasMany(Order, { as: 'IdUserSeller' })
+Order.belongsTo(User, {as: 'IdUserSeller'})
+User.hasMany(Order, { as: 'IdUserBuyer' })
+Order.belongsTo(User, {as: 'IdUserBuyer'})
+Product.hasMany(Order)
+Order.belongsTo(Product)
 module.exports = {
     conn: sequelize,
     Product,
