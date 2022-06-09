@@ -1,1 +1,2 @@
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const SORT_BY_VALUE = 'SORT_BY_VALUE';
