@@ -60,4 +60,13 @@ Order.belongsTo(Product)
 module.exports = {
     conn: sequelize,
     Product,
+    Category,
+    User,
+    Order,
+    Cart,
+    Feedback,
+    Notification,
+    Question,
+    Answer,
+    ProductCart
 }
