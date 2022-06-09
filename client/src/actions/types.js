@@ -1,1 +1,1 @@
-export const AUMENTAR = 'AUMENTAR';
+export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';

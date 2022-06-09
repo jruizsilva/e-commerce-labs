@@ -18,6 +18,10 @@ module.exports = function(sequelize){
             type: DataTypes.STRING,
             allowNull: false,
         },
+        condition: { //nuevo o usado (new, used)
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         brand: {
             type: DataTypes.STRING,
         },
@@ -31,7 +35,7 @@ module.exports = function(sequelize){
         score: {
             type: DataTypes.INTEGER,
         },
-        state: {
+        state: { // active - paused
             type: DataTypes.STRING,
             allowNull: false,
         }

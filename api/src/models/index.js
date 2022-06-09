@@ -59,5 +59,6 @@ Product.hasMany(Order)
 Order.belongsTo(Product)
 module.exports = {
     conn: sequelize,
-    Product,
+    Product, Category, User, Order, Cart,
+    Feedback, Notification, Question, Answer, ProductCart
 }

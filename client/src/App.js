@@ -1,16 +1,14 @@
 
-//import {Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 // importo los componentes que vamos a renderizar
-import Home from './components/Home';
+import Home from './components/Home/Home.jsx';
 
 function App() {
   return (
-      <Home/>
-    /* 
-      <Switch>
-        <Route exact path="/" component={Home}/>
-      </Switch> */
-      
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes> 
   );
 }
 
