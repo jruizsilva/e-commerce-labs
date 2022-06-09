@@ -1,1 +1,2 @@
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const GET_NAME_PRODUCT = 'GET_NAME_PRODUCT';
