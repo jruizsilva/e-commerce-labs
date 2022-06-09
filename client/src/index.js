@@ -1,7 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import store from "./store/index.js";
+import App from './App.js';
 
-import "./reset.css";
-import "./index.css";
 
-ReactDOM.render(<div>hola</div>, document.getElementById("root"));
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>,
+    </Provider>,
+    document.getElementById("root")
+);
