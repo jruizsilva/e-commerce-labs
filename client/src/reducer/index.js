@@ -1,18 +1,17 @@
-import { AUMENTAR } from "../actions/types"
+import { GET_ALL_PRODUCTS } from "../actions/types"
 
 const initialState = {
-    contador : 0
+    allProducts: []
 }
 
 export default function reducer(state = initialState, actions){
-    switch (actions.type) {
-        case AUMENTAR:
-            return {
-                ...state,
-                contador: state.contador + 1
-            }
-    
-        default:
-           return state;
-    }
+  switch (actions.type) {
+    case GET_ALL_PRODUCTS:
+        return {
+            ...state,
+            allProducts: actions.payload
+        }
+    default:
+       return state;
+  }
 }

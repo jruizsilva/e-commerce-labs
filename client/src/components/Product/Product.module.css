@@ -1,0 +1,39 @@
+.productContainer{
+  display: flex;
+  flex-wrap: wrap;
+  width: 32%;
+  border-radius: 0 0 5px 5px;
+  height: 16em;
+  margin-bottom: 15px;
+  border: solid 1px black;
+  background-color: #C1C1C1
+}
+.productContainer > img{
+  height: 70%;
+  width: 100%;
+  /* border: solid 1px black; */
+}
+
+.productContainer > h3{
+  width: 100%;
+  height: 8%;
+  margin: 0;
+  padding-left: 7px;
+}
+.productContainer > label{
+  font-size: 13px;
+  height: 10%;
+  padding-left: 7px;
+}
+
+.btnAddCart{
+  width: 100%;
+  height: 12%;
+  padding: 0 5px 0 5px;
+}
+.btnAddCart > button{
+  width: 100%;
+}
+
+
+
