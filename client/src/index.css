@@ -20,6 +20,7 @@ body {
   background-color: var(--fondo);
   font-family: var(--fuente);
   font-weight: 400;
+  /*  */
 }
 
 /* The switch - the box around the slider */
