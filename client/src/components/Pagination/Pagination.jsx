@@ -5,21 +5,15 @@ const Pagination = ({ allProducts, pagination, currentPage }) => {
 
   return (
     <div className={style.paginationContainer}>
-      <a
-        onClick={() =>
+      <a onClick={() =>
           pagination(currentPage === 1 ? currentPage : currentPage - 1)
         }
-      >
-        Prev
-      </a>
+      > Prev </a>
       {currentPage} de {totalPages}
-      <a
-        onClick={() =>
+      <a onClick={() =>
           pagination(currentPage === totalPages ? currentPage : currentPage + 1)
         }
-      >
-        Next
-      </a>
+      > Next </a>
     </div>
   );
 };
