@@ -1,4 +1,5 @@
-import { GET_ALL_PRODUCTS, SORT_BY_VALUE } from '../actions/types';
+import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE } from "../actions/types"
+
 
 const initialState = {
   allProducts: [],
@@ -41,6 +42,11 @@ export default function reducer(state = initialState, actions) {
         ...state,
         allProducts: sortedArr,
       };
+    case GET_NAME_PRODUCT:
+        return {
+          ...state,
+          allProducts:actions.payload
+        }
     default:
       return state;
   }

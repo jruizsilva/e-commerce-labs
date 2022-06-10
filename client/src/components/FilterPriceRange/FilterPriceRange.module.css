@@ -1,0 +1,13 @@
+.container {
+  margin: 16px;
+}
+.title {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.link {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #666;
+}

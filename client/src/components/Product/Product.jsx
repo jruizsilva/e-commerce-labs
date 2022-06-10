@@ -1,6 +1,7 @@
-import style from './Product.module.css';
+import style from "./Product.module.css";
 
 const Product = ({ data }) => {
+
   return (
     <article className={style.productContainer}>
       <img src={data.image} alt="" />
