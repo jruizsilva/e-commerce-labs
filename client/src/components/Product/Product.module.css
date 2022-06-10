@@ -1,39 +1,39 @@
-.productContainer{
+.productItem {
   display: flex;
   flex-wrap: wrap;
   width: 32%;
-  border-radius: 0 0 5px 5px;
   height: 16em;
   margin-bottom: 15px;
   border: solid 1px black;
-  background-color: #C1C1C1
+  background-color: #fafafb;
 }
-.productContainer > img{
-  height: 70%;
+.productContainer {
   width: 100%;
+}
+.productContainer > img {
+  height: 70%;
+  max-width: 100%;
   /* border: solid 1px black; */
 }
 
-.productContainer > h3{
+.productContainer > h3 {
   width: 100%;
+  font-weight: 500;
   height: 8%;
   margin: 0;
   padding-left: 7px;
 }
-.productContainer > label{
+.productContainer > label {
   font-size: 13px;
   height: 10%;
   padding-left: 7px;
 }
 
-.btnAddCart{
+.btnAddCart {
   width: 100%;
   height: 12%;
   padding: 0 5px 0 5px;
 }
-.btnAddCart > button{
+.btnAddCart > button {
   width: 100%;
 }
-
-
-

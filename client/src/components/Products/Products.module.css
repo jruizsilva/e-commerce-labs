@@ -1,8 +1,5 @@
-.productsContainer{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 60%;
-    padding: 10px;
-    border: solid 1px black;
+.productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

@@ -11,8 +11,10 @@ img {
 }
 
 :root {
+  --white: #fff;
   --fondo: #ededed;
   --border-color: #bdbdbd;
+  --primary: #2f80ed;
   --fuente: "Noto Sans", sans-serif;
 }
 

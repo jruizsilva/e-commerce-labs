@@ -12,7 +12,7 @@ const Products = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useDispatch();
   const { allProducts } = useSelector((state) => state);
-  
+
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage /*setProductsPage*/] = useState(9);
@@ -39,19 +39,20 @@ const Products = () => {
   }, [params]);
 
   return (
-    <>
-    <div className={style.productsContainer}>
-      {allProducts[0] &&
-        allProducts.map((val) => {
-          return <Product key={val.id} data={val} />;
-        })}
-    </div>
-<Pagination
+    <div>
+      <ul className={style.productsContainer}>
+        {allProducts[0] &&
+          allProducts.map((val) => {
+            return <Product key={val.id} data={val} />;
+          })}
+
+      </ul>
+      <Pagination
         allProducts={allProducts.length}
         pagination={pagination}
         currentPage={currentPage}
       />
-</>
+    </div>
   );
 };
 
