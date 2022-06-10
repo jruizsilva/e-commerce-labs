@@ -22,7 +22,6 @@ app.use(errorHandler);
 
 //aca vamos arracar nuestro server
 conn.sync({ force: false }).then(() => {
-
   console.log("base de datos conectada");
   app.listen(PORT, () => {
     console.log("Server is listening on por", PORT);
