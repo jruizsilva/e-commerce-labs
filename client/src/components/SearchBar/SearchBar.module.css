@@ -1,0 +1,26 @@
+.container{
+    text-align: center;
+}
+.inputContainer{
+    background: none;
+    border:none;
+}
+
+.inputContainer:focus{
+    outline: none;
+}
+
+.btn{
+    border-radius: 5px;
+    font-size: 10px;
+    height: 22px;
+    background-color: rgb(81, 126, 224);;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: rgb(111, 142, 209);
+    color: white;
+}

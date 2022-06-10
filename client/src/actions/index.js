@@ -1,5 +1,5 @@
-import { GET_ALL_PRODUCTS } from "./types";
-import axios from "axios";
+import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT } from "./types";
+import axios from 'axios';
 
 export const getAllProducts = (search) => {
   return function (dispatch) {
@@ -10,3 +10,17 @@ export const getAllProducts = (search) => {
       });
   };
 };
+export function getNameProduct(name){
+  return async function(dispatch){
+    try {
+      const json = await axios.get('http://localhost:3001/api/products/search?name=' + name)
+      return dispatch({
+        type: GET_NAME_PRODUCT,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
