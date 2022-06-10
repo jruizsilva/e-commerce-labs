@@ -16,41 +16,25 @@ export default function reducer(state = initialState, actions) {
       const sortedArr =
         actions.payload === 'AZ'
           ? info.sort(function (a, b) {
-              if (a.name > b.name) {
-                return 1;
-              }
-              if (b.name > a.name) {
-                return -1;
-              }
+              if (a.name > b.name) return 1;
+              if (b.name > a.name) return -1;
               return 0;
             })
           : actions.payload === 'ZA'
           ? info.sort(function (a, b) {
-              if (a.name > b.name) {
-                return -1;
-              }
-              if (b.name > a.name) {
-                return 1;
-              }
+              if (a.name > b.name) return -1;
+              if (b.name > a.name) return 1;
               return 0;
             })
           : actions.payload === 'HIGH'
           ? info.sort(function (a, b) {
-              if (Number(a.price) > Number(b.price)) {
-                return -1;
-              }
-              if (Number(b.price) > Number(a.price)) {
-                return 1;
-              }
+              if (Number(a.price) > Number(b.price)) return -1;
+              if (Number(b.price) > Number(a.price)) return 1;
               return 0;
             })
           : info.sort(function (a, b) {
-              if (Number(a.price) > Number(b.price)) {
-                return 1;
-              }
-              if (Number(b.price) > Number(a.price)) {
-                return -1;
-              }
+              if (Number(a.price) > Number(b.price)) return 1;
+              if (Number(b.price) > Number(a.price)) return -1;
               return 0;
             });
       return {
