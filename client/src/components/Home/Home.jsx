@@ -1,8 +1,8 @@
-import style from './Home.module.css'
-import React from 'react'
-import Products from '../Products/Products.jsx'
-import Header from '../Header/Header.jsx'
-import Filter from '../Filter/Filter.jsx'
+import style from "./Home.module.css";
+import React from "react";
+import Products from "../Products/Products.jsx";
+import Header from "../Header/Header.jsx";
+import Filter from "../Filter/Filter.jsx";
 
 const Home = () => {
   return (
@@ -11,7 +11,7 @@ const Home = () => {
       <Filter />
       <Products />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
