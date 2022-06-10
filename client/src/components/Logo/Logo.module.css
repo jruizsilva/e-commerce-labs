@@ -1,0 +1,12 @@
+.container {
+  height: 150px;
+  flex-basis: 150px;
+  margin-right: 64px;
+}
+.logo {
+  height: 100%;
+  width: 100%;
+}
+.logo:hover {
+  cursor: pointer;
+}
