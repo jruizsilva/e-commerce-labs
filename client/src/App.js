@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Redirect, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { getUser } from './actions/index.js';
 import initAuth2Google from './components/Login/init_Auth2.js'
 
@@ -23,6 +23,7 @@ function App() {
       <Route exact path="/" element={<Home />} />
       <Route path="/login" element={!user.id ? <Login /> : <Navigate to="/"/>} />
       <Route exact path="/err404" element={<Err404 />} />
+      <Route path="/details/:productId" element={<ProductDetails />} />
       <Route path="*" element={<Navigate to="/err404" replace />}/>
     </Routes> 
   );
