@@ -22,6 +22,7 @@ export default function FilterPriceRange() {
       params.set("max_price", max);
     }
     if (type === "min_price") {
+      params.delete("max_price");
       params.set("min_price", e.target.value);
     }
     if (type === "max_price") {
