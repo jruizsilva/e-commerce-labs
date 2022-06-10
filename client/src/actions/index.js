@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT } from "./types";
+import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE } from "./types";
 import axios from 'axios';
 
 export const getAllProducts = (search) => {
