@@ -1,8 +1,8 @@
-import style from './Product.module.css';
+import style from "./Product.module.css";
 
-const Product = ({data})=>{
-  console.log(data);
-  return(
+const Product = ({ data }) => {
+
+  return (
     <article className={style.productContainer}>
       <img src={data.image} alt="" />
       <h3>$ {data.price}</h3>
@@ -11,7 +11,7 @@ const Product = ({data})=>{
         <button>Add cart</button>
       </div>
     </article>
-  )
-}
+  );
+};
 
 export default Product;

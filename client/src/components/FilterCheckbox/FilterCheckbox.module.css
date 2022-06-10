@@ -1,0 +1,14 @@
+.container {
+  margin: 16px;
+  max-width: 230px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  padding-left: 24px;
+}
+.p {
+  font-size: 16px;
+}
