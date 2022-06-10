@@ -1,5 +1,5 @@
 import style from "./Products.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../actions";
 import Product from "../Product/Product.jsx";
