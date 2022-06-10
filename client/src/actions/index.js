@@ -23,4 +23,10 @@ export function getNameProduct(name){
     }
   }
 }
+export const sortByValue = payload => {
+  return {
+    type: SORT_BY_VALUE,
+    payload,
+  };
+};
 
