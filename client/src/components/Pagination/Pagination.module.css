@@ -1,0 +1,18 @@
+.paginationContainer {
+  box-sizing: border-box;
+  float: right;
+  height: 40px;
+  width: 63%;
+  margin-left: 37%;
+  border: solid 1px black;
+}
+
+.paginationContainer a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: rgb(179, 140, 105);
+}

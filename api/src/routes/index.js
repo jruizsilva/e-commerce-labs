@@ -1,4 +1,4 @@
-// vamos a traernos los archivos: mi route de characters y mi route de episodes
+// vamos a traernos todos los archivos
 const { Router } = require('express')
 const router = Router()
 const productsRoutes = require('./products.routes.js')
