@@ -8,6 +8,7 @@ import initAuth2Google from './components/Login/init_Auth2.js'
 import Home from './components/Home/Home.jsx';
 import Login from './components/Login/Login.jsx';
 import Err404 from './components/Err404/Err404.jsx';
+import ProductDetails from './components/ProductDetails/ProductDetails.jsx';
 
 function App() {
   const { user } = useSelector((state)=>state);

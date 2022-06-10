@@ -24,7 +24,7 @@ const Login = ()=>{
 
   return (
     <>
-      <form onSubmit={(e)=>{handlerSubmit(e)}}>
+      <form className={style.frmLogin} onSubmit={(e)=>{handlerSubmit(e)}}>
         <h3>Login Here</h3>
         <label>Email</label>
         <input onChange={(e)=>{handlerChange(e)}}  type="email" placeholder="Email or Phone" name='email' value={form.email}/>

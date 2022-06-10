@@ -1,4 +1,4 @@
-form{
+.frmLogin{
     width: 300px;
     background-color: rgba(0,0,0,0.8);
     position: absolute;
@@ -11,27 +11,27 @@ form{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
 }
-form *{
+.frmLogin *{
     font-family: 'Poppins',sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h3{
+.frmLogin h3{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
     text-align: center;
 }
 
-label{
+.frmLogin >label{
     display: block;
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
 }
-input{
+.frmLogin > input{
     display: block;
     height: 50px;
     width: 100%;
@@ -45,7 +45,7 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
+.frmLogin > button{
     margin-top: 50px;
     width: 100%;
     background-color: #ffffff;
