@@ -15,7 +15,7 @@ const Products = () => {
 
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage /*setProductsPage*/] = useState(9);
+  const [productsPerPage, setProductsPage] = useState(9);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = allProducts.slice(
@@ -42,7 +42,7 @@ const Products = () => {
     <div>
       <ul className={style.productsContainer}>
         {allProducts[0] &&
-          allProducts.map((val) => {
+          currentProducts.map((val) => {
             return <Product key={val.id} data={val} />;
           })}
 

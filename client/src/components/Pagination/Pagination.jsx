@@ -3,6 +3,10 @@ import style from './Pagination.module.css';
 const Pagination = ({ allProducts, pagination, currentPage }) => {
   const totalPages = Math.ceil(allProducts / 9);
 
+  console.log("cantidad productos: ", allProducts)
+  console.log("currentPage:", currentPage)
+  console.log("totalPages", totalPages)
+
   return (
     <div className={style.paginationContainer}>
       <a
