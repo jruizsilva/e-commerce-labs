@@ -34,7 +34,7 @@ const getProductsByName = async (req, res, next) => {
   }
 
 const getProducts = async (req, res, next) => {
-  const { condition, sort, min_price, max_price, state, travel_cost } =
+  const { condition, sort, min_price, max_price, state, name, categoryId } =
     req.query;
   try {
     let where = {};
@@ -63,8 +63,15 @@ const getProducts = async (req, res, next) => {
     if (sort === "higher_price") order = [["price", "DESC"]];
     if (sort === "lower_price") order = [["price", "ASC"]];
 
+    // devuelve todos los productos que contenga la categoria con el id enviado
+    // busca producto por el nombre que se ingreso en el search anteriormente
+    let include = [{ model: Category }];
+    if (categoryId) include[0].where = {id: categoryId};
+    if (name) where.name = {[Op.iLike]: '%' + name + '%'};
+    // ------------------------------------------------------------------------
+
     const products = await Product.findAll({
-      include: [{ model: Category }],
+      include,
       where,
       order,
     });
@@ -95,8 +102,9 @@ const getProductsById = async (req, res ,next) => {
     }
 };
 
+
 module.exports = {
     getProducts,
     getProductsById,
-    getProductsByName,
+    getProductsByName
 }
