@@ -1,0 +1,14 @@
+.container {
+  height: 150px;
+  flex-basis: 150px;
+  margin-right: 64px;
+  flex-shrink: 0;
+}
+.logo {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.logo:hover {
+  cursor: pointer;
+}

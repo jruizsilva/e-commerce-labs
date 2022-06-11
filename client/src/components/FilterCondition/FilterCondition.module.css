@@ -5,9 +5,15 @@
   margin-bottom: 8px;
   font-weight: 500;
 }
+.item {
+  margin-bottom: 8px;
+}
 .link {
-  display: inline-block;
-  margin-bottom: 4px;
   font-size: 14px;
   color: #666;
+  user-select: none;
+}
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }

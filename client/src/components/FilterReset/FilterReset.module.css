@@ -5,9 +5,21 @@
   margin-bottom: 8px;
   font-weight: 500;
 }
-.link {
-  display: inline-block;
-  margin-bottom: 4px;
-  font-size: 14px;
-  color: #666;
+.button {
+  height: 32px;
+  color: var(--white);
+  background-color: var(--primary);
+  border: none;
+  border-radius: 12px;
+  width: 110px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover {
+  /* background-color: rgb(111, 142, 209);
+  color: white; */
+  cursor: pointer;
 }

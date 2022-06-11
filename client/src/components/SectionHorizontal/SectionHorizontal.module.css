@@ -1,0 +1,9 @@
+.container {
+  margin-bottom: 30px;
+  display: flex;
+}
+.space {
+  flex-basis: 260px;
+  flex-shrink: 0;
+  margin-right: 30px;
+}

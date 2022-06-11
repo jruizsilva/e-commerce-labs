@@ -18,17 +18,18 @@ export default function FilterCondition() {
   return (
     <div className={style.container}>
       <h4 className={style.title}>Condición</h4>
-      <button type="button" className={style.link} onClick={updateNewCondition}>
-        Nuevo
-      </button>
-      <br />
-      <button
-        type="button"
-        className={style.link}
-        onClick={updateUsedCondition}
-      >
-        Usado
-      </button>
+      <ul>
+        <li className={style.item}>
+          <span className={style.link} onClick={updateNewCondition}>
+            Nuevo
+          </span>
+        </li>
+        <li className={style.item}>
+          <span className={style.link} onClick={updateUsedCondition}>
+            Usado
+          </span>
+        </li>
+      </ul>
     </div>
   );
 }

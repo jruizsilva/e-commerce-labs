@@ -5,9 +5,66 @@
   margin-bottom: 8px;
   font-weight: 500;
 }
+.item {
+  margin-bottom: 8px;
+}
 .link {
-  display: inline-block;
-  margin-bottom: 4px;
   font-size: 14px;
   color: #666;
+  user-select: none;
+}
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.input {
+  height: 28px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  padding-left: 12px;
+  display: inline-block;
+  width: 80px;
+  margin-right: 12px;
+  font-size: 13px;
+}
+.input {
+  margin-right: 8;
+}
+.input::placeholder {
+  color: #bbb;
+}
+.input:focus {
+  outline-color: var(--primary);
+  outline-width: 1px;
+}
+
+.button {
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+}
+.button:disabled {
+  background-color: #e0e0e0;
+}
+.button:enabled {
+  background-color: var(--primary);
+  cursor: pointer;
+}
+.error {
+  margin-top: 8px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
 }

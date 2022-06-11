@@ -30,14 +30,17 @@ const SearchBar = () => {
     }
     return (
         <div className={s.container}>
-            <input 
+            <input
                 className={s.inputContainer}
-                type="text" 
+                type="text"
                 placeholder='Buscar productos...'
                 value={input.name}
                 onChange={e => handleChange(e)}
             />
-            <button className={s.btn} onClick={e => handleClick(e) }>Buscar</button>
+            <button className={s.btn} onClick={e => handleClick(e)}>
+                <span className="material-symbols-rounded" style={{ fontSize: '16px', marginRight: '6px' }}>
+                    search
+                </span>Buscar</button>
         </div>
     )
 }

@@ -15,19 +15,20 @@ export default function FilterPriceRange() {
   const [validation, setValidation] = useState(initialValidationValues);
 
   const updatePriceRange = (e) => {
+    e.preventDefault();
     const type = e.target.name;
     if (type === "price_range") {
-      const [min, max] = e.target.value.split(",");
+      const [min, max] = e.target.id.split(",");
       params.set("min_price", min);
       params.set("max_price", max);
     }
     if (type === "min_price") {
       params.delete("max_price");
-      params.set("min_price", e.target.value);
+      params.set("min_price", e.target.id);
     }
     if (type === "max_price") {
       params.delete("min_price");
-      params.set("max_price", e.target.value);
+      params.set("max_price", e.target.id);
     }
 
     setParams(params);
@@ -37,11 +38,12 @@ export default function FilterPriceRange() {
   };
   useEffect(() => {
     const { min, max } = form;
+    if (min === "" && max === "") setValidation(initialValidationValues);
     if (min !== "" || max !== "") {
       const { success, msg } = validatePriceRangeForm(form);
       setTimeout(() => {
         setValidation({ success, msg });
-      }, 500);
+      }, 200);
     }
   }, [form]);
 
@@ -73,56 +75,82 @@ export default function FilterPriceRange() {
   return (
     <div className={style.container}>
       <h4 className={style.title}>Precio</h4>
-      <button
-        type="button"
-        className={style.link}
-        onClick={updatePriceRange}
-        name="max_price"
-        value="10000"
-      >
-        Hasta $10.000
-      </button>
-      <br />
-      <button
-        type="button"
-        className={style.link}
-        onClick={updatePriceRange}
-        name="price_range"
-        value="10000,30000"
-      >
-        $10.000 a $30.000
-      </button>
-      <button
-        type="button"
-        className={style.link}
-        onClick={updatePriceRange}
-        name="min_price"
-        value="30000"
-      >
-        Más de $30.000
-      </button>
-      <input
-        placeholder="Mínimo"
-        onChange={updateForm}
-        name="min"
-        value={form.min}
-        pattern="^[0-9]+$"
-        style={{ maxWidth: "100%" }}
-      />
-      <input
-        placeholder="Máximo"
-        onChange={updateForm}
-        name="max"
-        value={form.max}
-        pattern="^[0-9]+$"
-        style={{ maxWidth: "100%" }}
-      />
-      {validation.msg && <p style={{ fontSize: "14px" }}>{validation.msg}</p>}
-      {validation.success ? (
-        <button onClick={handleFilterButton}>Enviar</button>
-      ) : (
-        <button disabled>Enviar</button>
-      )}
+      <ul>
+        <li className={style.item}>
+          <a
+            className={style.link}
+            onClick={updatePriceRange}
+            name="max_price"
+            id="10000"
+          >
+            Hasta $10.000
+          </a>
+        </li>
+        <li className={style.item}>
+          <a
+            className={style.link}
+            onClick={updatePriceRange}
+            name="price_range"
+            id="10000,30000"
+          >
+            $10.000 a $30.000
+          </a>
+        </li>
+        <li className={style.item}>
+          <a
+            className={style.link}
+            onClick={updatePriceRange}
+            name="min_price"
+            id="30000"
+          >
+            Más de $30.000
+          </a>
+        </li>
+      </ul>
+      <div className={style.inputContainer}>
+        <input
+          placeholder="Mínimo"
+          onChange={updateForm}
+          name="min"
+          value={form.min}
+          pattern="^[0-9]+$"
+          style={{ maxWidth: "100%" }}
+          autoComplete="off"
+          className={style.input}
+        />
+        <input
+          placeholder="Máximo"
+          onChange={updateForm}
+          name="max"
+          value={form.max}
+          pattern="^[0-9]+$"
+          style={{ maxWidth: "100%" }}
+          autoComplete="off"
+          className={style.input}
+        />
+        {validation.success ? (
+          <button className={style.button}>
+            <span
+              onClick={handleFilterButton}
+              className="material-symbols-rounded"
+              style={{ color: "white", fontSize: "24px" }}
+            >
+              keyboard_arrow_right
+            </span>
+          </button>
+        ) : (
+          <button className={style.button} disabled>
+            <span
+              onClick={handleFilterButton}
+              className="material-symbols-rounded"
+              style={{ color: "white", fontSize: "24px" }}
+            >
+              keyboard_arrow_right
+            </span>
+          </button>
+        )}
+        {validation.msg && <p className={style.error}>{validation.msg}</p>}
+      </div>
     </div>
   );
 }

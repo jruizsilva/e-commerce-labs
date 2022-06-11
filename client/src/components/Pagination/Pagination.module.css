@@ -4,7 +4,6 @@
   height: 40px;
   width: 63%;
   margin-left: 37%;
-  border: solid 1px black;
 }
 
 .paginationContainer a {
@@ -13,6 +12,11 @@
   text-decoration: none;
   cursor: pointer;
 }
-a:hover {
+.link {
+}
+.link:hover {
   color: rgb(179, 140, 105);
+}
+a:hover {
+  /* color: rgb(179, 140, 105);  */
 }

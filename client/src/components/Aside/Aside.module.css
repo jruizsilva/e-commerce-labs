@@ -1,0 +1,5 @@
+.container {
+  flex-basis: 260px;
+  flex-shrink: 0;
+  margin-right: 30px;
+}
