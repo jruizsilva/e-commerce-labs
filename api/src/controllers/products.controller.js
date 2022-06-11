@@ -58,7 +58,6 @@ const getProducts = async (req, res, next) => {
           [Op.lte]: max_price,
         };
       }
-      order = [["price", "ASC"]];
     }
 
     if (sort === "higher_price") order = [["price", "DESC"]];

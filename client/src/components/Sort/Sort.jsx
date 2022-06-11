@@ -7,15 +7,14 @@ const Sort = () => {
 
   function handleSortValue({ target: { value } }) {
     dispatch(sortByValue(value));
+    document.getElementById('sortSelect').value = 'sortSelected';
   }
 
   return (
     <div className={style.sortContainer}>
       <label>Sort by: </label>
       <select id="sortSelect" onChange={e => handleSortValue(e)}>
-        <option value="sortSelected" hidden>
-          Sort
-        </option>
+        <option value="sortSelected" hidden></option>
         <option value="AZ">A to Z</option>
         <option value="ZA">Z to A</option>
         <option value="LESS">Less price</option>

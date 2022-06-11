@@ -6,8 +6,6 @@ import Product from "../Product/Product.jsx";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
 
-
-
 const Products = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -27,6 +25,9 @@ const Products = () => {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [allProducts]);
 
   useEffect(() => {
     dispatch(getAllProducts(window.location.search));
@@ -45,8 +46,7 @@ const Products = () => {
           currentProducts.map((val) => {
             return <Product key={val.id} data={val} />;
           })}
-
-      </ul>
+      </ul>  
       <Pagination
         allProducts={allProducts.length}
         pagination={pagination}
