@@ -41,6 +41,7 @@ const CategorySelect = () => {
   const categoriesOptions = categories.map((c) => {
     return { value: c.id, label: c.name };
   });
+  console.log("Soy categories options: ", categoriesOptions)
 
   return (
     <Select

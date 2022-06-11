@@ -129,9 +129,9 @@
     width: 90%;
     height: 50px;
     font-size: 20px;
-    background: #9590d8;
+    background: rgba(65,137,230,.15);
     border-color: transparent;
-    color: #fff;
+    color: #3483fa;
     border-radius: 10px;
     padding-top: 5px;
     padding-bottom: 5px;

@@ -1,7 +1,10 @@
 .ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-gap: 0 24px;
+  justify-content: space-evenly;
+  margin-left: 0px;
+  grid-template-columns: repeat(3, 285px);
+  margin-top: 2em;
 }
 .container {
   width: 100%;
