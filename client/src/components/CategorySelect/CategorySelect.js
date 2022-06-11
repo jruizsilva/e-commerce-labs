@@ -1,14 +1,23 @@
+import { useSelector } from "react-redux";
 import Select from "react-select";
+import { useSearchParams } from "react-router-dom";
 
 const CategorySelect = () => {
-  const handleChange = (target) => {
-    console.log(target);
+  const { categories } = useSelector((state) => state);
+  const [params, setParams] = useSearchParams();
+
+  const updateCategory = (target) => {
+    if (!target) params.delete("categoryId");
+    else {
+      params.set("categoryId", target.value);
+    }
+    setParams(params);
   };
 
   const customStyles = {
     container: (provided, state) => ({
       ...provided,
-      minWidth: "180px",
+      minWidth: "220px",
       marginRight: "auto",
     }),
     menu: (provided, state) => ({
@@ -29,12 +38,9 @@ const CategorySelect = () => {
     }),
   };
 
-  const categoriesOptions = [
-    { value: "hogar", label: "Hogar" },
-    { value: "tecnologia", label: "Tecnologia" },
-    { value: "deporte", label: "Vehículos" },
-    { value: "inmuebles", label: "Inmuebles" },
-  ];
+  const categoriesOptions = categories.map((c) => {
+    return { value: c.id, label: c.name };
+  });
 
   return (
     <Select
@@ -42,7 +48,8 @@ const CategorySelect = () => {
       options={categoriesOptions}
       placeholder="Categorias"
       isClearable
-      onChange={handleChange}
+      isSearchable={false}
+      onChange={updateCategory}
     />
   );
 };

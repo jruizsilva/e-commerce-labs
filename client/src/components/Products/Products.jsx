@@ -1,7 +1,7 @@
 import style from "./Products.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../actions";
+import { getAllProducts, getCategories } from "../../actions";
 import Product from "../Product/Product.jsx";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
@@ -11,6 +11,8 @@ const Products = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useDispatch();
   const { allProducts, loadingProducts } = useSelector((state) => state);
+
+  console.log(allProducts);
 
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getAllProducts(window.location.search));
+    dispatch(getCategories());
   }, [dispatch]);
 
   useEffect(() => {

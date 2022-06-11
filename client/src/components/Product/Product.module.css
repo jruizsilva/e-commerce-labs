@@ -3,7 +3,6 @@
   flex-wrap: wrap;
   width: 245px;
   height: 380px;
-  max-height: 380px;
   margin-bottom: 15px;
   border: solid 1px var(--border-color2);
   background-color: var(--white);
@@ -52,6 +51,13 @@
   font-weight: 400;
   font-size: 24px;
   margin-bottom: 8px;
+  /* Lo de abajo agrega 3 puntitos */
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
 }
 .p {
   font-size: 14px;

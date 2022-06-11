@@ -1,4 +1,4 @@
-import FilterCategories from "../FilterCategories/FilterCategories";
+// import FilterCategories from "../FilterCategories/FilterCategories";
 // import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import FilterCondition from "../FilterCondition/FilterCondition";
 import FilterPriceRange from "../FilterPriceRange/FilterPriceRange";
@@ -12,7 +12,7 @@ const Filter = () => {
       <FilterReset />
       {/* <FilterCheckbox /> */}
       <FilterCondition />
-      <FilterCategories />
+      {/* <FilterCategories /> */}
       <FilterPriceRange />
     </form>
   );
