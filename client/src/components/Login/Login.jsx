@@ -4,33 +4,33 @@ import { useDispatch } from 'react-redux';
 import { googleAuth, loginAuth } from '../../actions/index.js';
 import { useState } from 'react';
 
-const Login = ()=>{
+const Login = () => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({email: '', password: ''});
+  const [form, setForm] = useState({ email: '', password: '' });
 
-  function successResponse(googleData){dispatch(googleAuth(googleData))}
-  function failResponse(resp){console.log('Error')}
-  function handlerChange(e){
-    setForm({...form, [e.target.name]: e.target.value})
+  function successResponse(googleData) { dispatch(googleAuth(googleData)) }
+  function failResponse(resp) { console.log('Error') }
+  function handlerChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
-  function handlerSubmit(e){
+  function handlerSubmit(e) {
     e.preventDefault();
     if (form.email && form.password) {
       dispatch(loginAuth(form));
-    }else{
+    } else {
       alert('Complete la información');
     }
   }
 
   return (
     <>
-      <form className={style.frmLogin} onSubmit={(e)=>{handlerSubmit(e)}}>
+      <form className={style.frmLogin} onSubmit={(e) => { handlerSubmit(e) }}>
         <h3>Login Here</h3>
         <label>Email</label>
-        <input onChange={(e)=>{handlerChange(e)}}  type="email" placeholder="Email or Phone" name='email' value={form.email}/>
+        <input onChange={(e) => { handlerChange(e) }} type="email" placeholder="Email or Phone" name='email' value={form.email} />
 
         <label>Password</label>
-        <input onChange={(e)=>{handlerChange(e)}} type="password" placeholder="Password" name='password' value={form.password}/>
+        <input onChange={(e) => { handlerChange(e) }} type="password" placeholder="Password" name='password' value={form.password} />
 
         <button>Log In</button>
 

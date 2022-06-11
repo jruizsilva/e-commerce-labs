@@ -1,12 +1,11 @@
 .container {
   /* text-align: center; */
   height: 48px;
-  flex-basis: 50%;
-  max-width: 500px;
+  flex-basis: 450px;
 
   border-radius: 8px;
   position: relative;
-  margin-right: auto;
+  margin-right: 16px;
 }
 .inputContainer {
   /* background: none;
