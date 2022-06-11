@@ -12,7 +12,7 @@ module.exports = function(sequelize){
         unique: true
       },
       password: {
-          type: DataTypes.STRING,
+          type: DataTypes.TEXT,
           allowNull: false,
       },
       phone: {
