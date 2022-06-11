@@ -12,7 +12,7 @@ const Filter = () => {
       <FilterReset />
       {/* <FilterCheckbox /> */}
       <FilterCondition />
-      {/* <FilterCategories /> */}
+      <FilterCategories />
       <FilterPriceRange />
     </form>
   );

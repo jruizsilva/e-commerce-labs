@@ -1,10 +1,4 @@
-import {
-  GET_ALL_PRODUCTS,
-  GET_NAME_PRODUCT,
-  SORT_BY_VALUE,
-  GET_USER,
-  LOADING_PRODUCTS,
-} from "./types";
+import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_USER, GET_CATEGORIES, LOADING_PRODUCTS } from "./types";
 
 import axios from "axios";
 
@@ -106,3 +100,25 @@ export const loadingProducts = (payload) => {
     payload,
   };
 };
+
+export const getCategories = ()=>{
+  return function(dispatch){
+    return (
+      axios.get(`http://localhost:3001/api/categories`)
+        .then((resp)=>{
+          dispatch({type: GET_CATEGORIES, payload: resp.data});
+        })
+    )
+  }
+}
+
+export const createUser = (form)=>{
+  return function(dispatch){
+    return(
+      axios.post(``, form)
+        .then((resp)=>{
+          console.log(resp);
+        })
+    )
+  }
+}

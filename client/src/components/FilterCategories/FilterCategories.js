@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import { getCategories } from "../../actions/index.js";
 
 import style from "./FilterCategories.module.css";
 
 export default function FilterCategories() {
   const [params, setParams] = useSearchParams();
-  const updateCategory = () => {
-    params.set("category", "new");
+  const { categories } = useSelector((state)=>state);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getCategories());
+  },[])
+
+  const updateCategory = (e) => {
+    params.set("categoryId", e.target.value);
     setParams(params);
   };
-
+  
   return (
     <div className={style.container}>
       <h4 className={style.title}>Categorias</h4>
-      <button type="button" className={style.link} onClick={updateCategory}>
-        Hogar
-      </button>
-      <br />
-      <button type="button" className={style.link} onClick={updateCategory}>
-        Celular
-      </button>
+      <select onChange={(e)=>{updateCategory(e)}} id="selFilterType">
+        <option value="">Seleccione una Categoría</option>
+        {categories[0] && categories.map(categori=>{
+            return <option key={categori.id} value={categori.id}>{categori.name}</option>
+          })
+        }
+      </select>
     </div>
   );
 }

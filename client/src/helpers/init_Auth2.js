@@ -8,4 +8,4 @@ export default function initAuth2Google(){
     })
   }
   gapi.load('client:auth2', start)
-} 
+}
