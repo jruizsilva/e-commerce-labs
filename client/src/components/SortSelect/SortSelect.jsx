@@ -18,12 +18,12 @@ const SortSelect = () => {
   const customStyles = {
     container: (provided, state) => ({
       ...provided,
-      minWidth: "180px",
+      minWidth: "150px",
       marginLeft: "auto",
     }),
     menu: (provided, state) => ({
       ...provided,
-      minWidth: "180px",
+      minWidth: "150px",
     }),
     placeholder: (provided, state) => ({
       ...provided,

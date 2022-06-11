@@ -129,9 +129,8 @@ export default function FilterPriceRange() {
           className={style.input}
         />
         {validation.success ? (
-          <button className={style.button}>
+          <button className={style.button} onClick={handleFilterButton}>
             <span
-              onClick={handleFilterButton}
               className="material-symbols-rounded"
               style={{ color: "white", fontSize: "24px" }}
             >
@@ -139,9 +138,12 @@ export default function FilterPriceRange() {
             </span>
           </button>
         ) : (
-          <button className={style.button} disabled>
+          <button
+            className={style.button}
+            onClick={handleFilterButton}
+            disabled
+          >
             <span
-              onClick={handleFilterButton}
               className="material-symbols-rounded"
               style={{ color: "white", fontSize: "24px" }}
             >
