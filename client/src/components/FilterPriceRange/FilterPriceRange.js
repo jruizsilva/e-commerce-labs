@@ -108,6 +108,7 @@ export default function FilterPriceRange() {
         value={form.min}
         pattern="^[0-9]+$"
         style={{ maxWidth: "100%" }}
+        autocomplete="off"
       />
       <input
         placeholder="Máximo"
@@ -116,6 +117,7 @@ export default function FilterPriceRange() {
         value={form.max}
         pattern="^[0-9]+$"
         style={{ maxWidth: "100%" }}
+        autocomplete="off"
       />
       {validation.msg && <p style={{ fontSize: "14px" }}>{validation.msg}</p>}
       {validation.success ? (
