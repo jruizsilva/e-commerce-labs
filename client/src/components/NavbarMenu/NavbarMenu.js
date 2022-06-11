@@ -10,6 +10,8 @@ export default function NavbarMenu() {
   const navigate = useNavigate();
 
   const handleRedirect = (e) => {
+    console.log(e.target.id);
+    e.preventDefault();
     navigate(e.target.id);
   };
 
@@ -58,16 +60,31 @@ export default function NavbarMenu() {
         </>
       )}
 
-      <li className={style.item}>
-        <a href="#" className={style.link}>
-          <span
-            className="material-symbols-rounded"
-            style={{ fontSize: "16px", color: "#000" }}
-          >
-            shopping_cart
-          </span>
-        </a>
-      </li>
+      {!user && (
+        <li className={style.item}>
+          <a href="" className={style.link} onClick={() => navigate("login")}>
+            <span
+              className="material-symbols-rounded"
+              style={{ fontSize: "16px", color: "#000" }}
+            >
+              shopping_cart
+            </span>
+          </a>
+        </li>
+      )}
+
+      {user && (
+        <li className={style.item}>
+          <a href="#" className={style.link}>
+            <span
+              className="material-symbols-rounded"
+              style={{ fontSize: "16px", color: "#000" }}
+            >
+              shopping_cart
+            </span>
+          </a>
+        </li>
+      )}
     </ul>
   );
 }
