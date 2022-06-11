@@ -43,7 +43,7 @@ export default function FilterPriceRange() {
       const { success, msg } = validatePriceRangeForm(form);
       setTimeout(() => {
         setValidation({ success, msg });
-      }, 500);
+      }, 200);
     }
   }, [form]);
 

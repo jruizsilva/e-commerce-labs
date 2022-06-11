@@ -1,45 +1,53 @@
-import style from "./Sort.module.css";
 import { sortByValue } from "../../actions/index";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
 
-const Sort = () => {
+const SortSelect = () => {
   const dispatch = useDispatch();
 
   function handleSortValue({ target: { value } }) {
-    console.log(value)
+    console.log(value);
     dispatch(sortByValue(value));
     document.getElementById("sortSelect").value = "sortSelected";
   }
 
   const handleChange = (target) => {
     dispatch(sortByValue(target?.value));
-  }
+  };
 
   const customStyles = {
     container: (provided, state) => ({
       ...provided,
-      width: "220px",
-      paddingRight: "50px",
+      minWidth: "180px",
       marginLeft: "auto",
-      marginBottom: "30px",
     }),
     menu: (provided, state) => ({
       ...provided,
-      width: "170px",
+      minWidth: "180px",
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
+    }),
+    valueContainer: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
     }),
   };
 
   const sortOptions = [
     { value: "AZ", label: "A to Z" },
     { value: "ZA", label: "Z to A" },
-    { value: "LESS", label: "Less price" },
-    { value: "HIGH", label: "Higher price" },
+    { value: "LESS", label: "Menor precio" },
+    { value: "HIGH", label: "Mayor precio" },
   ];
 
   return (
     <>
-
       {/* <div className={style.sortContainer}>
         <label>Sort by: </label>
         <select id="sortSelect" onChange={e => handleSortValue(e)}>
@@ -50,15 +58,18 @@ const Sort = () => {
           <option value="HIGH">Higher price</option>
         </select>
       </div> */}
-      {<Select
-        styles={customStyles}
-        options={sortOptions}
-        placeholder="Sort by"
-        isClearable
-        onChange={handleChange}
-      />}
+      {
+        <Select
+          styles={customStyles}
+          options={sortOptions}
+          placeholder="Ordenar por"
+          isClearable
+          onChange={handleChange}
+          isSearchable={false}
+        />
+      }
     </>
   );
 };
 
-export default Sort;
+export default SortSelect;

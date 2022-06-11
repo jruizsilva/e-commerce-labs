@@ -1,11 +1,15 @@
 .container {
-  flex-basis: 240px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-basis: 280px;
   margin-left: auto;
+  height: 38px;
+  display: flex;
 }
 .item {
+  height: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
 }
 .link {
   text-decoration: none;

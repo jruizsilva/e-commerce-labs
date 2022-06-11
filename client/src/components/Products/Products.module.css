@@ -1,5 +1,11 @@
-.productsContainer {
+.ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.container {
+  width: 100%;
+}
+.p {
+  text-align: center;
 }
