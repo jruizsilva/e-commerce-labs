@@ -1,4 +1,5 @@
 .container {
-  height: 600px;
-  width: 30%;
+  flex-basis: 360px;
+  flex-shrink: 0;
+  margin-right: 30px;
 }

@@ -1,13 +1,15 @@
 html {
   box-sizing: border-box;
+  /* font-size: 62.5%; 1rem = 10px    100% = 16px Ideal para que la fuente se muestre bien en diferentes tamaños de pantalla*/
 }
 *,
 *::after,
 *::before {
   box-sizing: inherit;
 }
+/* box-sizing border-box evita que el padding aumente el tamaño del elemento https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 img {
-  max-width: 100%;
+  max-width: 100%; /* Imagenes responsive */
 }
 
 :root {
@@ -15,8 +17,15 @@ img {
   --fondo: #ededed;
   --border-color: #bdbdbd;
   --border-color2: #dfdfdf;
+  --danger: #d32f2f;
   --primary: #2f80ed;
   --fuente: "Noto Sans", sans-serif;
+
+  /* pagination */
+  --secondary: #23adad;
+  --greyLight: #23adade1;
+  --greyLight-2: #cbe0dd;
+  --greyDark: #2d4848;
 }
 
 body {
