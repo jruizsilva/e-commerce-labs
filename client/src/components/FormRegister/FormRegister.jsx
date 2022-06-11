@@ -1,26 +1,34 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
 import style from './FormRegister.module.css';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { createUser } from '../../actions/index.js';
 
 function validateForm(form){
   let err = {}
-  if (form.password != form.repeatPass) err.password = 'La contraseña no coincide';
-  if (isNaN(form.phone)) err.phone = 'El telefono debe ser un número';
+  if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) err.email = "Debe ingresar un correo valido";
+  if (form.password != form.repeatPass) err.password = "La contraseña no coincide";
+  if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
+  if (!form.name) err.name = "Debe ingresar un nombre";
+  if (!form.email) err.email = "Debe ingresar un correo";
+  if (!form.password || !form.repeatPass) err.password = "Debe ingresar una contraseña";
   return err;
 }
-
-
 
 const FormRegister = ()=>{
   const [form, setForm] = useState({name: '', email: '', phone: '', adress: '', password: '', repeatPass: ''})
   const [formError, setFormError] = useState(form);
+  const dispatch = useDispatch();
   useEffect(()=>{setFormError(validateForm(form))}, [form])
   
   function handlerChange(e){
     setForm({...form, [e.target.name]: e.target.value})
   }
   function handlerSubmit(e){
-    e.preventDefault(); 
+    e.preventDefault();
+    if (!Object.keys(formError)[0]) {
+      dispatch(createUser(form))
+    }
   }
 
   return(

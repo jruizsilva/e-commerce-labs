@@ -92,3 +92,14 @@ export const getCategories = ()=>{
   }
 }
 
+export const createUser = (form)=>{
+  return function(dispatch){
+    return(
+      axios.post(``, form)
+        .then((resp)=>{
+          console.log(resp);
+        })
+    )
+  }
+}
+
