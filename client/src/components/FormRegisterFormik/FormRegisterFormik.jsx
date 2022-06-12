@@ -41,7 +41,7 @@ const FormRegisterFormik = () => {
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             console.log(values);
-            // dispatch(createUser(values));
+            dispatch(createUser(values));
           }}
         >
           {({
