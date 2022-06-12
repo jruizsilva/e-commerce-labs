@@ -1,43 +1,26 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserSelect from "../UserSelect/UserSelect";
 
 import style from "./NavbarMenu.module.css";
 
 export default function NavbarMenu() {
   const { user } = useSelector((state) => state);
-  const navigate = useNavigate();
-
-  const handleRedirect = (e) => {
-    // console.log(e.target.id);
-    // e.preventDefault();
-    navigate(e.target.id);
-  };
 
   return (
     <ul className={style.container}>
       {!user.id && (
         <>
           <li className={style.item}>
-            <a
-              href=""
-              className={style.link}
-              id="signin"
-              onClick={handleRedirect}
-            >
+            <Link to="signin" className={style.link}>
               Inicia sesión
-            </a>
+            </Link>
           </li>
           <li className={style.item}>
-            <a
-              href=""
-              className={style.link}
-              id="signup"
-              onClick={handleRedirect}
-            >
+            <Link to="signup" className={style.link}>
               Registrate
-            </a>
+            </Link>
           </li>
         </>
       )}
@@ -45,44 +28,44 @@ export default function NavbarMenu() {
       {user.id && (
         <>
           <li className={style.item}>
-            <UserSelect />
+            <UserSelect user={user} />
           </li>
           <li className={style.item}>
-            <a href="#" className={style.link}>
+            <Link to="#" className={style.link}>
               <span
                 className="material-symbols-rounded"
                 style={{ fontSize: "16px", color: "#000" }}
               >
                 notifications
               </span>
-            </a>
+            </Link>
           </li>
         </>
       )}
 
       {!user.id && (
         <li className={style.item}>
-          <a href="" className={style.link} onClick={() => navigate("cart")}>
+          <Link to="signin" className={style.link}>
             <span
               className="material-symbols-rounded"
               style={{ fontSize: "16px", color: "#000" }}
             >
               shopping_cart
             </span>
-          </a>
+          </Link>
         </li>
       )}
 
       {user.id && (
         <li className={style.item}>
-          <a href="#" className={style.link}>
+          <Link to="#" className={style.link}>
             <span
               className="material-symbols-rounded"
               style={{ fontSize: "16px", color: "#000" }}
             >
               shopping_cart
             </span>
-          </a>
+          </Link>
         </li>
       )}
     </ul>

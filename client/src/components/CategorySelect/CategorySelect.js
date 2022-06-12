@@ -7,8 +7,10 @@ const CategorySelect = () => {
   const [params, setParams] = useSearchParams();
 
   const updateCategory = (target) => {
-    if (!target) params.delete("categoryId");
-    else {
+    console.log(target);
+    if (!target) {
+      params.delete("categoryId");
+    } else {
       params.set("categoryId", target.value);
     }
     setParams(params);
@@ -41,7 +43,6 @@ const CategorySelect = () => {
   const categoriesOptions = categories.map((c) => {
     return { value: c.id, label: c.name };
   });
-  console.log("Soy categories options: ", categoriesOptions)
 
   return (
     <Select

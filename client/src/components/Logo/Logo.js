@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import style from "./Logo.module.css";
 
@@ -12,12 +12,14 @@ export default function Logo() {
 
   return (
     <div className={style.container}>
-      <img
-        src="https://i.ibb.co/RPVvPKV/logo.png"
-        alt="logo"
-        className={style.logo}
-        onClick={handleRedirect}
-      />
+      <Link to="/">
+        <img
+          src="https://i.ibb.co/RPVvPKV/logo.png"
+          alt="logo"
+          className={style.logo}
+          onClick={handleRedirect}
+        />
+      </Link>
     </div>
   );
 }

@@ -10,7 +10,7 @@ const FormRegisterFormik = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    window.location.hash = "form";
+    // window.location.hash = "form";
   }, []);
 
   return (
@@ -148,7 +148,7 @@ const FormRegisterFormik = () => {
                   Registrarse
                 </button>
               </div>
-              <a className={style.link} onClick={() => navigate("/login")}>
+              <a className={style.link} onClick={() => navigate("/signin")}>
                 ¿Ya tenes una cuenta? Inicia sesión
               </a>
             </form>

@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./LoginFormik.module.css";
 import { GoogleLogin } from "react-google-login";
 import { googleAuth, loginAuth } from "../../actions/index.js";
 
 export default function LoginFormik() {
+  const { googleAuthErrorMessage } = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -14,7 +15,7 @@ export default function LoginFormik() {
     dispatch(googleAuth(googleData));
   }
   function failResponse(resp) {
-    console.log("Error");
+    console.log("Error", resp);
   }
 
   return (
@@ -91,7 +92,10 @@ export default function LoginFormik() {
                 onFailure={failResponse}
                 cookiePolicy={"single_host_origin"}
               />
-              <a className={style.link} onClick={() => navigate("/register")}>
+              {googleAuthErrorMessage && (
+                <p className={style.error}>{googleAuthErrorMessage}</p>
+              )}
+              <a className={style.link} onClick={() => navigate("/signup")}>
                 ¿Aún no tienes cuenta? Regístrate
               </a>
             </form>
