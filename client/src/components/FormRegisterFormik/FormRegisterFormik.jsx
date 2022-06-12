@@ -10,7 +10,7 @@ const FormRegisterFormik = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    window.location.hash = "form";
+    // window.location.hash = "form";
   }, []);
 
   return (

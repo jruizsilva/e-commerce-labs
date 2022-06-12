@@ -36,9 +36,7 @@ const Products = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (params.toString() !== "") {
-      dispatch(getAllProducts(window.location.search));
-    }
+    dispatch(getAllProducts(window.location.search));
   }, [params]);
 
   return (
