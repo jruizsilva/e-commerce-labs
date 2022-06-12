@@ -36,7 +36,7 @@ const SearchBar = () => {
       <input
         className={s.inputContainer}
         type="text"
-        placeholder="Buscar productos..."
+        placeholder="Search products..."
         value={input.name}
         onChange={(e) => handleChange(e)}
       />
@@ -47,7 +47,7 @@ const SearchBar = () => {
         >
           search
         </span>
-        Buscar
+        Search
       </button>
     </div>
   );

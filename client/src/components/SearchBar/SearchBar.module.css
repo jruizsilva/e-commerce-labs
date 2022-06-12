@@ -39,6 +39,7 @@
   color: white;
   font-weight: bold;
   cursor: pointer; */
+  text-decoration: none;
   height: 32px;
   color: var(--white);
   background-color: var(--primary);

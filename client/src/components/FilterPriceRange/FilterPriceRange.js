@@ -74,7 +74,7 @@ export default function FilterPriceRange() {
 
   return (
     <div className={style.container}>
-      <h4 className={style.title}>Precio</h4>
+      <h4 className={style.title}>Price</h4>
       <ul>
         <li className={style.item}>
           <a
@@ -83,7 +83,7 @@ export default function FilterPriceRange() {
             name="max_price"
             id="10000"
           >
-            Hasta $10.000
+            Up to $10.000
           </a>
         </li>
         <li className={style.item}>
@@ -93,7 +93,7 @@ export default function FilterPriceRange() {
             name="price_range"
             id="10000,30000"
           >
-            $10.000 a $30.000
+            $10.000 - $30.000
           </a>
         </li>
         <li className={style.item}>
@@ -103,13 +103,13 @@ export default function FilterPriceRange() {
             name="min_price"
             id="30000"
           >
-            Más de $30.000
+            More than $30.000
           </a>
         </li>
       </ul>
       <div className={style.inputContainer}>
         <input
-          placeholder="Mínimo"
+          placeholder="Min" // si pongo minimum, sobrepasa el tamaño del input
           onChange={updateForm}
           name="min"
           value={form.min}
@@ -119,7 +119,7 @@ export default function FilterPriceRange() {
           className={style.input}
         />
         <input
-          placeholder="Máximo"
+          placeholder="Max" // si pongo maximum, sobrepasa el tamaño del input
           onChange={updateForm}
           name="max"
           value={form.max}

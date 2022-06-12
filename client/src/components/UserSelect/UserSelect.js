@@ -1,6 +1,6 @@
 import Select from "react-select";
 
-const UserSelect = ({user}) => {
+const UserSelect = ({ user }) => {
   const handleChange = (e) => {
     localStorage.removeItem("token_id");
     window.location.reload();
@@ -35,15 +35,17 @@ const UserSelect = ({user}) => {
     // { value: "history", label: "Mis compras" },
     // { value: "favorites", label: "Favoritos" },
     // { value: "sell", label: "Vender" },
-    { value: "logout", label: "Cerrar sesión" },
+    { value: "logout", label: "Log out" },
   ];
 
   return (
     <Select
       styles={customStyles}
       options={categoriesOptions}
-      placeholder={user.name}
-      onChange={(e)=>{handleChange(e)}}
+      placeholder={user && user.name}
+      onChange={(e) => {
+        handleChange(e);
+      }}
       isSearchable={false}
     />
   );

@@ -36,9 +36,7 @@ const Products = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (params.toString() !== "") {
-      dispatch(getAllProducts(window.location.search));
-    }
+    dispatch(getAllProducts(window.location.search));
   }, [params]);
 
   return (
@@ -60,7 +58,7 @@ const Products = () => {
           />
         </>
       ) : (
-        <p className={style.p}>No se encontraron resultados</p>
+        <p className={style.p}>No results found</p>
       )}
     </div>
   );

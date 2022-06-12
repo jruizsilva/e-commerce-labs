@@ -42,8 +42,8 @@ const SortSelect = () => {
   const sortOptions = [
     { value: "AZ", label: "A to Z" },
     { value: "ZA", label: "Z to A" },
-    { value: "LESS", label: "Menor precio" },
-    { value: "HIGH", label: "Mayor precio" },
+    { value: "LESS", label: "Price ( - )" },
+    { value: "HIGH", label: "Price ( + )" },
   ];
 
   return (
@@ -62,7 +62,7 @@ const SortSelect = () => {
         <Select
           styles={customStyles}
           options={sortOptions}
-          placeholder="Ordenar por"
+          placeholder="Sort by"
           isClearable
           onChange={handleChange}
           isSearchable={false}

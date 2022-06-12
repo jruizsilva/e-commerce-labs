@@ -42,7 +42,7 @@ const Pagination = ({ allProducts, pagination, currentPage }) => {
             )}
           </li>
           <li className="page__numbers">{currentPage}</li>
-          <li className="page__dots">...</li>
+          <li className="page__dots">of</li>
           <li className="page__numbers">{totalPages}</li>
           <li className="page_btn">
             {currentPage === totalPages ? (

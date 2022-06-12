@@ -5,7 +5,8 @@ import {
   SORT_BY_VALUE,
   GET_CATEGORIES,
   LOADING_PRODUCTS,
-  LOADING_USER
+  LOADING_USER,
+  UPDATE_GOOGLE_AUTH_ERROR_MESSAGE
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   user: {},
   searchUser: true,
   loadingProducts: false,
+  googleAuthErrorMessage: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -67,6 +69,11 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         loadingProducts: actions.payload,
+      };
+    case UPDATE_GOOGLE_AUTH_ERROR_MESSAGE:
+      return {
+        ...state,
+        googleAuthErrorMessage: actions.payload,
       };
     case GET_CATEGORIES:
       return {

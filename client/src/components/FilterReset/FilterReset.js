@@ -7,12 +7,13 @@ export default function FilterReset() {
 
   const handleClick = (e) => {
     e.preventDefault();
+    console.log(e);
     setParams({ reset: true });
   };
   return (
     <div className={style.container}>
       <h4 className={style.title}>Reset</h4>
-      <button className={style.button} onClick={handleClick}>
+      <button type="button" className={style.button} onClick={handleClick}>
         <span
           className="material-symbols-rounded"
           style={{ fontSize: "18px", marginRight: "6px" }}
