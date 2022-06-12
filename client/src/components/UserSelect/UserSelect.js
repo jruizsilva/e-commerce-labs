@@ -1,6 +1,6 @@
 import Select from "react-select";
 
-const UserSelect = () => {
+const UserSelect = ({user}) => {
   const handleChange = (e) => {
     localStorage.removeItem("token_id");
     window.location.reload();
@@ -42,7 +42,7 @@ const UserSelect = () => {
     <Select
       styles={customStyles}
       options={categoriesOptions}
-      placeholder="User"
+      placeholder={user.name}
       onChange={(e)=>{handleChange(e)}}
       isSearchable={false}
     />
