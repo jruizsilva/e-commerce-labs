@@ -1,30 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import UserSelect from "../UserSelect/UserSelect";
 
 import style from "./NavbarMenu.module.css";
 
-const user = null;
+const user = {};
 
 export default function NavbarMenu() {
   const navigate = useNavigate();
-
-  const handleRedirect = (e) => {
-    e.preventDefault();
-    navigate(e.target.id);
-  };
 
   return (
     <ul className={style.container}>
       {!user && (
         <>
           <li className={style.item}>
-            <a
-              href=""
-              className={style.link}
-              id="login"
-              onClick={handleRedirect}
-            >
+            <a href="" className={style.link} onClick={() => navigate("login")}>
               Inicia sesión
             </a>
           </li>
@@ -32,8 +23,7 @@ export default function NavbarMenu() {
             <a
               href=""
               className={style.link}
-              id="register"
-              onClick={handleRedirect}
+              onClick={() => navigate("register")}
             >
               Registrate
             </a>

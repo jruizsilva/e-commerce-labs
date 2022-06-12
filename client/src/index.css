@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
   /* font-size: 62.5%; 1rem = 10px    100% = 16px Ideal para que la fuente se muestre bien en diferentes tamaños de pantalla*/
+  scroll-behavior: smooth;
 }
 *,
 *::after,
@@ -34,7 +35,9 @@ body {
   font-weight: 400;
   /*  */
 }
-
+* {
+  font-family: var(--fuente);
+}
 /* The switch - the box around the slider */
 .switch {
   position: relative;

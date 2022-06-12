@@ -11,6 +11,7 @@ import Err404 from "./components/Err404/Err404.jsx";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
 import Header from "./components/Header/Header.jsx";
+import LoginFormik from "./components/LoginFormik/LoginFormik.js";
 
 function App() {
   const { user } = useSelector((state) => state);
@@ -30,7 +31,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route
           path="/login"
-          element={!user.id ? <Login /> : <Navigate to="/" />}
+          element={!user.id ? <LoginFormik /> : <Navigate to="/" />}
         />
         <Route
           path="/register"

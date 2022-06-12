@@ -5,7 +5,7 @@
 .formContainer {
   background-color: #fafafb;
   border: solid 1px var(--border-color2);
-  min-height: 600px;
+  min-height: 450px;
   max-width: 425px;
   border-radius: 24px;
   margin: 0 auto;
@@ -20,7 +20,8 @@
   color: #333;
   margin-bottom: 14px;
 }
-.fieldContainer {
+.fieldContainer,
+.buttonContainer {
   margin-bottom: 14px;
 }
 .formContainer :nth-child(7) {
@@ -76,4 +77,6 @@
   color: var(--danger);
   font-weight: 400;
   font-size: 13px;
+}
+.google_button {
 }
