@@ -5,25 +5,28 @@ import UserSelect from "../UserSelect/UserSelect";
 
 import style from "./NavbarMenu.module.css";
 
-const user = {};
-
 export default function NavbarMenu() {
+  const { user } = useSelector((state)=>state);
   const navigate = useNavigate();
 
   return (
     <ul className={style.container}>
-      {!user && (
+      {!user.id && (
         <>
           <li className={style.item}>
-            <a href="" className={style.link} onClick={() => navigate("login")}>
-              Inicia sesión
-            </a>
+            <a
+              href=""
+              className={style.link}
+              id="signin"
+              onClick={handleRedirect}
+            >Inicia sesión</a>
           </li>
           <li className={style.item}>
             <a
               href=""
               className={style.link}
-              onClick={() => navigate("register")}
+              id="signup"
+              onClick={handleRedirect}
             >
               Registrate
             </a>
@@ -31,7 +34,7 @@ export default function NavbarMenu() {
         </>
       )}
 
-      {user && (
+      {user.id && (
         <>
           <li className={style.item}>
             <UserSelect />
@@ -49,9 +52,9 @@ export default function NavbarMenu() {
         </>
       )}
 
-      {!user && (
+      {!user.id && (
         <li className={style.item}>
-          <a href="" className={style.link} onClick={() => navigate("login")}>
+          <a href="" className={style.link} onClick={() => navigate("cart")}>
             <span
               className="material-symbols-rounded"
               style={{ fontSize: "16px", color: "#000" }}
@@ -62,7 +65,7 @@ export default function NavbarMenu() {
         </li>
       )}
 
-      {user && (
+      {user.id && (
         <li className={style.item}>
           <a href="#" className={style.link}>
             <span

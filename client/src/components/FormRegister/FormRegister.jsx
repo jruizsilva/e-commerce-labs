@@ -1,6 +1,7 @@
-import style from "./FormRegister.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import style from './FormRegister.module.css';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { createUser } from "../../actions/index.js";
 
@@ -124,6 +125,8 @@ const FormRegister = () => {
       <div className={style.btnContain}>
         <button type="submit">Registrarse</button>
       </div>
+      <div className={style.btnContain}><button type='submit'>Register</button></div>
+      <label className={style.lbRegister}><Link to="/signin">Sign in</Link></label>
     </form>
   );
 };

@@ -27,21 +27,15 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={!user.id ? <LoginFormik /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/register"
-          element={!user.id ? <FormRegisterFormik /> : <Navigate to="/" />}
-        />
-        <Route exact path="/err404" element={<Err404 />} />
-        <Route path="/details/:productId" element={<ProductDetails />} />
-        <Route path="*" element={<Navigate to="/err404" replace />} />
-      </Routes>
-    </>
+       <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/signin" element={!user.id ? <Login /> : <Navigate to="/"/>} />
+          <Route path="/signup" element={!user.id ? <FormRegister /> : <Navigate to="/"/>} />
+          <Route exact path="/err404" element={<Err404 />} />
+          <Route path="/details/:productId" element={<ProductDetails />} />
+          <Route path="*" element={<Navigate to="/err404" replace />}/>
+       </Routes> 
+    </>  
   );
 }
 
