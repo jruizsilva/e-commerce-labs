@@ -54,13 +54,13 @@ const FormRegisterFormik = () => {
             isSubmitting,
           }) => (
             <form className={style.formContainer} onSubmit={handleSubmit}>
-              <h3 className={style.title}>Registrate</h3>
+              <h3 className={style.title}>Sign up</h3>
               <div className={style.fieldContainer}>
                 <input
                   type="text"
                   name="name"
                   className={style.input}
-                  placeholder="Nombre"
+                  placeholder="Name (*)"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -74,7 +74,7 @@ const FormRegisterFormik = () => {
                   type="text"
                   name="address"
                   className={style.input}
-                  placeholder="Dirección"
+                  placeholder="Address"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.address}
@@ -88,7 +88,7 @@ const FormRegisterFormik = () => {
                   type="text"
                   name="phone"
                   className={style.input}
-                  placeholder="Telefono"
+                  placeholder="Phone number"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.phone}
@@ -102,7 +102,7 @@ const FormRegisterFormik = () => {
                   type="email"
                   name="email"
                   className={style.input}
-                  placeholder="Correo"
+                  placeholder="E-Mail (*)"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -116,7 +116,7 @@ const FormRegisterFormik = () => {
                   type="password"
                   name="password"
                   className={style.input}
-                  placeholder="Password"
+                  placeholder="Password (*)"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -130,7 +130,7 @@ const FormRegisterFormik = () => {
                   type="password"
                   name="repeatPass"
                   className={style.input}
-                  placeholder="Repeat password"
+                  placeholder="Repeat password (*)"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.repeatPass}
@@ -145,11 +145,11 @@ const FormRegisterFormik = () => {
                   className={style.button}
                   disabled={isSubmitting}
                 >
-                  Registrarse
+                  Sign up
                 </button>
               </div>
               <a className={style.link} onClick={() => navigate("/login")}>
-                ¿Ya tenes una cuenta? Inicia sesión
+                You already have an account? Sign in
               </a>
             </form>
           )}

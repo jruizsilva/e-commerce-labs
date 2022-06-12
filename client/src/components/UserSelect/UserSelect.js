@@ -35,7 +35,7 @@ const UserSelect = () => {
     // { value: "history", label: "Mis compras" },
     // { value: "favorites", label: "Favoritos" },
     // { value: "sell", label: "Vender" },
-    { value: "logout", label: "Cerrar sesión" },
+    { value: "logout", label: "Log out" },
   ];
 
   return (

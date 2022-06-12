@@ -201,3 +201,7 @@
 .moreInfo {
     margin: 15px;
 }
+
+.moreInfo p {
+    font-weight: bold;
+}

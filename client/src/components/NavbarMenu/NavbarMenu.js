@@ -26,7 +26,7 @@ export default function NavbarMenu() {
               id="signin"
               onClick={handleRedirect}
             >
-              Inicia sesión
+              Sign in
             </a>
           </li>
           <li className={style.item}>
@@ -36,7 +36,7 @@ export default function NavbarMenu() {
               id="signup"
               onClick={handleRedirect}
             >
-              Registrate
+              Sign up
             </a>
           </li>
         </>
