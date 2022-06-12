@@ -28,7 +28,7 @@ export default function NavbarMenu() {
       {user.id && (
         <>
           <li className={style.item}>
-            <UserSelect user={user} />
+            <UserSelect user={user}/>
           </li>
           <li className={style.item}>
             <Link to="#" className={style.link}>
