@@ -1,0 +1,162 @@
+import React, { useEffect } from "react";
+import style from "./FormRegisterFormik.module.css";
+import { useNavigate } from "react-router-dom";
+import { Formik } from "formik";
+
+import { useDispatch } from "react-redux";
+import { createUser } from "../../actions/index.js";
+
+const FormRegisterFormik = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    window.location.hash = "form";
+  }, []);
+
+  return (
+    <>
+      <div className={style.container} id="form">
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            phone: "",
+            address: "",
+            password: "",
+            repeatPass: "",
+          }}
+          validate={(form) => {
+            let err = {};
+            if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
+              err.email = "Debe ingresar un correo valido";
+            if (form.password != form.repeatPass)
+              err.repeatPass = "La contraseña no coincide";
+            if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
+            if (!form.name) err.name = "Debe ingresar un nombre";
+            if (!form.email) err.email = "Debe ingresar un correo";
+            if (!form.password || !form.repeatPass)
+              err.password = "Debe ingresar una contraseña";
+            return err;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(false);
+            console.log(values);
+            // dispatch(createUser(values));
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form className={style.formContainer} onSubmit={handleSubmit}>
+              <h3 className={style.title}>Registrate</h3>
+              <div className={style.fieldContainer}>
+                <input
+                  type="text"
+                  name="name"
+                  className={style.input}
+                  placeholder="Nombre"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                />
+                {errors.name && touched.name && (
+                  <p className={style.error}>{errors.name}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <input
+                  type="text"
+                  name="address"
+                  className={style.input}
+                  placeholder="Dirección"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.address}
+                />
+                {errors.address && touched.address && (
+                  <p className={style.error}>{errors.address}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <input
+                  type="text"
+                  name="phone"
+                  className={style.input}
+                  placeholder="Telefono"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phone}
+                />
+                {errors.phone && touched.phone && (
+                  <p className={style.error}>{errors.phone}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <input
+                  type="email"
+                  name="email"
+                  className={style.input}
+                  placeholder="Correo"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                {errors.email && touched.email && (
+                  <p className={style.error}>{errors.email}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <input
+                  type="password"
+                  name="password"
+                  className={style.input}
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+                {errors.password && touched.password && (
+                  <p className={style.error}>{errors.password}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <input
+                  type="password"
+                  name="repeatPass"
+                  className={style.input}
+                  placeholder="Repeat password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.repeatPass}
+                />
+                {errors.repeatPass && touched.repeatPass && (
+                  <p className={style.error}>{errors.repeatPass}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                <button
+                  type="submit"
+                  className={style.button}
+                  disabled={isSubmitting}
+                >
+                  Registrarse
+                </button>
+              </div>
+              <a className={style.link} onClick={() => navigate("/login")}>
+                ¿Ya tenes una cuenta? Inicia sesión
+              </a>
+            </form>
+          )}
+        </Formik>
+      </div>
+    </>
+  );
+};
+
+export default FormRegisterFormik;

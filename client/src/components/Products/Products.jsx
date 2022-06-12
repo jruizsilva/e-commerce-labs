@@ -12,8 +12,6 @@ const Products = () => {
   const dispatch = useDispatch();
   const { allProducts, loadingProducts } = useSelector((state) => state);
 
-  console.log(allProducts);
-
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPage] = useState(9);
