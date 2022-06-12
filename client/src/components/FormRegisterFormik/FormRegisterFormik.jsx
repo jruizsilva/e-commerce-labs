@@ -148,7 +148,7 @@ const FormRegisterFormik = () => {
                   Sign up
                 </button>
               </div>
-              <a className={style.link} onClick={() => navigate("/login")}>
+              <a className={style.link} onClick={() => navigate("/signin")}>
                 You already have an account? Sign in
               </a>
             </form>

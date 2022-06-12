@@ -48,7 +48,7 @@ const CategorySelect = () => {
     <Select
       styles={customStyles}
       options={categoriesOptions}
-      placeholder="Categorias"
+      placeholder="Categories"
       isClearable
       isSearchable={false}
       onChange={updateCategory}

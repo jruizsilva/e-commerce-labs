@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    {searchUser ? <Routes><Route path="*" element={<Spiner />} /></Routes> :
+    searchUser ? <Routes><Route path="*" element={<Spiner />} /></Routes> :
     <>
     <Header />
     <Routes>
@@ -35,7 +35,6 @@ function App() {
       <Route path="*" element={<Navigate to="/err404" replace />}/>
     </Routes>
     </>
-    }
   );
 }
 
