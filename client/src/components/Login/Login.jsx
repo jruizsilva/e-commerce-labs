@@ -3,10 +3,10 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { googleAuth, loginAuth } from '../../actions/index.js';
-import { useState } from 'react';
+import initAuth2Google from '../../helpers/init_Auth2.js';
+import { useState, useEffect } from 'react';
 
 const Login = () => {
-
   const dispatch = useDispatch();
   const [form, setForm] = useState({ email: '', password: '' });
 
@@ -23,6 +23,8 @@ const Login = () => {
       alert('Complete la información');
     }
   }
+  //Funcion requerida para la autenticación de google
+  useEffect(()=>{initAuth2Google()}, [])
 
   return (
     <>
@@ -42,6 +44,7 @@ const Login = () => {
           onSuccess={successResponse}
           onFailure={failResponse}
           cookiePolicy={'single_host_origin'}
+          prompt="select_account"
         />
         
         <label className={style.lbRegister}><Link to="/signup">Register</Link></label>

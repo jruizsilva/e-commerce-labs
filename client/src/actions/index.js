@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_USER, GET_CATEGORIES, LOADING_PRODUCTS } from "./types";
+import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_USER, GET_CATEGORIES, LOADING_PRODUCTS, LOADING_USER } from "./types";
 
 import axios from "axios";
 
@@ -72,10 +72,12 @@ export const getUser = (token) => {
       .post(`http://localhost:3001/api/users/user`, token && { token })
       .then((resp) => {
         dispatch({ type: GET_USER, payload: resp.data });
+        dispatch(loadingUser(false));
       })
       .catch(() => {
         alert("Error en la autenticación");
         localStorage.removeItem("token_id");
+        dispatch(loadingUser(false));
       });
   };
 };
@@ -89,6 +91,12 @@ export const sortByValue = (payload) => {
 export const loadingProducts = (payload) => {
   return {
     type: LOADING_PRODUCTS,
+    payload,
+  };
+};
+export const loadingUser = (payload) => {
+  return {
+    type: LOADING_USER,
     payload,
   };
 };
