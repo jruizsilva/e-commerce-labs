@@ -98,20 +98,20 @@ export default function ProductDetails() {
               <table className={styles.descriptionTable}>
                 <tbody>
                   <tr>
-                    <th>asd</th>
-                    <th>asd</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                   <tr>
-                    <td>NO SÉ CÓMO CENTRARME :( </td>
-                    <td>NO SÉ CÓMO CENTRARME :( </td>
+                    <td></td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <th>asd</th>
-                    <th>asd</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                   <tr>
-                    <td>NO SÉ CÓMO CENTRARME :( </td>
-                    <td>NO SÉ CÓMO CENTRARME :( </td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -120,7 +120,7 @@ export default function ProductDetails() {
               <h2>Description</h2>
             </div>
             <div className={styles.descriptionText}>
-              <p>*Acá iría la descripción...si hubiera una*</p>
+              <p></p>
             </div>
 
             {/* <p><b>Model:</b> {details.model}</p> por el momento no lo agrego. Posiblemente no vaya acá */}

@@ -2,7 +2,7 @@ const Err404 = () =>{
   return(
     <div>
         <h1>404</h1>
-      No se encontraron resultados 
+      No results found 
     </div>
   )
 }

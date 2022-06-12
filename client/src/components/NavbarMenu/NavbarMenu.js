@@ -14,12 +14,12 @@ export default function NavbarMenu() {
         <>
           <li className={style.item}>
             <Link to="signin" className={style.link}>
-              Inicia sesión
+              Sign in
             </Link>
           </li>
           <li className={style.item}>
             <Link to="signup" className={style.link}>
-              Registrate
+              Sign up
             </Link>
           </li>
         </>

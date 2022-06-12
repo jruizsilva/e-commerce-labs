@@ -58,7 +58,7 @@ const Products = () => {
           />
         </>
       ) : (
-        <p className={style.p}>No se encontraron resultados</p>
+        <p className={style.p}>No results found</p>
       )}
     </div>
   );

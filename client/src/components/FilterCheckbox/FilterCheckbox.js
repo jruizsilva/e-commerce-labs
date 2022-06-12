@@ -13,7 +13,7 @@ export default function FilterCheckbox() {
 
   return (
     <form className={style.container}>
-      <p className={style.p}>Envio gratis</p>
+      <p className={style.p}>Free shipping</p>
       <label className="switch">
         <input type="checkbox" onChange={handleChange} />
         <span className="slider round"></span>

@@ -21,9 +21,9 @@ export default function FilterCategories() {
   
   return (
     <div className={style.container}>
-      <h4 className={style.title}>Categorias</h4>
+      <h4 className={style.title}>Categories</h4>
       <select onChange={(e)=>{updateCategory(e)}} id="selFilterType">
-        <option value="">Seleccione una Categoría</option>
+        <option value="">Select a category</option>
         {categories[0] && categories.map(categori=>{
             return <option key={categori.id} value={categori.id}>{categori.name}</option>
           })

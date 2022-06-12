@@ -17,16 +17,16 @@ export default function FilterCondition() {
 
   return (
     <div className={style.container}>
-      <h4 className={style.title}>Condición</h4>
+      <h4 className={style.title}>Condition</h4>
       <ul>
         <li className={style.item}>
           <span className={style.link} onClick={updateNewCondition}>
-            Nuevo
+            New
           </span>
         </li>
         <li className={style.item}>
           <span className={style.link} onClick={updateUsedCondition}>
-            Usado
+            Secondhand
           </span>
         </li>
       </ul>

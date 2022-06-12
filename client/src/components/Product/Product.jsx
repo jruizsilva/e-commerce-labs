@@ -15,7 +15,7 @@ const Product = ({ data }) => {
         <div className={style.description}>
           <h3 className={style.title}>$ {data.price}</h3>
           <p className={style.p}>{data.name}</p>
-          <button className={style.btnAddCart}>Agregar al carrito</button>
+          <button className={style.btnAddCart}>Add to cart</button>
         </div>
       </article>
     </li>
