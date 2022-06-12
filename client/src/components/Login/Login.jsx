@@ -2,46 +2,71 @@ import style from './Login.module.css';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { googleAuth, loginAuth } from '../../actions/index.js';
-import { useState } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik'
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ email: '', password: '' });
 
   function successResponse(googleData) { dispatch(googleAuth(googleData)) }
   function failResponse(resp) { console.log('Error') }
-  function handlerChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-  function handlerSubmit(e) {
-    e.preventDefault();
-    if (form.email && form.password) {
-      dispatch(loginAuth(form));
-    } else {
-      alert('Complete la información');
-    }
-  }
 
   return (
     <>
-      <form className={style.frmLogin} onSubmit={(e) => { handlerSubmit(e) }}>
-        <h3>Login Here</h3>
-        <label>Email</label>
-        <input onChange={(e) => { handlerChange(e) }} type="email" placeholder="Email or Phone" name='email' value={form.email} />
+      <Formik
+        initialValues={{
+          email: '',
+          password:''
+        }}     
 
-        <label>Password</label>
-        <input onChange={(e) => { handlerChange(e) }} type="password" placeholder="Password" name='password' value={form.password} />
+        validate={(values)=>{
+          let errors ={};
+          //Validate Email
+          if(!values.email) {
+            errors.email = "Ingrese su Email por favor";
+          }else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(values.email)){
+            errors.email = "Ingrese un Email valido por favor";
+          }
 
-        <button>Log In</button>
+          //Validate Password
+          if(!values.password){
+            errors.password = "Ingrese su contraseña";
+          }
+          return errors;
+        }}  
 
-        <GoogleLogin className={style.go}
-          clientId="804485400642-ql0oec6nnarp74n4keo22bq9ou539gme.apps.googleusercontent.com"
-          buttonText="Google"
-          onSuccess={successResponse}
-          onFailure={failResponse}
-          cookiePolicy={'single_host_origin'}
-        />
-      </form>
+        onSubmit={(values,{resetForm})=>{
+          dispatch(loginAuth(values));
+
+           resetForm();
+        }}      
+      >
+      {({ errors})=>(
+          <Form className={style.frmLogin}>
+            <h3>Login Here</h3>
+            <label htmlFor='email'>Email</label>
+            <Field type="email" placeholder="email@email.com" id="email" name='email'/>
+            <ErrorMessage name='email' component={()=>(
+              <div>{errors.email}</div>
+            )}/>
+
+            <label htmlFor='password'>Password</label>
+            <Field type="password" placeholder="Password" id="password" name='password'/>
+            <ErrorMessage name='password' component={()=>(
+              <div>{errors.password}</div>
+            )}/>
+
+            <button type="submit">Log In</button>
+
+            <GoogleLogin className={style.go}
+              clientId="804485400642-ql0oec6nnarp74n4keo22bq9ou539gme.apps.googleusercontent.com"
+              buttonText="Google"
+              onSuccess={successResponse}
+              onFailure={failResponse}
+              cookiePolicy={'single_host_origin'}
+            />
+          </Form>
+        )}
+      </Formik>
     </>
   )
 }
