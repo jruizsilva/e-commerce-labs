@@ -6,8 +6,14 @@ import UserSelect from "../UserSelect/UserSelect";
 import style from "./NavbarMenu.module.css";
 
 export default function NavbarMenu() {
-  const { user } = useSelector((state)=>state);
+  const { user } = useSelector((state) => state);
   const navigate = useNavigate();
+
+  const handleRedirect = (e) => {
+    // console.log(e.target.id);
+    // e.preventDefault();
+    navigate(e.target.id);
+  };
 
   return (
     <ul className={style.container}>
@@ -19,7 +25,9 @@ export default function NavbarMenu() {
               className={style.link}
               id="signin"
               onClick={handleRedirect}
-            >Inicia sesión</a>
+            >
+              Inicia sesión
+            </a>
           </li>
           <li className={style.item}>
             <a
