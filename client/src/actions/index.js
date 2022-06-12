@@ -1,4 +1,12 @@
-import { GET_ALL_PRODUCTS, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_USER, GET_CATEGORIES, LOADING_PRODUCTS } from "./types";
+import {
+  GET_ALL_PRODUCTS,
+  GET_NAME_PRODUCT,
+  SORT_BY_VALUE,
+  GET_USER,
+  GET_CATEGORIES,
+  LOADING_PRODUCTS,
+  UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
+} from "./types";
 
 import axios from "axios";
 
@@ -43,11 +51,14 @@ export const googleAuth = (googleData) => {
         token: googleData.tokenId,
       })
       .then((resp) => {
+        updateGoogleAuthErrorMessage("");
         localStorage.setItem("token_id", resp.data.token);
         dispatch({ type: GET_USER, payload: resp.data.user });
       })
       .catch((err) => {
-        alert(err.response.data.message)
+        console.log(err.response.data.message);
+        dispatch(updateGoogleAuthErrorMessage(err.response.data.message));
+        // alert(err.response.data.message);
       });
   };
 };
@@ -61,6 +72,7 @@ export const loginAuth = (form) => {
         dispatch({ type: GET_USER, payload: resp.data.user });
       })
       .catch((err) => {
+        // console.log(err);
         alert(err.response.data.message);
       });
   };
@@ -93,29 +105,32 @@ export const loadingProducts = (payload) => {
   };
 };
 
-export const getCategories = ()=>{
-  return function(dispatch){
-    return (
-      axios.get(`http://localhost:3001/api/categories`)
-        .then((resp)=>{
-          dispatch({type: GET_CATEGORIES, payload: resp.data});
-        })
-    )
-  }
-}
+export const getCategories = () => {
+  return function (dispatch) {
+    return axios.get(`http://localhost:3001/api/categories`).then((resp) => {
+      dispatch({ type: GET_CATEGORIES, payload: resp.data });
+    });
+  };
+};
 
-export const createUser = (form)=>{
-  return function(dispatch){
-    return(
-      axios.post(`http://localhost:3001/api/users/signup`, form)
-        .then((resp)=>{
-          alert(resp.data.message);
-          localStorage.setItem("token_id", resp.data.token);
-          dispatch({ type: GET_USER, payload: resp.data.user });
-        })
-        .catch((err)=>{
-          alert(err.response.data.message);
-        })
-    )
-  }
-}
+export const createUser = (form) => {
+  return function (dispatch) {
+    return axios
+      .post(`http://localhost:3001/api/users/signup`, form)
+      .then((resp) => {
+        alert(resp.data.message);
+        localStorage.setItem("token_id", resp.data.token);
+        dispatch({ type: GET_USER, payload: resp.data.user });
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
+};
+
+export const updateGoogleAuthErrorMessage = (msg) => {
+  return {
+    type: UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
+    payload: msg,
+  };
+};

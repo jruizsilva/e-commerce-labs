@@ -24,9 +24,6 @@
 .buttonContainer {
   margin-bottom: 14px;
 }
-.formContainer :nth-child(7) {
-  margin-bottom: 24px;
-}
 .input {
   background-color: #fff;
   border: solid 1px var(--border-color2);
@@ -77,6 +74,4 @@
   color: var(--danger);
   font-weight: 400;
   font-size: 13px;
-}
-.google_button {
 }
