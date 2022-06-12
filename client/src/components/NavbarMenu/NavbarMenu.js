@@ -10,7 +10,6 @@ export default function NavbarMenu() {
   const navigate = useNavigate();
 
   const handleRedirect = (e) => {
-    console.log(e.target.id);
     e.preventDefault();
     navigate(e.target.id);
   };

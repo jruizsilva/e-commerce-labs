@@ -1,11 +1,18 @@
-import { GET_ALL_PRODUCTS, GET_USER, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_CATEGORIES, LOADING_PRODUCTS } from "../actions/types"
+import {
+  GET_ALL_PRODUCTS,
+  GET_USER,
+  GET_NAME_PRODUCT,
+  SORT_BY_VALUE,
+  GET_CATEGORIES,
+  LOADING_PRODUCTS,
+} from "../actions/types";
 
 const initialState = {
-    allProducts: [],
-    categories: [],
-    user: {},
-    loadingProducts: false,
-}
+  allProducts: [],
+  categories: [],
+  user: {},
+  loadingProducts: false,
+};
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
@@ -59,15 +66,15 @@ export default function reducer(state = initialState, actions) {
         ...state,
         loadingProducts: actions.payload,
       };
-        return {
-          ...state,
-          allProducts:actions.payload
-        }
+      return {
+        ...state,
+        allProducts: actions.payload,
+      };
     case GET_CATEGORIES:
       return {
         ...state,
-        categories:actions.payload
-      }
+        categories: actions.payload,
+      };
     default:
       return state;
   }
