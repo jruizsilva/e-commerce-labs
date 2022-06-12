@@ -1,10 +1,12 @@
 import style from './Login.module.css';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { googleAuth, loginAuth } from '../../actions/index.js';
 import { useState } from 'react';
 
 const Login = () => {
+
   const dispatch = useDispatch();
   const [form, setForm] = useState({ email: '', password: '' });
 
@@ -41,6 +43,8 @@ const Login = () => {
           onFailure={failResponse}
           cookiePolicy={'single_host_origin'}
         />
+        
+        <label className={style.lbRegister}><Link to="/signup">Register</Link></label>
       </form>
     </>
   )

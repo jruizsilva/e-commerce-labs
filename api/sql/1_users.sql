@@ -1,2 +1,2 @@
-INSERT INTO users (id, name, email, password, phone, address, "profileImage", role, state, "createdAt", "updatedAt") VALUES (1, 'User', 'user@gmail.com', '1234', null, null, null, 'user', 'active', '2022-06-09', '2022-06-09');
+INSERT INTO users (id, name, email, password, phone, address, "profileImage", role, state, "createdAt", "updatedAt") VALUES (1, 'User', 'user@gmail.com', '$2a$08$Hb8wCRj.2W7MK8BIgkrl7ewARccn5.EDE98mT54GTgFTUOrq9XLMm', null, null, null, 'user', 'active', '2022-06-09', '2022-06-09');
 INSERT INTO users (id, name, email, password, phone, address, "profileImage", role, state, "createdAt", "updatedAt") VALUES (2, 'Tomas', 'tomas@gmail.com', '1234', null, null, null, 'admin', 'active', '2022-06-09', '2022-06-09');

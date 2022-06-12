@@ -43,15 +43,11 @@ export const googleAuth = (googleData) => {
         token: googleData.tokenId,
       })
       .then((resp) => {
-        if (!resp.data.err) {
-          localStorage.setItem("token_id", resp.data.token);
-          dispatch({ type: GET_USER, payload: resp.data.user });
-        } else {
-          alert(resp.data.err);
-        }
+        localStorage.setItem("token_id", resp.data.token);
+        dispatch({ type: GET_USER, payload: resp.data.user });
       })
-      .catch(() => {
-        alert("Error en la autenticación");
+      .catch((err) => {
+        alert(err.response.data.message)
       });
   };
 };
@@ -59,17 +55,13 @@ export const googleAuth = (googleData) => {
 export const loginAuth = (form) => {
   return function (dispatch) {
     return axios
-      .post(`http://localhost:3001/api/users/loginAuth`, form)
+      .post(`http://localhost:3001/api/users/signin`, form)
       .then((resp) => {
-        if (!resp.data.err) {
-          localStorage.setItem("token_id", resp.data.token);
-          dispatch({ type: GET_USER, payload: resp.data.user });
-        } else {
-          alert(resp.data.err);
-        }
+        localStorage.setItem("token_id", resp.data.token);
+        dispatch({ type: GET_USER, payload: resp.data.user });
       })
-      .catch(() => {
-        alert("Error en la autenticación");
+      .catch((err) => {
+        alert(err.response.data.message);
       });
   };
 };
@@ -115,9 +107,14 @@ export const getCategories = ()=>{
 export const createUser = (form)=>{
   return function(dispatch){
     return(
-      axios.post(``, form)
+      axios.post(`http://localhost:3001/api/users/signup`, form)
         .then((resp)=>{
-          console.log(resp);
+          alert(resp.data.message);
+          localStorage.setItem("token_id", resp.data.token);
+          dispatch({ type: GET_USER, payload: resp.data.user });
+        })
+        .catch((err)=>{
+          alert(err.response.data.message);
         })
     )
   }
