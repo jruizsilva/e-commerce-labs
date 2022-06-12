@@ -8,29 +8,34 @@ import Home from './components/Home/Home.jsx';
 import Login from './components/Login/Login.jsx';
 import Err404 from './components/Err404/Err404.jsx';
 import ProductDetails from './components/ProductDetails/ProductDetails.jsx';
-import FormRegister from './components/FormRegister/FormRegister.jsx';
+import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
+import Header from "./components/Header/Header.jsx";
+import LoginFormik from "./components/LoginFormik/LoginFormik.js";
 import Spiner from './components/Spinner/Spinner.js';
 
 function App() {
   const { user, searchUser } = useSelector((state)=>state);
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     let token = localStorage.getItem("token_id");
     if (token && !user.id) dispatch(getUser(token))
     else dispatch(loadingUser(false));
   }, []);
 
   return (
+    {searchUser ? <Routes><Route path="*" element={<Spiner />} /></Routes> :
+    <>
+    <Header />
     <Routes>
-      {searchUser ? <Route path="*" element={<Spiner />} /> :
-      <><Route exact path="/" element={<Home />} />
-      <Route path="/signin" element={!user.id ? <Login /> : <Navigate to="/"/>} />
-      <Route path="/signup" element={!user.id ? <FormRegister /> : <Navigate to="/"/>} />
+      <Route exact path="/" element={<Home />} />
+      <Route path="/signin" element={!user.id ? <LoginFormik /> : <Navigate to="/"/>} />
+      <Route path="/signup" element={!user.id ? <FormRegisterFormik /> : <Navigate to="/"/>} />
       <Route exact path="/err404" element={<Err404 />} />
       <Route path="/details/:productId" element={<ProductDetails />} />
-      <Route path="*" element={<Navigate to="/err404" replace />}/></>
-      }
-    </Routes> 
+      <Route path="*" element={<Navigate to="/err404" replace />}/>
+    </Routes>
+    </>
+    }
   );
 }
 

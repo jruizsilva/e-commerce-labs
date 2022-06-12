@@ -1,12 +1,20 @@
-import { GET_ALL_PRODUCTS, GET_USER, GET_NAME_PRODUCT, SORT_BY_VALUE, GET_CATEGORIES, LOADING_PRODUCTS, LOADING_USER } from "../actions/types"
+import {
+  GET_ALL_PRODUCTS,
+  GET_USER,
+  GET_NAME_PRODUCT,
+  SORT_BY_VALUE,
+  GET_CATEGORIES,
+  LOADING_PRODUCTS,
+  LOADING_USER
+} from "../actions/types";
 
 const initialState = {
-    allProducts: [],
-    categories: [],
-    user: {},
-    searchUser: true,
-    loadingProducts: false,
-}
+  allProducts: [],
+  categories: [],
+  user: {},
+  searchUser: true,
+  loadingProducts: false,
+};
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {

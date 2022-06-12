@@ -5,14 +5,13 @@ import UserSelect from "../UserSelect/UserSelect";
 
 import style from "./NavbarMenu.module.css";
 
-
 export default function NavbarMenu() {
-  const { user } = useSelector((state)=>state);
+  const { user } = useSelector((state) => state);
   const navigate = useNavigate();
 
   const handleRedirect = (e) => {
-    console.log(e.target.id);
-    e.preventDefault();
+    // console.log(e.target.id);
+    // e.preventDefault();
     navigate(e.target.id);
   };
 
