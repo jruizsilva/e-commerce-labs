@@ -4,9 +4,10 @@ const morgan = require("morgan");
 const routes = require("./src/routes/index");
 const errorHandler = require("./src/utils/middlewares/errorHandler");
 const setHeaders = require("./src/utils/middlewares/setHeaders");
-const { PORT } = require("./src/utils/config");
 const { conn } = require("./src/models");
 const app = express();
+
+const PORT = process.env.PORT || 3001;
 
 //aca vamos a setear nuestros headers
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
