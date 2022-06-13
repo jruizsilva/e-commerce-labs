@@ -1,13 +1,21 @@
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const CategorySelect = () => {
   const { categories } = useSelector((state) => state);
   const [params, setParams] = useSearchParams();
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (params.has("reset")) {
+      setSelected(null);
+    }
+  }, [params]);
 
   const updateCategory = (target) => {
-    console.log(target);
+    setSelected(target);
     if (!target) {
       params.delete("categoryId");
     } else {
@@ -52,6 +60,7 @@ const CategorySelect = () => {
       isClearable
       isSearchable={false}
       onChange={updateCategory}
+      value={selected}
     />
   );
 };

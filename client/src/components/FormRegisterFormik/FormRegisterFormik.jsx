@@ -28,14 +28,14 @@ const FormRegisterFormik = () => {
           validate={(form) => {
             let err = {};
             if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
-              err.email = "Debe ingresar un correo valido";
+              err.email = "You have to enter a valid email";
             if (form.password != form.repeatPass)
-              err.repeatPass = "La contraseña no coincide";
-            if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
-            if (!form.name) err.name = "Debe ingresar un nombre";
-            if (!form.email) err.email = "Debe ingresar un correo";
+              err.repeatPass = "Password does not match";
+            // if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
+            if (!form.name) err.name = "You have to enter a name";
+            if (!form.email) err.email = "You have to enter an email";
             if (!form.password || !form.repeatPass)
-              err.password = "Debe ingresar una contraseña";
+              err.password = "You have to enter a password";
             return err;
           }}
           onSubmit={(values, { setSubmitting }) => {

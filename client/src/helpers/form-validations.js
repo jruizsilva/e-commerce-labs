@@ -2,8 +2,6 @@ const validatePriceRangeForm = (form) => {
   let { min, max } = form;
   const regex = new RegExp("^[0-9]+$");
 
-  console.log(min, max);
-
   if (
     max !== "" &&
     min !== "" &&

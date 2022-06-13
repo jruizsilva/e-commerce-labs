@@ -1,9 +1,19 @@
 import { sortByValue } from "../../actions/index";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const SortSelect = () => {
   const dispatch = useDispatch();
+  const [selected, setSelected] = useState(null);
+  const [params, setParams] = useSearchParams();
+
+  useEffect(() => {
+    if (params.has("reset")) {
+      setSelected(null);
+    }
+  }, [params]);
 
   function handleSortValue({ target: { value } }) {
     console.log(value);
@@ -12,6 +22,7 @@ const SortSelect = () => {
   }
 
   const handleChange = (target) => {
+    setSelected(target);
     dispatch(sortByValue(target?.value));
   };
 
@@ -66,6 +77,7 @@ const SortSelect = () => {
           isClearable
           onChange={handleChange}
           isSearchable={false}
+          value={selected}
         />
       }
     </>
