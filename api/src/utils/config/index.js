@@ -7,5 +7,5 @@ module.exports = {
   dbPort: process.env.DB_PORT || "5432",
   dbHost: process.env.DB_HOST || "localhost",
   host: process.env.HOST || "localhost",
-  dbPassword: process.env.DB_PASSWORD || "1234",
+  dbPassword: process.env.DB_PASSWORD || "admin",
 };
