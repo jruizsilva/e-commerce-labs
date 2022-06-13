@@ -1,3 +1,4 @@
+require("dotenv").config();
 // instalar nodemon, sequelize, pg, express, morgan
 const express = require("express");
 const morgan = require("morgan");
@@ -22,10 +23,10 @@ app.use("/api", routes);
 app.use(errorHandler);
 
 //aca vamos arracar nuestro server
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   console.log("base de datos conectada");
   app.listen(PORT, () => {
-    console.log("Server is listening on por", PORT);
+    console.log("Server is listening on port", PORT);
   });
 });
 
