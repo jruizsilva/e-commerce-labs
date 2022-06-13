@@ -7,7 +7,9 @@ import { GoogleLogin } from "react-google-login";
 import { googleAuth, loginAuth } from "../../actions/index.js";
 
 export default function LoginFormik() {
-  const { googleAuthErrorMessage } = useSelector((state) => state);
+  const { googleAuthErrorMessage, loginErrorMessage } = useSelector(
+    (state) => state
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ export default function LoginFormik() {
             let err = {};
             if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
               err.email = "You have to enter a valid email";
-            if (!form.email) err.email = "Yoy have to enter an email";
+            if (!form.email) err.email = "You have to enter an email";
             if (!form.password) err.password = "You have to enter a password";
             return err;
           }}
@@ -84,6 +86,9 @@ export default function LoginFormik() {
                 >
                   Sign in
                 </button>
+                {loginErrorMessage && (
+                  <p className={style.error}>{loginErrorMessage}</p>
+                )}
               </div>
               <GoogleLogin
                 clientId="804485400642-ql0oec6nnarp74n4keo22bq9ou539gme.apps.googleusercontent.com"

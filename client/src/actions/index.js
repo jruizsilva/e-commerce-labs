@@ -7,6 +7,7 @@ import {
   LOADING_PRODUCTS,
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
+  LOGIN_ERROR_MESSAGE,
 } from "./types";
 
 import axios from "axios";
@@ -74,7 +75,8 @@ export const loginAuth = (form) => {
       })
       .catch((err) => {
         // console.log(err);
-        alert(err.response.data.message);
+        dispatch(updateLoginErrorMessage(err.response.data.message));
+        // alert(err.response.data.message);
       });
   };
 };
@@ -140,6 +142,13 @@ export const createUser = (form) => {
 export const updateGoogleAuthErrorMessage = (msg) => {
   return {
     type: UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
+    payload: msg,
+  };
+};
+
+export const updateLoginErrorMessage = (msg) => {
+  return {
+    type: LOGIN_ERROR_MESSAGE,
     payload: msg,
   };
 };
