@@ -11,6 +11,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
 import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";
+import Cart from "./components/Cart/Cart.jsx";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
 
@@ -25,6 +26,14 @@ function App() {
 
   return searchUser ? (
     <Routes>
+
+      <Route exact path="/" element={<Home />} />
+      <Route path="/signin" element={!user.id ? <LoginFormik /> : <Navigate to="/"/>} />
+      <Route path="/signup" element={!user.id ? <FormRegisterFormik /> : <Navigate to="/"/>} />
+      <Route exact path="/err404" element={<Err404 />} />
+      <Route path="/details/:productId" element={<ProductDetails />} />
+      <Route path="*" element={<Navigate to="/err404" replace />}/>
+      <Route path="/cart" element={<Cart />} />
       <Route path="*" element={<Spiner />} />
     </Routes>
   ) : (

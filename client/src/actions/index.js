@@ -8,6 +8,8 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  ELIMINATE_FROM_CART,
+  ADD_TO_CART,
 } from "./types";
 import axios from "axios";
 
@@ -149,3 +151,17 @@ export const updateLoginErrorMessage = (msg) => {
     payload: msg,
   };
 };
+
+export const addToCart = (id) => {
+  return {
+    type: ADD_TO_CART,
+    payload: id,
+  }
+}
+
+export const eliminateFromCart = (id) => {
+  return {
+    type: ELIMINATE_FROM_CART,
+    payload: id,
+  }
+}
