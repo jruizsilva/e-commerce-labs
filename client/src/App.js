@@ -12,6 +12,7 @@ import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterForm
 import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";
 import Spiner from './components/Spinner/Spinner.js';
+import Cart from "./components/Cart/Cart.jsx";
 
 function App() {
   const { user, searchUser } = useSelector((state)=>state);
@@ -33,6 +34,7 @@ function App() {
       <Route exact path="/err404" element={<Err404 />} />
       <Route path="/details/:productId" element={<ProductDetails />} />
       <Route path="*" element={<Navigate to="/err404" replace />}/>
+      <Route path="/cart" element={<Cart />} />
     </Routes>
     </>
   );
