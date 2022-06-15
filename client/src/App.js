@@ -5,7 +5,6 @@ import { getUser, loadingUser } from "./actions/index.js";
 
 // importo los componentes que vamos a renderizar
 import Home from "./components/Home/Home.jsx";
-import Login from "./components/Login/Login.jsx";
 import Err404 from "./components/Err404/Err404.jsx";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
@@ -13,6 +12,7 @@ import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
+import PublicacionPage from "./pages/PublicationsPage/PublicationsPage.js";
 
 function App() {
   const { user, searchUser } = useSelector((state) => state);
@@ -43,6 +43,7 @@ function App() {
         <Route exact path="/err404" element={<Err404 />} />
         <Route path="/details/:productId" element={<ProductDetails />} />
         <Route path="/home" element={<LandingPage />} />
+        <Route path="/publications" element={<PublicacionPage />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>
