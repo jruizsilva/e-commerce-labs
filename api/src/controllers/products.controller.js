@@ -90,7 +90,9 @@ const getProductsById = async (req, res ,next) => {
             include: [{
                 model: Category,
                 model: Question,
-            //  model: Answer, // error: answer is not asociated to Question!
+                include:{
+                  model:Answer
+                } 
             }],
             where: {
                 id: productId,
