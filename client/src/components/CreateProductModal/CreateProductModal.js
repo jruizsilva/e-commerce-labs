@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./CreateProductModal.module.css";
 import * as yup from "yup";
 import Modal from "../Modal/Modal";
-import { getCategories } from "../../actions";
+import { createProduct, getCategories } from "../../actions";
 import { SelectFieldCondition } from "./SelectFieldCondition";
 import { SelectFieldCategories } from "./SelectFieldCategories";
 import { SelectFieldState } from "./SelectFieldState";
@@ -12,12 +12,15 @@ import { SelectFieldState } from "./SelectFieldState";
 const isRequired = "is a required field";
 
 export default function CreateProductModal(props) {
-  const { user, categories } = useSelector((state) => state);
+  const {
+    user: { id: usedId },
+    categories,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   const categoriesOptions = categories.map((c) => {
     return { value: c.id, label: c.name };
@@ -47,7 +50,7 @@ export default function CreateProductModal(props) {
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(`Name ${isRequired}`),
-    brand: yup.string().required(`Brand ${isRequired}`),
+    brand: yup.string().required(`Name ${isRequired}`),
     price: yup.number().required(`Price ${isRequired}`),
     stock: yup.number().required(`Stock ${isRequired}`),
     state: yup.string().required(`State ${isRequired}`),
@@ -69,14 +72,17 @@ export default function CreateProductModal(props) {
             brand: "",
             model: "",
             stock: "",
-            score: "",
-            categories: [],
+            score: null,
             state: "",
+            categories: [],
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
-            console.log(values);
+            const body = { ...values, usedId };
+            console.log("/api/products/create");
+            console.log(body);
+            dispatch(createProduct(body));
           }}
         >
           {({
@@ -140,7 +146,7 @@ export default function CreateProductModal(props) {
                   placeholder="Brand (*)"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.email}
+                  value={values.brand}
                 />
                 {errors.brand && touched.brand && (
                   <p className={style.error}>{errors.brand}</p>

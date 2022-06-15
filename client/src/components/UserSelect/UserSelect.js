@@ -13,6 +13,7 @@ const UserSelect = ({ user }) => {
       case "logout": {
         localStorage.removeItem("token_id");
         window.location.reload();
+        navigate("/signin");
         break;
       }
       default:
@@ -23,12 +24,12 @@ const UserSelect = ({ user }) => {
   const customStyles = {
     container: (provided, state) => ({
       ...provided,
-      minWidth: "160px",
+      maxWidth: "160px",
       marginRight: "auto",
     }),
     menu: (provided, state) => ({
       ...provided,
-      minWidth: "160px",
+      maxWidth: "160px",
     }),
     placeholder: (provided, state) => ({
       ...provided,
@@ -41,6 +42,9 @@ const UserSelect = ({ user }) => {
     valueContainer: (provided, state) => ({
       ...provided,
       fontSize: "14px",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
     }),
   };
 

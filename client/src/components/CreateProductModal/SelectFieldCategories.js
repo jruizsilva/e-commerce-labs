@@ -24,8 +24,11 @@ export const SelectFieldCategories = ({ options, field, form }) =>
     value: options
       ? options.find((option) => option.value === field.value)
       : "",
-    onChange: (option) => {
-      return form.setFieldValue(field.name, option);
+    onChange: (options) => {
+      const formatData = options.map((option) => {
+        return option.value;
+      });
+      return form.setFieldValue(field.name, formatData);
     },
     onBlur: field.onBlur,
     isMulti: true,

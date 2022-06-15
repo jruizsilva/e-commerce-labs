@@ -8,6 +8,9 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  CREATE_PRODUCT_REQUEST,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
 } from "./types";
 import axios from "axios";
 
@@ -147,5 +150,23 @@ export const updateLoginErrorMessage = (msg) => {
   return {
     type: LOGIN_ERROR_MESSAGE,
     payload: msg,
+  };
+};
+
+export const createProduct = (body) => {
+  return (dispatch) => {
+    dispatch({ type: CREATE_PRODUCT_REQUEST });
+    axios
+      .post("/api/products/create", body)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.message);
+        dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.message });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.data.message);
+        dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
+      });
   };
 };

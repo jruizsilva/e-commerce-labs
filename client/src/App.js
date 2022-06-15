@@ -19,7 +19,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     let token = localStorage.getItem("token_id");
-    if (token && !user.id) dispatch(getUser(token));
+    if (token && !user) dispatch(getUser(token));
     else dispatch(loadingUser(false));
   }, []);
 
@@ -31,19 +31,22 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<LandingPage />} />
         <Route
           path="/signin"
-          element={!user.id ? <LoginFormik /> : <Navigate to="/" />}
+          element={!user ? <LoginFormik /> : <Navigate to="/home" />}
         />
         <Route
           path="/signup"
-          element={!user.id ? <FormRegisterFormik /> : <Navigate to="/" />}
+          element={!user ? <FormRegisterFormik /> : <Navigate to="/home" />}
         />
         <Route exact path="/err404" element={<Err404 />} />
         <Route path="/details/:productId" element={<ProductDetails />} />
-        <Route path="/home" element={<LandingPage />} />
-        <Route path="/publications" element={<PublicacionPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route
+          path="/publications"
+          element={user ? <PublicacionPage /> : <Navigate to="/home" />}
+        />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>
