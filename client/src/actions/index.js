@@ -10,6 +10,9 @@ import {
   LOGIN_ERROR_MESSAGE,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_QUESTION,
+  ELIMINATE_FROM_CART,
+  ADD_TO_CART,
+
 } from "./types";
 import axios from "axios";
 
@@ -151,6 +154,7 @@ export const updateLoginErrorMessage = (msg) => {
     payload: msg,
   };
 };
+
 export const addQuestion = (payload) => {
 
   return function (dispatch) {
@@ -165,6 +169,7 @@ export const addQuestion = (payload) => {
       });
   };
 };
+
 export const getQuestionsWithAnswers = (productId) => {
   return function (dispatch) {
     return axios
@@ -177,3 +182,18 @@ export const getQuestionsWithAnswers = (productId) => {
       });
   };
 };
+
+export const addToCart = (id) => {
+  return {
+    type: ADD_TO_CART,
+    payload: id,
+  }
+}
+
+export const eliminateFromCart = (id) => {
+  return {
+    type: ELIMINATE_FROM_CART,
+    payload: id,
+  }
+}
+

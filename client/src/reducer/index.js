@@ -9,7 +9,9 @@ import {
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
   ADD_QUESTION,
-  GET_QUESTIONS_WITH_ANSWERS
+  GET_QUESTIONS_WITH_ANSWERS,
+  ELIMINATE_FROM_CART,
+  ADD_TO_CART,
 } from "../actions/types";
 
 const initialState = {
@@ -21,6 +23,7 @@ const initialState = {
   questionsWithAnswers:[],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
+  cart: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -95,9 +98,49 @@ export default function reducer(state = initialState, actions) {
         categories: actions.payload,
       };
     case LOADING_USER:
-      return { ...state, searchUser: actions.payload };
+      return {
+        ...state,
+        searchUser: actions.payload
+      };
     case LOGIN_ERROR_MESSAGE:
-      return { ...state, loginErrorMessage: actions.payload };
+      return {
+        ...state,
+        loginErrorMessage: actions.payload
+      };
+    case ADD_TO_CART:
+      const allProductsAux = state.allProducts;
+      let cartCurrentProducts = state.cart;
+      let flag = false;
+      cartCurrentProducts.map(p => {
+        if(p.id === actions.payload) {
+          alert("Ya se encuentra dentro de la lista")
+          flag = true;
+        }
+      })
+      if (flag) {
+        return {
+          ...state,
+        }
+      }
+      let filteredProductById = allProductsAux.filter(p => {
+        return p.id === actions.payload
+      })
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          ...filteredProductById,
+        ],
+      };
+    case ELIMINATE_FROM_CART:
+      let aux = state.cart;
+      let filteredCart = aux.filter(p => {
+        return p.id !== actions.payload
+      })
+      return {
+        ...state,
+        cart: filteredCart,
+      };
     default:
       return state;
   }
