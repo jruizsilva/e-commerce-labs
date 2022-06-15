@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import Spinner from "../Spinner/Spinner";
 import styles from "./ProductDetails.module.css";
+import Question from "../Question/Question"
 
 export default function ProductDetails() {
   let { productId } = useParams();
@@ -132,6 +133,12 @@ export default function ProductDetails() {
                 <b>More info:</b> {details.description}
               </p>
             </div>
+          </div>
+          <div className={styles.questions}>
+            <p className={styles.title}>Ask the seller</p>  
+             <Question productId={productId}/>
+
+          
           </div>
         </div>
       </div>

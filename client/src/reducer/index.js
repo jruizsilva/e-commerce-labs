@@ -8,6 +8,8 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  ADD_QUESTION,
+  GET_QUESTIONS_WITH_ANSWERS
 } from "../actions/types";
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
   user: {},
   searchUser: true,
   loadingProducts: false,
+  questionsWithAnswers:[],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
 };
@@ -31,6 +34,15 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case GET_QUESTIONS_WITH_ANSWERS:
+      return {
+        ...state,
+      questionsWithAnswers: actions.payload
+      };
+    case ADD_QUESTION:
+      return {
+        ...state,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;
