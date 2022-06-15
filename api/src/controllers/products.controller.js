@@ -102,9 +102,50 @@ const getProductsById = async (req, res ,next) => {
     }
 };
 
+// -- Creacion de Producto --
+const createProducts = async (req, res, next) => {
+  // name price image description condition brand model stock score state
+  const {
+    name,   // obligatiorio
+    price, //obligatorio
+    image, //obligatorio
+    description, // obligatorio
+    condition, // obligatorio
+    brand, // obligatorio
+    model, 
+    stock, // obligatorio
+    score, 
+    state, // obligatorio
+    categories,
+    userId, // obligatorio
+  } = req.body
+  const product = await Product.create({
+    name,
+    price,
+    image,
+    description,
+    condition,
+    brand,
+    model,
+    stock,
+    score,
+    state,
+    userId
+  })
+  const categoriesDb = await Category.findAll(
+    { where: { name: categories } 
+  })
+  await product.addCategory(categoriesDb)
+  return res.json({message: "Product Created"})
+  //await categoriesDb.map(c => console.log(c.toJSON()))
+
+  //return res.json(product)
+}
+
 
 module.exports = {
     getProducts,
     getProductsById,
-    getProductsByName
+    getProductsByName,
+    createProducts
 }
