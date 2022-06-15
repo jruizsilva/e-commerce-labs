@@ -7,7 +7,7 @@ module.exports = function(sequelize){
             allowNull: false
         },
         price: {
-            type: DataTypes.FLOAT,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         image: {
@@ -19,7 +19,7 @@ module.exports = function(sequelize){
             allowNull: false,
         },
         condition: { //nuevo o usado (new, used)
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("new", "used"),
             allowNull: false,
         },
         brand: {
@@ -36,7 +36,7 @@ module.exports = function(sequelize){
             type: DataTypes.INTEGER,
         },
         state: { // active - paused
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("active", "slow"),
             allowNull: false,
         }
     })

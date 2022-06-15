@@ -58,8 +58,8 @@ const Answer = modelAnswer(sequelize);
 const ProductCart = modelProductCart(sequelize);
 
 //aca hacemos nuestras relaciones
-Category.belongsToMany(Product, { through: "ProductCategory" });
-Product.belongsToMany(Category, { through: "ProductCategory" });
+Category.belongsToMany(Product, { through: 'productCategory' });
+Product.belongsToMany(Category, { through: 'productCategory' });
 Product.belongsToMany(User, { through: "Favorite" });
 User.belongsToMany(Product, { through: "Favorite" });
 Question.hasMany(Answer);
