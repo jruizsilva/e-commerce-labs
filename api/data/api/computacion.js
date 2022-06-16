@@ -1,7 +1,4 @@
-var fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
-
-let computacion = [
+module.exports = [
   {
     id: "MLA1117922107",
     site_id: "MLA",
@@ -14132,25 +14129,3 @@ let computacion = [
     order_backend: 50,
   },
 ];
-
-computacion = computacion.map((c) => {
-  return {
-    id: uuidv4(),
-    name: c.title,
-    price: c.price,
-    image: c.thumbnail,
-    condition: c.condition,
-    stock: 1,
-    description: null,
-    brand: null,
-    model: null,
-    state: "active",
-    category_id: "MLA1648",
-  };
-});
-
-fs.writeFile("computacion.js", JSON.stringify(computacion), (error) => {
-  if (error) {
-    console.log(error);
-  }
-});

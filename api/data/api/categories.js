@@ -1,5 +1,4 @@
-// Categorias MLA argentina
-const categories = [
+module.exports = [
   {
     id: "MLA5725",
     name: "Accesorios para Vehículos",
@@ -129,5 +128,3 @@ const categories = [
     name: "Otras categorías",
   },
 ];
-
-module.exports = categories;

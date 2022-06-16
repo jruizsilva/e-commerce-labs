@@ -1,6 +1,5 @@
-const computacion = [
+module.exports = [
   {
-    id: "1e345048-b77e-4fe0-9f1e-81c636cebba7",
     name: "Monitor Gamer Benq Xl-k Series Xl2546k Lcd 24.5   Negro 100v/240v",
     price: 109999,
     image: "http://http2.mlstatic.com/D_784991-MLA48690719527_122021-I.jpg",
@@ -13,7 +12,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "4406e40a-b63d-46c8-b9f3-09b6a6c22298",
     name: "Notebook Hp 15-ef2126wm Spruce Blue 15.6 , Amd Ryzen 5 5500u  8gb De Ram 256gb Ssd, Amd Radeon Rx Vega 7 1920x1080px Windows 10 Home",
     price: 97999,
     image: "http://http2.mlstatic.com/D_945528-MLA49251126700_032022-I.jpg",
@@ -26,7 +24,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "d159107c-8289-4366-9f95-26b9d6803dd4",
     name: "Pc Gamer Armada Intel I5 10400 8gb M2 480 Core X6 Thread X12",
     price: 59999,
     image: "http://http2.mlstatic.com/D_888312-MLA42845999224_072020-I.jpg",
@@ -39,7 +36,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "f28e46e1-2b31-429d-b9e9-35508f99f2eb",
     name: "Disco Sólido Interno Kingston Sa400s37/480g 480gb Negro",
     price: 7589,
     image: "http://http2.mlstatic.com/D_751939-MLA46221843872_052021-I.jpg",
@@ -52,7 +48,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "6c11c8d7-5408-4494-a1af-61bf0e7d6c0b",
     name: "Disco Sólido Interno Kingston Sa400s37/240g 240gb Negro",
     price: 4899,
     image: "http://http2.mlstatic.com/D_804287-MLA49587128302_042022-I.jpg",
@@ -65,7 +60,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "5c73c620-030d-4f70-8a38-f38d471259c5",
     name: "Notebook Lenovo Ideapad 14igl05 Platinum Grey 14  N4020 4gb 256gb Windows 11 Home",
     price: 53999,
     image: "http://http2.mlstatic.com/D_737231-MLA50134298092_052022-I.jpg",
@@ -78,7 +72,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "2b93c78c-c8bb-4e5c-b9fc-979d8e4d88f5",
     name: "Kit De Teclado Y Mouse Inalámbrico Logitech Mk235 Español De Color Negro",
     price: 2400,
     image: "http://http2.mlstatic.com/D_832155-MLA48377414540_112021-I.jpg",
@@ -91,7 +84,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "1fcbdd62-e41b-4f99-9543-0e346309e4e7",
     name: "Pc Armada Gamer Amd Ryzen 5 5600g 6/12 Nucleos 16gb Ssd 480",
     price: 85999.14,
     image: "http://http2.mlstatic.com/D_909897-MLA31193856811_062019-I.jpg",
@@ -104,7 +96,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "ccfe83e8-abc4-4d4b-a1e1-723abe73e2a2",
     name: "Turbina Cooler Fan Extractor 220v Ruleman 4 Pulgadas 120x38m",
     price: 1549.22,
     image: "http://http2.mlstatic.com/D_661376-MLA31606007165_072019-O.jpg",
@@ -117,7 +108,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "ad0e4452-450e-4baa-ad41-338ec7067f1b",
     name: "Joystick Inalámbrico Microsoft Xbox Xbox Series X|s Controller + Usb-c Cable Carbon Black",
     price: 13499,
     image: "http://http2.mlstatic.com/D_666153-MLA45712125825_042021-I.jpg",
@@ -130,7 +120,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "7f002928-a93c-4b7b-a9cf-9468de4a2123",
     name: "Notebook Hp 14-cf2533la Plata Natural 14 , Intel Core I3 10110u  4gb De Ram 256gb Ssd, Intel Uhd Graphics 620 1366x768px Windows 10 Home",
     price: 94999,
     image: "http://http2.mlstatic.com/D_925341-MLA48914320135_012022-I.jpg",
@@ -143,7 +132,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "f08431d5-468f-4007-8e34-a1fca9e33636",
     name: "Tablet  Samsung Galaxy Tab A A8 2022 10.5  64gb Gray Y 4gb De Memoria Ram",
     price: 44999,
     image: "http://http2.mlstatic.com/D_600450-MLA49293985282_032022-I.jpg",
@@ -156,7 +144,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "b11ac4fd-dfe7-44a2-b2dd-4e8feeaa5899",
     name: "Tableta Gráfica Wacom One By Wacom Ctl-472  Negra Y Roja",
     price: 5399,
     image: "http://http2.mlstatic.com/D_696230-MLA46390618997_062021-I.jpg",
@@ -169,7 +156,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "aedc6cc2-9dc5-4523-a028-3e27fb29595c",
     name: "Disco Duro Externo Western Digital Wd Elements Portable Wdbu6y0020bbk 2tb Negro",
     price: 10739,
     image: "http://http2.mlstatic.com/D_667767-MLA40077047262_122019-I.jpg",
@@ -182,7 +168,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "6ccccc38-53eb-4d43-b776-919c5fe35257",
     name: "Pc Armada Gamer Amd Ryzen 5 5600g 6/12 Nucleos 16g 24 Cuotas",
     price: 119599.08,
     image: "http://http2.mlstatic.com/D_909897-MLA31193856811_062019-I.jpg",
@@ -195,7 +180,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "f705ee54-0abd-42cd-a856-d156c9978a9d",
     name: "Monitor Gamer Samsung F22t35 Led 22   Dark Blue Gray 100v/240v",
     price: 37999,
     image: "http://http2.mlstatic.com/D_796587-MLA46165231779_052021-I.jpg",
@@ -208,7 +192,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "53070916-53cb-4160-a56c-d3caeb2ab29a",
     name: "Notebook Noblex 14.1  Pantalla Hd Intel Celeron 4gb/128gb Ssd",
     price: 47899.9,
     image: "http://http2.mlstatic.com/D_997940-MLA47767920611_102021-I.jpg",
@@ -221,7 +204,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "8441b64e-8b63-407a-a68d-fc1ea1716202",
     name: "Tablet  Samsung Galaxy Tab A7 Lite Sm-t220 8.7  32gb Gris Y 3gb De Memoria Ram",
     price: 29999,
     image: "http://http2.mlstatic.com/D_765874-MLA47146197629_082021-I.jpg",
@@ -234,7 +216,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "7bbc0b2c-f648-4dd1-8c6f-e065199c85de",
     name: "Memoria Ram Fury Beast Ddr4 Gamer Color Negro  8gb 1 Kingston Kf426c16bb/8",
     price: 5849,
     image: "http://http2.mlstatic.com/D_908770-MLA48636149604_122021-I.jpg",
@@ -247,7 +228,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "6301794f-5e25-433d-b658-f2aa1537cdda",
     name: "Mouse Inalámbrico Logitech  M170 Gris Y Negro",
     price: 1000,
     image: "http://http2.mlstatic.com/D_891822-MLA32146214292_092019-I.jpg",
@@ -260,7 +240,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "1ee026b3-48b9-454f-a4d6-0d6ee3222288",
     name: "Repetidor Tp-link Tl-wa850re Blanco 220v",
     price: 3300,
     image: "http://http2.mlstatic.com/D_896387-MLA46169867757_052021-I.jpg",
@@ -273,7 +252,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "c8b0c709-f4c1-4fc5-b76d-a4e8d9f6f30d",
     name: "Notebook Banghó Max L4 I1 Gris Oscura 14 , Intel Celeron N4000  4gb De Ram 120gb Ssd, Intel Uhd Graphics 600 1366x768px Windows 10 Home",
     price: 47989,
     image: "http://http2.mlstatic.com/D_925102-MLA44939831146_022021-I.jpg",
@@ -286,7 +264,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "50f84fe2-3648-4e99-9948-fdfd0f41503f",
     name: "Pc Completa Armada Intel Dual Core 8gb Ssd 240 Windows 10",
     price: 34999,
     image: "http://http2.mlstatic.com/D_663092-MLA46444679904_062021-I.jpg",
@@ -299,7 +276,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "0d35fa84-ec4e-4924-b177-215f4b130669",
     name: "Tablet  Samsung Galaxy Tab A7 Lite Sm-t220 8.7  32gb Plateada Y 3gb De Memoria Ram",
     price: 29999,
     image: "http://http2.mlstatic.com/D_909806-MLA47146793018_082021-I.jpg",
@@ -312,7 +288,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "de2481e0-3237-44c2-9c2b-d0c92a992d50",
     name: "Monitor Gamer Iqual Iq24h Led 23.6   Negro 100v/240v",
     price: 30999,
     image: "http://http2.mlstatic.com/D_700635-MLA48049744185_102021-I.jpg",
@@ -325,7 +300,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "c67ccf81-16b9-423e-b5f3-a3e606c2b599",
     name: "Procesador Gamer Amd Ryzen 5 5600g 100-100000252box De 6 Núcleos Y  4.4ghz De Frecuencia Con Gráfica Integrada",
     price: 35088,
     image: "http://http2.mlstatic.com/D_928642-MLA47847420037_102021-I.jpg",
@@ -338,7 +312,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "fd373576-9d1b-47ea-930a-277ade0d43f6",
     name: "Adaptador Bluetooth Tplink Ub500 5.0 Usb Nano Pc Notebook",
     price: 1498,
     image: "http://http2.mlstatic.com/D_633476-MLA48279633220_112021-I.jpg",
@@ -351,7 +324,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "45dc8800-cf3c-4b2a-9fed-c2f762681d71",
     name: "Notebook Asus X515ea Slate Gray 15.6 , Intel Core I3 1115g4  4gb De Ram 256gb Ssd, Intel Uhd Graphics Xe G4 48eus 1920x1080px",
     price: 75999,
     image: "http://http2.mlstatic.com/D_908593-MLA49420869607_032022-I.jpg",
@@ -364,7 +336,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "17131247-0e5c-4dc6-8685-18b7cc7f5bb2",
     name: "Pc Gamer Armada Intel I3 10100 8gb M2 480 Core X4 Threads X8",
     price: 49999,
     image: "http://http2.mlstatic.com/D_823545-MLA42845805509_072020-I.jpg",
@@ -377,7 +348,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "bd67d31c-e262-4ec5-bbe5-7c7ad4154c78",
     name: "Pendrive Multilaser Twist Pd589 32gb 2.0 Negro",
     price: 640,
     image: "http://http2.mlstatic.com/D_969784-MLA32123024802_092019-I.jpg",
@@ -390,7 +360,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "fd966d86-942b-421f-8641-a607c9fcee72",
     name: "Mouse Inalámbrico Logitech  M280 Negro",
     price: 1545,
     image: "http://http2.mlstatic.com/D_918568-MLA32146214305_092019-I.jpg",
@@ -403,7 +372,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "a8b14046-13fc-4bbf-a136-f4d81edbaf94",
     name: "Kit De Teclado Y Mouse Gamer Noga Nkb-407 Español España De Color Negro",
     price: 2286,
     image: "http://http2.mlstatic.com/D_925137-MLA46481715370_062021-I.jpg",
@@ -416,7 +384,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "6bdedb92-e7ae-4ccd-89a1-c1d96b425ea5",
     name: "Notebook Exo Smart P37 Plus Gris 14.1 , Intel Celeron N4020  4gb De Ram 1tb Hdd 64gb Ssd, Intel Uhd Graphics 600 1920x1080px Windows 11 Home",
     price: 75999,
     image: "http://http2.mlstatic.com/D_657141-MLA48678624729_122021-I.jpg",
@@ -429,7 +396,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "323e5890-40f2-4f5c-a2aa-f589a7176b77",
     name: "Fuente De Alimentación Para Pc Redragon Rpgs Gc-ps002 600w Negra 100v/240v",
     price: 8749,
     image: "http://http2.mlstatic.com/D_944578-MLA43358416435_092020-I.jpg",
@@ -442,7 +408,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "5a522939-5b96-430e-acc1-56aa907dcd75",
     name: "Fuente De Alimentación Para Pc Giga-byte Technology Gp-p750gm 750w Negra 100v/240v",
     price: 17499,
     image: "http://http2.mlstatic.com/D_839855-MLA45653444301_042021-I.jpg",
@@ -455,7 +420,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "4d40946a-ae88-4b98-810e-dfe78427d6a9",
     name: "Disco Sólido Interno Gigabyte Gp-gstfs31120gntd 120gb Negro",
     price: 2999,
     image: "http://http2.mlstatic.com/D_606810-MLA40152365345_122019-I.jpg",
@@ -468,7 +432,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "ae37747f-b9b1-437a-9c3f-567131f80852",
     name: " Pc Cpu Computadora Amd 3.5ghz  Dual-core Nueva C/garantia",
     price: 32999,
     image: "http://http2.mlstatic.com/D_672029-MLA31725850773_082019-I.jpg",
@@ -481,7 +444,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "c8dc356f-6158-4e97-a6d8-4ae271995fef",
     name: "Estabilizador De Tensión Sic Neo 1000 1000va Entrada De 220v Y Salida De 200v Negro",
     price: 3299,
     image: "http://http2.mlstatic.com/D_928950-MLA44441348860_122020-I.jpg",
@@ -494,7 +456,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "e38e945e-ee01-4a9b-a5dc-7718e99d6b3b",
     name: "Notebook Tedge Win Nbi5-256/6/01 Negra 15.6 , Intel Core I5 7267u  4gb De Ram 256gb Ssd, Intel Iris Plus Graphics 650 1920x1080px Windows 10 Home",
     price: 78999,
     image: "http://http2.mlstatic.com/D_811621-MLA48742250701_012022-I.jpg",
@@ -507,7 +468,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "f13cbc5b-5330-4268-9239-2d471ffceaa6",
     name: "Switch Tp-link Tl-sf1008d",
     price: 2469.05,
     image: "http://http2.mlstatic.com/D_663784-MLA42398282259_062020-I.jpg",
@@ -520,7 +480,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "da5ee767-6a34-458e-a254-fcfbff39976b",
     name: "Auriculares Logitech H390 Negro",
     price: 4799,
     image: "http://http2.mlstatic.com/D_878789-MLA40161268975_122019-I.jpg",
@@ -533,7 +492,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "b51bd216-532d-4509-9d8e-2b4a095c2f89",
     name: "Access Point, Range Extender Tp-link Re200 V3 Blanco 220v",
     price: 3947,
     image: "http://http2.mlstatic.com/D_699923-MLA48160791054_112021-I.jpg",
@@ -546,7 +504,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "e38537be-0057-471b-90b9-ae3e1800c823",
     name: "Memoria Ram Basics Color Verde  8gb 1 Crucial Cb8gu2666",
     price: 4749,
     image: "http://http2.mlstatic.com/D_648471-MLA49041641691_022022-I.jpg",
@@ -559,7 +516,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "7608e511-672a-4760-9e06-680346b21dfb",
     name: "Notebook Dell Inspiron 3505 Gris 15.6 , Amd Ryzen 5 3450u  16gb De Ram 1tb Hdd 256gb Ssd, Amd Radeon Rx Vega 8 (ryzen 2000/3000) 60 Hz 1366x768px Windows 10 Home",
     price: 118999,
     image: "http://http2.mlstatic.com/D_921052-MLA47215256520_082021-I.jpg",
@@ -572,7 +528,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "1c0fc933-e706-4bc7-b6c4-795703c8c807",
     name: "Pc Armada Gamer Amd Ryzen 5 4650g 8gb Ssd 480 Radeon Rx Vega",
     price: 61999,
     image: "http://http2.mlstatic.com/D_764054-MLA49337121758_032022-I.jpg",
@@ -585,7 +540,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "c840763d-bd5b-4591-b974-865e2dec4415",
     name: "Impresora A Color Multifunción Hp Ink Tank Wireless 415 Con Wifi Negra 200v - 240v",
     price: 32999,
     image: "http://http2.mlstatic.com/D_916383-MLA48196892838_112021-I.jpg",
@@ -598,7 +552,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "0a154649-5f0c-4987-b63a-1f8ae374c35f",
     name: "Router, Access Point, Range Extender Tp-link Tl-wr941hp Negro",
     price: 8350,
     image: "http://http2.mlstatic.com/D_763651-MLA40152365257_122019-I.jpg",
@@ -611,7 +564,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "342c3000-57cf-4ece-8bfe-6cf5fbfbd6bc",
     name: "Soporte Sarasanto Ss-1032m De Mesa Para Tv/monitor De 32   Negro",
     price: 9399,
     image: "http://http2.mlstatic.com/D_799681-MLA48534844047_122021-I.jpg",
@@ -624,7 +576,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "32fe2cde-3641-42e3-993b-57fd3f475e13",
     name: "Teclado Gamer Redragon Dragonborn K630 Qwerty Redragon Brown Inglés Us Color Blanco Con Luz Rgb",
     price: 5799,
     image: "http://http2.mlstatic.com/D_897779-MLA46504109530_062021-I.jpg",
@@ -637,7 +588,6 @@ const computacion = [
     category_id: "MLA1648",
   },
   {
-    id: "286c3c24-a021-4ef7-9592-a2e3949481ad",
     name: "Notebook Noblex 15.6 Full Hd Intel Core I3 4gb/256gb Ssd",
     price: 76999,
     image: "http://http2.mlstatic.com/D_837325-MLA47767921408_102021-I.jpg",
@@ -650,5 +600,3 @@ const computacion = [
     category_id: "MLA1648",
   },
 ];
-
-module.exports = computacion;

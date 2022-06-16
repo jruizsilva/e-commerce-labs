@@ -1,8 +1,4 @@
-var fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
-
-// name price image description condition brand model stock state
-let celulares = [
+module.exports = [
   {
     title: " Moto G200 5g 128 Gb  Azul Glaciar 8 Gb Ram",
     price: 89999,
@@ -14467,35 +14463,3 @@ let celulares = [
     discounts: null,
   },
 ];
-
-// name price image description condition brand model stock state
-
-// title: " Moto G200 5g 128 Gb  Azul Glaciar 8 Gb Ram",
-// price: 89999,
-// thumbnail: "http://http2.mlstatic.com/D_997241-MLA49460481867_032022-I.jpg",
-// sold_quantity: 645,
-// condition: "new",
-// category_id: "MLA1055",
-// id: "MLA1133763778",
-
-celulares = celulares.map((c) => {
-  return {
-    id: uuidv4(),
-    name: c.title,
-    price: c.price,
-    image: c.thumbnail,
-    condition: c.condition,
-    stock: 1,
-    description: null,
-    brand: null,
-    model: null,
-    state: "active",
-    category_id: "MLA1051",
-  };
-});
-
-fs.writeFile("celulares.js", JSON.stringify(celulares), (error) => {
-  if (error) {
-    console.log(error);
-  }
-});

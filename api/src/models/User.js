@@ -27,7 +27,7 @@ module.exports = function (sequelize) {
     address: {
       type: DataTypes.STRING,
     },
-    profileImage: {
+    profile_image: {
       type: DataTypes.TEXT,
     },
     role: {

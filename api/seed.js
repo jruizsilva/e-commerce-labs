@@ -1,9 +1,9 @@
 require("dotenv").config();
 const { conn } = require("./src/models");
-const users = require("./data/users");
-const categories = require("./data/categories");
-const celulares = require("./data/celulares");
-const computacion = require("./data/computacion");
+const users = require("./data/format/users");
+const categories = require("./data/format/categories");
+const celulares = require("./data/format/celulares");
+const computacion = require("./data/format/computacion");
 const { Product, Category, User } = require("./src/models/index");
 
 conn
