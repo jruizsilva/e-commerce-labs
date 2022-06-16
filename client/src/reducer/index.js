@@ -11,6 +11,10 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
+  ADD_QUESTION,
+  GET_QUESTIONS_WITH_ANSWERS,
+  ELIMINATE_FROM_CART,
+  ADD_TO_CART,
 } from "../actions/types";
 
 const initialState = {
@@ -19,11 +23,13 @@ const initialState = {
   user: null,
   searchUser: true,
   loadingProducts: false,
+  questionsWithAnswers:[],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
+  cart: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -37,6 +43,15 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case GET_QUESTIONS_WITH_ANSWERS:
+      return {
+        ...state,
+      questionsWithAnswers: actions.payload
+      };
+    case ADD_QUESTION:
+      return {
+        ...state,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;
@@ -89,7 +104,10 @@ export default function reducer(state = initialState, actions) {
         categories: actions.payload,
       };
     case LOADING_USER:
-      return { ...state, searchUser: actions.payload };
+      return {
+        ...state,
+        searchUser: actions.payload
+      };
     case LOGIN_ERROR_MESSAGE:
       return { ...state, loginErrorMessage: actions.payload };
 
@@ -107,7 +125,40 @@ export default function reducer(state = initialState, actions) {
         loadingProductCreation: false,
         errorCreationMessage: actions.payload,
       };
-
+    case ADD_TO_CART:
+      const allProductsAux = state.allProducts;
+      let cartCurrentProducts = state.cart;
+      let flag = false;
+      cartCurrentProducts.map(p => {
+        if(p.id === actions.payload) {
+          alert("Ya se encuentra dentro de la lista")
+          flag = true;
+        }
+      })
+      if (flag) {
+        return {
+          ...state,
+        }
+      }
+      let filteredProductById = allProductsAux.filter(p => {
+        return p.id === actions.payload
+      })
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          ...filteredProductById,
+        ],
+      };
+    case ELIMINATE_FROM_CART:
+      let aux = state.cart;
+      let filteredCart = aux.filter(p => {
+        return p.id !== actions.payload
+      })
+      return {
+        ...state,
+        cart: filteredCart,
+      };
     default:
       return state;
   }
