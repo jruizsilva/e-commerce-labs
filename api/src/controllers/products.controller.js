@@ -1,43 +1,48 @@
-const { Product, Category, Question, Answer } = require('../models/index.js')
-// Me traigo el operador de sequelize 
-const {Op} = require('sequelize') 
+const {
+  Product,
+  Category,
+  Question,
+  Answer,
+  User,
+} = require("../models/index.js");
+// Me traigo el operador de sequelize
+const { Op } = require("sequelize");
 
 //      ---- GET DE PRODUCTOS -----
 
 const getProductsByName = async (req, res, next) => {
-    console.log(req.query)
-    const {name} = req.query 
-    console.log(name)
-    try {
-        // Se fija si hay un nombre y si lo hay trae solo el que coincida con su nombre
-        if(name){
-            if(!name) return res.sendStatus(404)
-            const product = await Product.findAll({
-                where: {
-                    name: {
-                        [Op.iLike]: '%' + name + '%'
-                    },
-                },
-                include: { model: Category}
-            })
-            return res.json(product)
-        }
-       /*  // Si no hay un nombre trae todos los productos
+  console.log(req.query);
+  const { name } = req.query;
+  console.log(name);
+  try {
+    // Se fija si hay un nombre y si lo hay trae solo el que coincida con su nombre
+    if (name) {
+      if (!name) return res.sendStatus(404);
+      const product = await Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: "%" + name + "%",
+          },
+        },
+        include: { model: Category },
+      });
+      return res.json(product);
+    }
+    /*  // Si no hay un nombre trae todos los productos
         else{
             const products = await Product.findAll({include: [{model: Category}]});
             if(products) res.status(200).json(products);
         } */
-        
-    } catch (error) {
-        next(error);
-    }
+  } catch (error) {
+    next(error);
   }
+};
 
 const getProducts = async (req, res, next) => {
   const { condition, sort, min_price, max_price, state, name, categoryId } =
     req.query;
   try {
-    let where = {};
+    let where = { state: "active" };
     let order;
     if (condition) where.condition = condition;
     if (state) where.state = state;
@@ -66,8 +71,8 @@ const getProducts = async (req, res, next) => {
     // devuelve todos los productos que contenga la categoria con el id enviado
     // busca producto por el nombre que se ingreso en el search anteriormente
     let include = [{ model: Category }];
-    if (categoryId) include[0].where = {id: categoryId};
-    if (name) where.name = {[Op.iLike]: '%' + name + '%'};
+    if (categoryId) include[0].where = { id: categoryId };
+    if (name) where.name = { [Op.iLike]: "%" + name + "%" };
     // ------------------------------------------------------------------------
 
     const products = await Product.findAll({
@@ -81,44 +86,45 @@ const getProducts = async (req, res, next) => {
   }
 };
 
-const getProductsById = async (req, res ,next) => {
+const getProductsById = async (req, res, next) => {
+  const { productId } = req.params;
 
-    const { productId } = req.params;
-
-    try {
-        const product = await Product.findAll({
-            include: [{
-                model: Category,
-                model: Question,
-            //  model: Answer, // error: answer is not asociated to Question!
-            }],
-            where: {
-                id: productId,
-            }
-        });
-        res.status(200).json(product);
-    } catch (error) {
-        next(error);
-    }
+  try {
+    const product = await Product.findAll({
+      include: [
+        {
+          model: Category,
+          model: Question,
+          //  model: Answer, // error: answer is not asociated to Question!
+        },
+      ],
+      where: {
+        id: productId,
+      },
+    });
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
 };
 
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
-  // name price image description condition brand model stock score state
+  // name price image description condition brand model stock score state categories
   const {
-    name,   // obligatiorio
+    name, // obligatiorio
     price, //obligatorio
     image, //obligatorio
     description, // obligatorio
     condition, // obligatorio
     brand, // obligatorio
-    model, 
+    model,
     stock, // obligatorio
-    score, 
+    score,
     state, // obligatorio
     categories,
     userId, // obligatorio
-  } = req.body
+  } = req.body;
   const product = await Product.create({
     name,
     price,
@@ -130,22 +136,30 @@ const createProducts = async (req, res, next) => {
     stock,
     score,
     state,
-    userId
-  })
-  const categoriesDb = await Category.findAll(
-    { where: { name: categories } 
-  })
-  await product.addCategory(categoriesDb)
-  return res.json({message: "Product Created"})
-  //await categoriesDb.map(c => console.log(c.toJSON()))
+    userId,
+  });
+  const verFuncionesDisponibles = product.__proto__;
+  // console.log(verFuncionesDisponibles);
 
-  //return res.json(product)
-}
+  // categories = [1, 2]
+  const categoriesDb = await Category.findAll({
+    where: { id: { [Op.or]: categories } },
+  });
+  await product.addCategories(categoriesDb);
+  return res.json({ message: "Product Created" });
 
+  // Muestra el producto creado y las categorias agregadas
+  // const include = [{ model: Category }];
+  // const productCreated = await Product.findOne({
+  //   where: { id: product.id },
+  //   include,
+  // });
+  // res.json(productCreated);
+};
 
 module.exports = {
-    getProducts,
-    getProductsById,
-    getProductsByName,
-    createProducts
-}
+  getProducts,
+  getProductsById,
+  getProductsByName,
+  createProducts,
+};

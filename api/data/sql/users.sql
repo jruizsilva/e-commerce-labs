@@ -1,0 +1,3 @@
+INSERT INTO users (id, name, email, password, phone, address, profile_image, role, state, "createdAt", "updatedAt") VALUES (uuid_generate_v4(),'Usuario', 'usuario@correo.com', '123', 231323, 'San martin 324', null, 'user', 'active', '2022-06-09', '2022-06-09');
+INSERT INTO users (id, name, email, password, phone, address, profile_image, role, state, "createdAt", "updatedAt") VALUES (uuid_generate_v4(),'User', 'user@correo.com', '123', 231323233, 'calle 123', null, 'user', 'active', '2022-06-09', '2022-06-09');
+INSERT INTO users (id, name, email, password, phone, address, profile_image, role, state, "createdAt", "updatedAt") VALUES (uuid_generate_v4(),'Soy admin', 'admin@correo.com', '123', 3234251252, 'hola 123', null, 'admin', 'active', '2022-06-09', '2022-06-09');
