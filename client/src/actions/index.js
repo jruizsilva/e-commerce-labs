@@ -8,8 +8,11 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  GET_QUESTIONS_WITH_ANSWERS,
+  ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+
 } from "./types";
 import axios from "axios";
 
@@ -152,6 +155,34 @@ export const updateLoginErrorMessage = (msg) => {
   };
 };
 
+export const addQuestion = (payload) => {
+
+  return function (dispatch) {
+    return axios
+      .post(`http://localhost:3001/api/questions/`, payload)
+      .then((resp) => {
+      dispatch({ type: ADD_QUESTION})
+      dispatch(getQuestionsWithAnswers(payload.productId));
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+
+export const getQuestionsWithAnswers = (productId) => {
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/api/questions/${productId}`)
+      .then((resp) => {
+        dispatch({ type: GET_QUESTIONS_WITH_ANSWERS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+
 export const addToCart = (id) => {
   return {
     type: ADD_TO_CART,
@@ -165,3 +196,4 @@ export const eliminateFromCart = (id) => {
     payload: id,
   }
 }
+
