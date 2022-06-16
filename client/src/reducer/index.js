@@ -107,7 +107,6 @@ export default function reducer(state = initialState, actions) {
         loadingProductCreation: false,
         errorCreationMessage: actions.payload,
       };
-
     default:
       return state;
   }
