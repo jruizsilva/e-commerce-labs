@@ -205,3 +205,16 @@
 .moreInfo p {
     font-weight: bold;
 }
+.questions{
+    margin-top: 10px;
+    width: 95%;
+}
+.questions {
+    margin-bottom: 10px;
+    
+}
+.title{
+    color: #2F80ED;
+    font-weight: bold;
+    font-size: 25px;
+}
