@@ -108,7 +108,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         searchUser: actions.payload
       };
-    case LOGIN_ERROR_MESSAGE
+    case LOGIN_ERROR_MESSAGE:
       return { ...state, loginErrorMessage: actions.payload };
 
     case CREATE_PRODUCT_REQUEST:
