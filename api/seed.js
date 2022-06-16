@@ -1,15 +1,67 @@
-import { v4 as uuidv4 } from "uuid";
-import { Product, Category, User } from "./src/models/index";
+require("dotenv").config();
+const { conn } = require("./src/models");
+const users = require("./data/users");
+const categories = require("./data/categories");
+const celulares = require("./data/celulares");
+const computacion = require("./data/computacion");
+const { Product, Category, User } = require("./src/models/index");
 
-const users_uuidv4 = [];
-
-for (let i = 0; i < 2; i++) {
-  users_uuidv4.push(uuidv4());
-}
-
-console.log(users_uuidv4);
-
-const users = [];
-
-// id, name, email, password, phone, address, "profileImage", role, state,
-// 1, 'User', 'user@gmail.com', 'password', null, null, null, 'user', 'active'
+conn
+  .sync({ force: true })
+  .then(() => {
+    console.log("base de datos conectada");
+  })
+  .then(() => {
+    // Crear usuarios
+    console.log("Creando usuario...");
+    users.forEach((user) => User.create(user));
+  })
+  .then(() => {
+    // Crear categorias
+    console.log("Creando categorias...");
+    categories.forEach((category) => {
+      Category.create(category);
+    });
+  })
+  .then(() => {
+    // Llenar db
+    console.log("Agregando celulares..");
+    celulares.forEach((celular) => {
+      Product.create(celular);
+    });
+  })
+  .then(() => {
+    console.log("Asignando categoria celulares...");
+    setTimeout(async () => {
+      const celulares_category = await Category.findOne({
+        where: { id: "MLA1051" },
+      });
+      const products = await Product.findAll({
+        where: { category_id: "MLA1051" },
+      });
+      products.forEach((product) => {
+        product.addCategory(celulares_category);
+      });
+    }, 2000);
+  })
+  .then(() => {
+    // Llenar db
+    console.log("Agregando productos de computación..");
+    computacion.forEach((product) => {
+      Product.create(product);
+    });
+  })
+  .then(() => {
+    console.log("Asignando categoria computacion...");
+    setTimeout(async () => {
+      const computacion_category = await Category.findOne({
+        where: { id: "MLA1648" },
+      });
+      const products = await Product.findAll({
+        where: { category_id: "MLA1648" },
+      });
+      products.forEach((product) => {
+        product.addCategory(computacion_category);
+      });
+    }, 2000);
+  });

@@ -42,7 +42,7 @@ const getProducts = async (req, res, next) => {
   const { condition, sort, min_price, max_price, state, name, categoryId } =
     req.query;
   try {
-    let where = {};
+    let where = { state: "active" };
     let order;
     if (condition) where.condition = condition;
     if (state) where.state = state;

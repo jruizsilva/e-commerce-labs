@@ -1,13 +1,19 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 
 module.exports = function (sequelize) {
   return sequelize.define("product", {
+    id: {
+      primaryKey: true,
+      allowNull: false,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     image: {
@@ -16,7 +22,6 @@ module.exports = function (sequelize) {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     condition: {
       //nuevo o usado (new, used)
@@ -25,7 +30,6 @@ module.exports = function (sequelize) {
     },
     brand: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     model: {
       type: DataTypes.STRING,
@@ -41,6 +45,9 @@ module.exports = function (sequelize) {
       // active - paused
       type: DataTypes.ENUM("active", "paused"),
       allowNull: false,
+    },
+    category_id: {
+      type: DataTypes.STRING,
     },
   });
 };

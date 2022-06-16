@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon -L",
     "dev": "nodemon index.js --exec babel-node",
-    "seed": "babel-node seed.js"
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",
