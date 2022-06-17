@@ -1,0 +1,1 @@
+INSERT INTO users (id, name, email, password, phone, address, profile_image, role, state, "createdAt", "updatedAt") VALUES (uuid_generate_v4(),'Usuario', 'usuario@correo.com', '123', 231323, 'San martin 324', null, 'admin', 'active', '2022-06-09', '2022-06-09',);

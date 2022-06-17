@@ -29,7 +29,7 @@ const SearchBar = () => {
     setInput({
       name: "",
     });
-    navigate(`/${window.location.search}`);
+    navigate(`/home${window.location.search}`);
   };
   return (
     <div className={s.container}>

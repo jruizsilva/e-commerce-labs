@@ -8,18 +8,27 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  CREATE_PRODUCT_REQUEST,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
+  ADD_QUESTION,
+  GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
 } from "../actions/types";
 
 const initialState = {
   allProducts: [],
   categories: [],
-  user: {},
+  user: null,
   searchUser: true,
   loadingProducts: false,
+  questionsWithAnswers: [],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
   cart: {},
+  loadingProductCreation: false,
+  successCreationMessage: "",
+  errorCreationMessage: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -33,6 +42,15 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case GET_QUESTIONS_WITH_ANSWERS:
+      return {
+        ...state,
+        questionsWithAnswers: actions.payload,
+      };
+    case ADD_QUESTION:
+      return {
+        ...state,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;
@@ -87,12 +105,24 @@ export default function reducer(state = initialState, actions) {
     case LOADING_USER:
       return {
         ...state,
-        searchUser: actions.payload
+        searchUser: actions.payload,
       };
     case LOGIN_ERROR_MESSAGE:
+      return { ...state, loginErrorMessage: actions.payload };
+
+    case CREATE_PRODUCT_REQUEST:
+      return { ...state, loadingProductCreation: true };
+    case CREATE_PRODUCT_SUCCESS:
       return {
         ...state,
-        loginErrorMessage: actions.payload
+        loadingProductCreation: false,
+        successCreationMessage: actions.payload,
+      };
+    case CREATE_PRODUCT_ERROR:
+      return {
+        ...state,
+        loadingProductCreation: false,
+        errorCreationMessage: actions.payload,
       };
     case ADD_TO_CART:
       return {...state, cart: actions.payload}
