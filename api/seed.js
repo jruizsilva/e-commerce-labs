@@ -11,11 +11,11 @@ conn
   .then(() => {
     console.log("base de datos conectada");
   })
-  // .then(() => {
-  //   // Crear usuarios
-  //   console.log("Creando usuario...");
-  //   users.forEach((user) => User.create(user));
-  // })
+  .then(() => {
+    // Crear usuarios
+    console.log("Creando usuario...");
+    users.forEach((user) => User.create(user));
+  })
   .then(() => {
     // Crear categorias
     console.log("Creando categorias...");

@@ -10,6 +10,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy S21 Fe Gris Oscuro 5g",
@@ -22,6 +23,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Motorola Edge 20 Pro 256 Gb  Blanco Optic 12 Gb Ram",
@@ -34,6 +36,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Samsung Galaxy A23 128gb + 4gb Ram 90hz Liberado",
@@ -46,6 +49,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: " Moto G60s 128 Gb  Azul 6 Gb Ram",
@@ -58,6 +62,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A33 5g 128 Gb Awesome Black 6 Gb Ram",
@@ -70,6 +75,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Motorola Edge 20 Lite 128 Gb  Gris 6 Gb Ram",
@@ -82,6 +88,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy S22 Ultra 12gb 256gb Green",
@@ -94,6 +101,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi 9a Dual Sim 32 Gb  Gris Granito 2 Gb Ram",
@@ -106,6 +114,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A52 128 Gb  Awesome White 6 Gb Ram",
@@ -118,6 +127,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: " Moto G71 128 Gb  Neptune Green 6 Gb Ram",
@@ -130,6 +140,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Samsung Galaxy M23 5g 128gb + 4gb Ram 120hz",
@@ -142,6 +153,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: " Moto G22 128 Gb  Iceberg Blue 4 Gb Ram",
@@ -154,6 +166,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi 10 Dual Sim 64 Gb  Carbon Gray 4 Gb Ram",
@@ -166,6 +179,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy S20 Fe 5g 128 Gb  Cloud Red 6 Gb Ram",
@@ -178,6 +192,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A32 128 Gb  Awesome Black 4 Gb Ram",
@@ -190,6 +205,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A03 128 Gb  Negro 4 Gb Ram",
@@ -202,6 +218,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: " Moto G41 128 Gb  Dorado Amanecer 4 Gb Ram",
@@ -214,6 +231,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A03 64 Gb  Azul 4 Gb Ram",
@@ -226,6 +244,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi Note 10s Dual Sim 128 Gb  Gris Ónix 6 Gb Ram",
@@ -238,6 +257,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A23 128 Gb Light Blue 4 Gb Ram",
@@ -250,6 +270,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Motorola Moto G51 5g 4gb Ram 128gb Ips 120hz",
@@ -262,6 +283,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Motorola Moto G22 128gb 4gb Ram 90hz Celeste Ártico",
@@ -274,6 +296,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Samsung Galaxy A13 64gb + 4gb Ram Pls Lcd Liberado",
@@ -286,6 +309,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Motorola G31 128gb 4gb Ram Oled Android 11 Liberado",
@@ -298,6 +322,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi Note 10 Pro (global) Dual Sim 128 Gb  Azul Glaciar 6 Gb Ram",
@@ -310,6 +335,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A22 5g 128 Gb  White 4 Gb Ram",
@@ -322,6 +348,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Motorola Edge 20 Pro 256 Gb + Control Ready For Air ",
@@ -334,6 +361,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A03 Core 32 Gb  Black 2 Gb Ram",
@@ -346,6 +374,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Alcatel 3h 64 Gb  Elegant Black 3 Gb Ram",
@@ -358,6 +387,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Tcl 20b 64 Gb  Space Gray 4 Gb Ram",
@@ -370,6 +400,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Mi 11 Lite 5g Ne Dual Sim 128 Gb  Negro Trufa 8 Gb Ram",
@@ -382,6 +413,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Alcatel 1 Plus 16 Gb  Negro 1 Gb Ram",
@@ -394,6 +426,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy S22 8gb 128gb Phantom Black",
@@ -406,6 +439,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi 9c Nfc Dual Sim 32 Gb  Amanecer Naranja 2 Gb Ram",
@@ -418,6 +452,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Sansei S191 Dual Sim 3 Mbnegro Y Rojo 4 Mb Ram",
@@ -430,6 +465,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi 9at Dual Sim 32 Gb  Carbon Gray 2 Gb Ram",
@@ -442,6 +478,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A23 128 Gb Negro 4 Gb Ram",
@@ -454,6 +491,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi Note 10 5g Dual Sim 128 Gb  Azul Nocturno 4 Gb Ram",
@@ -466,6 +504,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy A13 128 Gb Negro 4 Gb Ram",
@@ -478,6 +517,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Philco P241 Dual Sim 512 Mbnegro 256 Mb Ram",
@@ -490,6 +530,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy Z Flip3 5g 128 Gb  Phantom Black 8 Gb Ram",
@@ -502,6 +543,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Samsung Galaxy A13 128gb + 4gb Ram Pls Lcd Negro",
@@ -514,6 +556,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Samsung Galaxy Z Fold3 5g Dual Sim 256 Gb  Phantom Silver 12 Gb Ram",
@@ -526,6 +569,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Zte Blade A31 Lite 32 Gb  Black 1 Gb Ram",
@@ -538,6 +582,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Xiaomi Redmi Note 11s Dual Sim 128 Gb  Azul Ocaso 6 Gb Ram",
@@ -550,6 +595,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Konka Indus Dual Sim 32 Gb  Negro 3 Gb Ram",
@@ -562,6 +608,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Tcl 20b 64gb + 4gb Ram 6,2'' Liberado Gris Oscuro",
@@ -574,6 +621,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Samsung Galaxy S20fe 5g 128gb + 6gb Ram Super Amoled",
@@ -586,6 +634,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Celular Excess Dualsim Exc-t36",
@@ -598,5 +647,6 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
 ];

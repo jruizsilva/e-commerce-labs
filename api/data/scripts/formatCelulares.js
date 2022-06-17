@@ -1,5 +1,6 @@
 var fs = require("fs");
 let celulares = require("../api/celulares");
+const uuid = "dffaaad9-c172-47fc-b3ac-b035d0d79bb1";
 
 celulares = celulares.map((c) => {
   return {
@@ -13,6 +14,7 @@ celulares = celulares.map((c) => {
     model: null,
     state: "active",
     category_id: "MLA1051",
+    userId: uuid,
   };
 });
 

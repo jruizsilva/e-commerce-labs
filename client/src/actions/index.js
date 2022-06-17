@@ -177,7 +177,7 @@ export const createProduct = (body) => {
 export const addQuestion = (payload) => {
   return function (dispatch) {
     return axios
-      .post(`http://localhost:3001/api/questions/`, payload)
+      .post(`/api/questions/`, payload)
       .then((resp) => {
         dispatch({ type: ADD_QUESTION });
         dispatch(getQuestionsWithAnswers(payload.productId));
@@ -190,7 +190,7 @@ export const addQuestion = (payload) => {
 export const getQuestionsWithAnswers = (productId) => {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/api/questions/${productId}`)
+      .get(`/api/questions/${productId}`)
       .then((resp) => {
         dispatch({ type: GET_QUESTIONS_WITH_ANSWERS, payload: resp.data });
       })
