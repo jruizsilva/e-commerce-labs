@@ -1,34 +1,34 @@
-import React from 'react';
-import { useEffect } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
-import style from './Question.module.css';
-import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { addQuestion, getQuestionsWithAnswers } from '../../actions';
+import React from "react";
+import { useEffect } from "react";
+import TextareaAutosize from "react-textarea-autosize";
+import style from "./Question.module.css";
+import { Formik, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuestion, getQuestionsWithAnswers } from "../../actions";
 
 export default function Question({ productId }) {
   const dispatch = useDispatch();
-  const { user, questionsWithAnswers } = useSelector(state => state);
+  const { user, questionsWithAnswers } = useSelector((state) => state);
   const userQuestions = questionsWithAnswers?.filter(
-    el => el.userId === user.id
+    (el) => el?.userId === user?.id
   );
   useEffect(() => {
     dispatch(getQuestionsWithAnswers(productId));
-  }, [dispatch,productId]);
+  }, [dispatch, productId]);
 
-  const renderQuestions = el => {
+  const renderQuestions = (el) => {
     return (
       <div key={el.id}>
         <p className={style.question}>{el.question}</p>
         <div className={style.answersContainer}>
-          {el.answers?.map(el => {
+          {el.answers?.map((el) => {
             return (
               <div className={style.answers} key={el.id}>
                 <p className={style.answerText}>
-                  {el.answer}{' '}
+                  {el.answer}{" "}
                   <span className={style.date}>
                     {el.createdAt.slice(0, 10)}
-                  </span>{' '}
+                  </span>{" "}
                 </p>
               </div>
             );
@@ -41,12 +41,12 @@ export default function Question({ productId }) {
   return (
     <div className={style.questionContainer}>
       <Formik
-        initialValues={{ question: '', productId: productId, userId: user.id }}
-        validate={form => {
+        initialValues={{ question: "", productId: productId, userId: user?.id }}
+        validate={(form) => {
           let err = {};
           if (!form.question) {
-            err.question = 'required';
-            document.getElementById('question').focus();
+            err.question = "required";
+            document.getElementById("question").focus();
           }
           return err;
         }}
@@ -54,7 +54,7 @@ export default function Question({ productId }) {
           setSubmitting(false);
           console.log(values);
           dispatch(addQuestion(values));
-          values.question = '';
+          values.question = "";
         }}
       >
         {({ values, handleChange }) => (
@@ -67,7 +67,7 @@ export default function Question({ productId }) {
               value={values.question}
               onChange={handleChange}
             />
-            {user.id ? (
+            {user ? (
               <button type="submit">Ask</button>
             ) : (
               <button type="submit" disabled>
@@ -78,26 +78,26 @@ export default function Question({ productId }) {
         )}
       </Formik>
       <div className={style.oldAnswersContainer}>
-        {userQuestions.length ? (
+        {userQuestions?.length ? (
           <div>
             <p className={style.title}>Your questions</p>
             <div className={style.userQuestion}>
               {questionsWithAnswers
-                ?.filter(el => el.userId === user.id)
-                .map(el => {
+                ?.filter((el) => el.userId === user.id)
+                .map((el) => {
                   return renderQuestions(el);
                 })}
             </div>
           </div>
         ) : null}
 
-        {questionsWithAnswers.length ? (
+        {questionsWithAnswers?.length ? (
           <div>
-            <p className={style.title}>Last Questions</p>
+            <p className={style?.title}>Last Questions</p>
             <div className={style.OtherUserQuestion}>
               {questionsWithAnswers
-                ?.filter(el => el.userId !== user.id)
-                .map(el => {
+                ?.filter((el) => el?.userId !== user?.id)
+                .map((el) => {
                   return renderQuestions(el);
                 })}
             </div>
