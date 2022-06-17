@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./FormRegisterFormik.module.css";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
@@ -9,13 +9,10 @@ import { createUser } from "../../actions/index.js";
 const FormRegisterFormik = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    // window.location.hash = "form";
-  }, []);
 
   return (
     <>
-      <div className={style.container} id="form">
+      <div className={style.container}>
         <Formik
           initialValues={{
             name: "",
@@ -29,7 +26,7 @@ const FormRegisterFormik = () => {
             let err = {};
             if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
               err.email = "You have to enter a valid email";
-            if (form.password != form.repeatPass)
+            if (form.password !== form.repeatPass)
               err.repeatPass = "Password does not match";
             // if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
             if (!form.name) err.name = "You have to enter a name";

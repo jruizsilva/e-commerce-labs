@@ -15,4 +15,4 @@ router.post('/create', fileUpload({
 router.delete('/delete/:id', deleteProduct)
 router.put('/update/:id', updateProduct)
 
-module.exports = router
+module.exports = router;
