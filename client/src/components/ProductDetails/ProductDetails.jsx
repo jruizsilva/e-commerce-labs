@@ -13,7 +13,7 @@ export default function ProductDetails() {
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/products/${productId}`).then((r) => {
+    axios.get(`/api/products/${productId}`).then((r) => {
       const response = r.data;
       setDetails(response[0]); // [0] así me ahorro aclarar que es la posición 0 (ya que es el único dato) en futuras ocaciones
       setLoading(false);
