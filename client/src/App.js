@@ -25,42 +25,30 @@ function App() {
   }, []);
 
   return searchUser ? (
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route
-        path="/signin"
-        element={!user ? <LoginFormik /> : <Navigate to="/" />}
-      />
-      <Route
-        path="/signup"
-        element={!user ? <FormRegisterFormik /> : <Navigate to="/" />}
-      />
-      <Route exact path="/err404" element={<Err404 />} />
-      <Route path="/details/:productId" element={<ProductDetails />} />
-      <Route path="*" element={<Navigate to="/err404" replace />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="*" element={<Spiner />} />
-    </Routes>
+    <Spiner />
   ) : (
     <>
       <Header />
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route
+          exact
           path="/signin"
           element={!user ? <LoginFormik /> : <Navigate to="/home" />}
         />
         <Route
+          exact
           path="/signup"
           element={!user ? <FormRegisterFormik /> : <Navigate to="/home" />}
         />
-        <Route exact path="/err404" element={<Err404 />} />
-        <Route path="/details/:productId" element={<ProductDetails />} />
-        <Route path="/home" element={<Home />} />
+        <Route exact path="/details/:productId" element={<ProductDetails />} />
+        <Route exact path="/home" element={<Home />} />
         <Route
+          exact
           path="/publications"
           element={user ? <PublicacionPage /> : <Navigate to="/home" />}
         />
+        <Route exact path="/err404" element={<Err404 />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>

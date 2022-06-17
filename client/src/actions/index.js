@@ -163,7 +163,6 @@ export const createProduct = (body) => {
     axios
       .post("/api/products/create", body)
       .then((res) => {
-        console.log(res);
         alert(res.data.message);
         dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.message });
       })
@@ -180,8 +179,8 @@ export const addQuestion = (payload) => {
     return axios
       .post(`http://localhost:3001/api/questions/`, payload)
       .then((resp) => {
-      dispatch({ type: ADD_QUESTION})
-      dispatch(getQuestionsWithAnswers(payload.productId));
+        dispatch({ type: ADD_QUESTION });
+        dispatch(getQuestionsWithAnswers(payload.productId));
       })
       .catch((err) => {
         alert(err);
@@ -204,11 +203,11 @@ export const addToCart = (id) => {
   return {
     type: ADD_TO_CART,
     payload: id,
-  }
-}
+  };
+};
 export const eliminateFromCart = (id) => {
   return {
     type: ELIMINATE_FROM_CART,
     payload: id,
-  }
-}
+  };
+};
