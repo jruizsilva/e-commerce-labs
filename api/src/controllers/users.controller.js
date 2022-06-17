@@ -7,7 +7,15 @@ const { User } = require("../models/index.js");
 const client = new OAuth2Client(config.googleId);
 
 const signUpUser = async (req, res, next) => {
-  const { name, email, phone, address, password, role, state } = req.body;
+  const {
+    name,
+    email,
+    phone,
+    address,
+    password,
+    role,
+    state = "active",
+  } = req.body;
   try {
     const validateEmail = await User.findOne({ where: { email } });
     if (validateEmail)
@@ -23,6 +31,7 @@ const signUpUser = async (req, res, next) => {
       role,
       state,
     });
+    console.log(user);
     const token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: "365d",
     });
@@ -77,12 +86,10 @@ const googleAuth = async (req, res, next) => {
       });
       return res.status(200).json({ message: "signin", token, user });
     } else {
-      return res
-        .status(401)
-        .json({
-          message:
-            "There is no user with that email. Please register that email in our database first.",
-        });
+      return res.status(401).json({
+        message:
+          "There is no user with that email. Please register that email in our database first.",
+      });
     }
   } catch (error) {
     next(error);

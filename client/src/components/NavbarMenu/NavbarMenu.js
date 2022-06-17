@@ -10,7 +10,7 @@ export default function NavbarMenu() {
 
   return (
     <ul className={style.container}>
-      {!user.id && (
+      {!user && (
         <>
           <li className={style.item}>
             <Link to="signin" className={style.link}>
@@ -25,10 +25,10 @@ export default function NavbarMenu() {
         </>
       )}
 
-      {user.id && (
+      {user && (
         <>
           <li className={style.item}>
-            <UserSelect user={user}/>
+            <UserSelect user={user} />
           </li>
           <li className={style.item}>
             <Link to="#" className={style.link}>
@@ -43,31 +43,16 @@ export default function NavbarMenu() {
         </>
       )}
 
-      {!user.id && (
-        <li className={style.item}>
-          <Link to="signin" className={style.link}>
-            <span
-              className="material-symbols-rounded"
-              style={{ fontSize: "16px", color: "#000" }}
-            >
-              shopping_cart
-            </span>
-          </Link>
-        </li>
-      )}
-
-      {user.id && (
-        <li className={style.item}>
-          <Link to="#" className={style.link}>
-            <span
-              className="material-symbols-rounded"
-              style={{ fontSize: "16px", color: "#000" }}
-            >
-              shopping_cart
-            </span>
-          </Link>
-        </li>
-      )}
+      <li className={style.item}>
+        <Link to="signin" className={style.link}>
+          <span
+            className="material-symbols-rounded"
+            style={{ fontSize: "16px", color: "#000" }}
+          >
+            shopping_cart
+          </span>
+        </Link>
+      </li>
     </ul>
   );
 }

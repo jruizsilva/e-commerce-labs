@@ -8,11 +8,13 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  CREATE_PRODUCT_REQUEST,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
-
 } from "./types";
 import axios from "axios";
 
@@ -155,25 +157,40 @@ export const updateLoginErrorMessage = (msg) => {
   };
 };
 
-export const addQuestion = (payload) => {
+export const createProduct = (body) => {
+  return (dispatch) => {
+    dispatch({ type: CREATE_PRODUCT_REQUEST });
+    axios
+      .post("/api/products/create", body)
+      .then((res) => {
+        alert(res.data.message);
+        dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.message });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.data.message);
+        dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
+      });
+  };
+};
 
+export const addQuestion = (payload) => {
   return function (dispatch) {
     return axios
-      .post(`http://localhost:3001/api/questions/`, payload)
+      .post(`/api/questions/`, payload)
       .then((resp) => {
-      dispatch({ type: ADD_QUESTION})
-      dispatch(getQuestionsWithAnswers(payload.productId));
+        dispatch({ type: ADD_QUESTION });
+        dispatch(getQuestionsWithAnswers(payload.productId));
       })
       .catch((err) => {
         alert(err);
       });
   };
 };
-
 export const getQuestionsWithAnswers = (productId) => {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/api/questions/${productId}`)
+      .get(`/api/questions/${productId}`)
       .then((resp) => {
         dispatch({ type: GET_QUESTIONS_WITH_ANSWERS, payload: resp.data });
       })
@@ -182,18 +199,15 @@ export const getQuestionsWithAnswers = (productId) => {
       });
   };
 };
-
 export const addToCart = (id) => {
   return {
     type: ADD_TO_CART,
     payload: id,
-  }
-}
-
+  };
+};
 export const eliminateFromCart = (id) => {
   return {
     type: ELIMINATE_FROM_CART,
     payload: id,
-  }
-}
-
+  };
+};

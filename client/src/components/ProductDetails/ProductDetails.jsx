@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import Spinner from "../Spinner/Spinner";
 import styles from "./ProductDetails.module.css";
-import Question from "../Question/Question"
+import Question from "../Question/Question";
 
 export default function ProductDetails() {
   let { productId } = useParams();
@@ -13,7 +13,7 @@ export default function ProductDetails() {
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/products/${productId}`).then((r) => {
+    axios.get(`/api/products/${productId}`).then((r) => {
       const response = r.data;
       setDetails(response[0]); // [0] así me ahorro aclarar que es la posición 0 (ya que es el único dato) en futuras ocaciones
       setLoading(false);
@@ -39,7 +39,7 @@ export default function ProductDetails() {
       </div>
     );
   } else {
-    console.log(details);
+    // console.log(details);
   }
 
   return (
@@ -49,7 +49,7 @@ export default function ProductDetails() {
         <div className={styles.container}>
           <div className={styles.imgContainer}>
             <img
-              src={details.image}
+              src={details?.image}
               alt="not found"
               className={styles.productImg}
             />
@@ -58,19 +58,20 @@ export default function ProductDetails() {
           <div className={styles.purchaseContainer}>
             <div className={styles.infoProduct}>
               <div className={styles.productName}>
-                <h1>{details.name}</h1>
+                <h1>{details?.name}</h1>
               </div>
               <div className={styles.productScore}>
                 <h1>
-                  Score: {details.score ? details.score : "No reviews done yet"}
+                  Score:{" "}
+                  {details?.score ? details?.score : "No reviews done yet"}
                 </h1>
               </div>
               <div className={styles.productPrice}>
-                <h1>${details.price}</h1>
+                <h1>${details?.price}</h1>
               </div>
               <div className={styles.productStock}>
                 <p>
-                  <b>Stock:</b> {details.stock} left
+                  <b>Stock:</b> {details?.stock} left
                 </p>
               </div>
             </div>
@@ -130,15 +131,13 @@ export default function ProductDetails() {
 
             <div className={styles.moreInfo}>
               <p>
-                <b>More info:</b> {details.description}
+                <b>More info:</b> {details?.description}
               </p>
             </div>
           </div>
           <div className={styles.questions}>
-            <p className={styles.title}>Ask the seller</p>  
-             <Question productId={productId}/>
-
-          
+            <p className={styles.title}>Ask the seller</p>
+            <Question productId={productId} />
           </div>
         </div>
       </div>

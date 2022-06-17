@@ -46,6 +46,25 @@ const sequelize =
         { logging: false, native: false }
       );
 
+// const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+//   host: DB_HOST,
+//   dialect: "postgres",
+//   logging: false,
+//   pool: {
+//     max: 3,
+//     min: 1,
+//     idle: 10000,
+//   },
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false,
+//     },
+//     keepAlive: true,
+//   },
+//   ssl: true,
+// });
+
 const Product = modelProduct(sequelize);
 const Category = modelCategory(sequelize);
 const User = modelUser(sequelize);
@@ -58,10 +77,10 @@ const Answer = modelAnswer(sequelize);
 const ProductCart = modelProductCart(sequelize);
 
 //aca hacemos nuestras relaciones
-Category.belongsToMany(Product, { through: 'productCategory' });
-Product.belongsToMany(Category, { through: 'productCategory' });
-Product.belongsToMany(User, { through: "Favorite" });
-User.belongsToMany(Product, { through: "Favorite" });
+Category.belongsToMany(Product, { through: "product_category" });
+Product.belongsToMany(Category, { through: "product_category" });
+Product.belongsToMany(User, { through: "favorite" });
+User.belongsToMany(Product, { through: "favorite" });
 Question.hasMany(Answer);
 Answer.belongsTo(Question);
 User.hasMany(Question);
