@@ -1,12 +1,9 @@
-const {
-  Product,
-  Category,
-  Question,
-  Answer,
-  User,
-} = require("../models/index.js");
-// Me traigo el operador de sequelize
-const { Op } = require("sequelize");
+const { Product, Category, Question, Answer, User} = require('../models/index.js')
+// Me traigo el operador de sequelize 
+const {Op} = require('sequelize')
+const fs = require('fs-extra')
+const {uploadImage, deleteImage} = require('../utils/cloudinary/cloudinary.js') 
+
 
 //      ---- GET DE PRODUCTOS -----
 
@@ -110,44 +107,51 @@ const getProductsById = async (req, res, next) => {
 
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
-  // name price image description condition brand model stock score state categories
+  // name price image description condition brand model stock score state
+  console.log(req.body)
   const {
-    name, // obligatiorio
-    price, //obligatorio
-    image, //obligatorio
-    description, // obligatorio
-    condition, // obligatorio
-    brand, // obligatorio
-    model,
-    stock, // obligatorio
-    score,
-    state, // obligatorio
+    name,   
+    price, 
+    description, 
+    condition, 
+    brand, 
+    model, 
+    stock, 
+    score, 
+    state, 
     categories,
-    userId, // obligatorio
-  } = req.body;
-  const product = await Product.create({
-    name,
-    price,
-    image,
-    description,
-    condition,
-    brand,
-    model,
-    stock,
-    score,
-    state,
     userId,
-  });
-  const verFuncionesDisponibles = product.__proto__;
+  } = req.body
+
+  if(req.files?.image){
+    const result = await uploadImage(req.files.image.tempFilePath)
+    await fs.unlink(req.files.image.tempFilePath)
+    const product = await Product.create({
+      name,
+      price,
+      image: result.secure_url,
+      public_id: result.public_id,
+      description,
+      condition,
+      brand,
+      model,
+      stock,
+      score,
+      state,
+      userId
+    })
+   const verFuncionesDisponibles = product.__proto__;
   // console.log(verFuncionesDisponibles);
 
   // categories = [1, 2]
   const categoriesDb = await Category.findAll({
     where: { id: { [Op.or]: categories } },
   });
-  await product.addCategories(categoriesDb);
-  return res.json({ message: "Product Created" });
-
+    await product.addCategory(categoriesDb)
+    return res.json(product.toJSON())
+  }else{
+    res.json({message: "Ingresa una imagen"})
+  }
   // Muestra el producto creado y las categorias agregadas
   // const include = [{ model: Category }];
   // const productCreated = await Product.findOne({
@@ -155,11 +159,46 @@ const createProducts = async (req, res, next) => {
   //   include,
   // });
   // res.json(productCreated);
-};
+  
+  //await categoriesDb.map(c => console.log(c.toJSON()))
+  //return res.json(product)
+}
+
+// Delete product
+const deleteProduct = async (req, res, next) => {
+  const {id} = req.params
+  const product = await Product.findByPk(id)
+  await deleteImage(product.public_id)
+  await Product.destroy({
+    where: {
+        id,
+    },
+  });
+  res.json({message: 'Product eliminado'})
+}
+// Delete product
+const updateProduct = async (req, res, next) => {
+  const {id } = req.params
+  const product = req.body
+  console.log(product)
+  console.log(id)
+  const productUpdate = await Product.update(product, {
+    where: {
+      id: id
+    }
+  })
+  return res.json({message: "Product Updated", productUpdate})
+}
 
 module.exports = {
-  getProducts,
-  getProductsById,
-  getProductsByName,
-  createProducts,
-};
+    getProducts,
+    getProductsById,
+    getProductsByName,
+    createProducts,
+    deleteProduct,
+    updateProduct
+}
+
+  
+
+
