@@ -20,8 +20,8 @@ module.exports = function (sequelize) {
       allowNull: false,
     },
     public_id:{
-            type: DataTypes.STRING,
-            allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING,
