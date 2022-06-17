@@ -48,14 +48,14 @@ function App() {
           element={!user ? <FormRegisterFormik /> : <Navigate to="/home" />}
         />
         <Route exact path="/details/:productId" element={<ProductDetails />} />
+        <Route exact path="/home" element={<Home />} />
         <Route
           exact
           path="/publications"
           element={user ? <PublicacionPage /> : <Navigate to="/home" />}
         />
-        <Route exact path="/err404" element={<Err404 />} />
-        <Route path="/home" element={<LandingPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route exact path="/err404" element={<Err404 />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>

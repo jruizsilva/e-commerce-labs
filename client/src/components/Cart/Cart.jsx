@@ -8,7 +8,7 @@ export default function Cart() {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(!user.id){
+    if(!user?.id){
       if (cart?.productcarts && cart.productcarts[0]) localStorage.setItem("cart", JSON.stringify(cart))
       else localStorage.removeItem("cart");
     }
