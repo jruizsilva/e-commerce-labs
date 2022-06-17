@@ -1,5 +1,4 @@
 const { DataTypes, Sequelize } = require("sequelize");
-
 module.exports = function (sequelize) {
   return sequelize.define("product", {
     id: {
@@ -19,6 +18,10 @@ module.exports = function (sequelize) {
     image: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    public_id:{
+            type: DataTypes.STRING,
+            allowNull: false
     },
     description: {
       type: DataTypes.STRING,
