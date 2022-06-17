@@ -121,7 +121,9 @@ const createProducts = async (req, res, next) => {
     state, 
     categories,
     userId,
+    category_id
   } = req.body
+  //console.log(req.files.image)
 
   if(req.files?.image){
     const result = await uploadImage(req.files.image.tempFilePath)
@@ -138,30 +140,22 @@ const createProducts = async (req, res, next) => {
       stock,
       score,
       state,
-      userId
+      userId,
+      category_id
     })
-   const verFuncionesDisponibles = product.__proto__;
+   //const verFuncionesDisponibles = product.__proto__;
   // console.log(verFuncionesDisponibles);
 
-  // categories = [1, 2]
-  const categoriesDb = await Category.findAll({
-    where: { id: { [Op.or]: categories } },
-  });
+ 
+  const categoriesDb = await Category.findAll(
+    { where: { name: categories } 
+  })
     await product.addCategory(categoriesDb)
     return res.json(product.toJSON())
   }else{
     res.json({message: "Ingresa una imagen"})
   }
-  // Muestra el producto creado y las categorias agregadas
-  // const include = [{ model: Category }];
-  // const productCreated = await Product.findOne({
-  //   where: { id: product.id },
-  //   include,
-  // });
-  // res.json(productCreated);
-  
   //await categoriesDb.map(c => console.log(c.toJSON()))
-  //return res.json(product)
 }
 
 // Delete product
@@ -176,7 +170,7 @@ const deleteProduct = async (req, res, next) => {
   });
   res.json({message: 'Product eliminado'})
 }
-// Delete product
+// Update product
 const updateProduct = async (req, res, next) => {
   const {id } = req.params
   const product = req.body
