@@ -45,7 +45,7 @@ export default function NavbarMenu() {
 
       {!user.id && (
         <li className={style.item}>
-          <Link to="signin" className={style.link}>
+          <Link to="/cart" className={style.link}>
             <span
               className="material-symbols-rounded"
               style={{ fontSize: "16px", color: "#000" }}
@@ -58,7 +58,7 @@ export default function NavbarMenu() {
 
       {user.id && (
         <li className={style.item}>
-          <Link to="#" className={style.link}>
+          <Link to="/cart" className={style.link}>
             <span
               className="material-symbols-rounded"
               style={{ fontSize: "16px", color: "#000" }}

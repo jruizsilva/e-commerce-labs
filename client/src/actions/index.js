@@ -8,7 +8,6 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
-  ELIMINATE_FROM_CART,
   ADD_TO_CART,
 } from "./types";
 import axios from "axios";
@@ -54,7 +53,7 @@ export const googleAuth = (googleData) => {
       .then((resp) => {
         updateGoogleAuthErrorMessage("");
         localStorage.setItem("token_id", resp.data.token);
-        dispatch({ type: GET_USER, payload: resp.data.user });
+        dispatch(getUser(resp.data.token));
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -70,7 +69,7 @@ export const loginAuth = (form) => {
       .post(`/api/users/signin`, form)
       .then((resp) => {
         localStorage.setItem("token_id", resp.data.token);
-        dispatch({ type: GET_USER, payload: resp.data.user });
+        dispatch(getUser(resp.data.token));
       })
       .catch((err) => {
         // console.log(err);
@@ -87,10 +86,11 @@ export const getUser = (token) => {
       .then((resp) => {
         dispatch({ type: GET_USER, payload: resp.data });
         dispatch(loadingUser(false));
+        dispatch(getCart(resp.data.id));
+        dispatch(validateCartStorage(resp.data.id));
       })
-      .catch(() => {
-        alert("Error en la autenticación");
-        localStorage.removeItem("token_id");
+      .catch((err) => {
+        console.log("Error:", err);
         dispatch(loadingUser(false));
       });
   };
@@ -130,7 +130,7 @@ export const createUser = (form) => {
       .then((resp) => {
         alert(resp.data.message);
         localStorage.setItem("token_id", resp.data.token);
-        dispatch({ type: GET_USER, payload: resp.data.user });
+        dispatch(getUser(resp.data.token));
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -152,16 +152,60 @@ export const updateLoginErrorMessage = (msg) => {
   };
 };
 
-export const addToCart = (id) => {
-  return {
-    type: ADD_TO_CART,
-    payload: id,
+export const addProductToCart = (productId, userId) => {
+  return function(dispatch){
+    return axios.post(`/api/cart/addProduct`, {productId, userId, quantity: 1})
+      .then((resp)=>{
+        console.log(resp.data);
+        dispatch(getCart(userId));
+      }).catch((err)=>{
+        alert(err.response.data);
+      })
   }
 }
-
-export const eliminateFromCart = (id) => {
-  return {
-    type: ELIMINATE_FROM_CART,
-    payload: id,
+export const getCart = (userId) => {
+  return function(dispatch){
+    return axios.get(`/api/cart?id=${userId}`)
+      .then((resp)=>{
+        dispatch({type: ADD_TO_CART, payload: resp.data[0]})
+      })
+  }
+}
+export const changeQuantityCart = (productCardId, price, val, userId) => {
+  return function(dispatch){
+    return axios.put(`/api/cart`, {productCardId, price, val})
+      .then((resp)=>{
+        console.log(resp)
+        dispatch(getCart(userId));  
+      })
+  }
+}
+export const deleteProductCart = (productCardId, userId) => {
+  return function(dispatch){
+    return axios.delete(`/api/cart?productCardId=${productCardId}`)
+      .then((resp)=>{
+        console.log(resp)
+        dispatch(getCart(userId));  
+      })
+  }
+}
+export const validateCartStorage = (userId) => {
+  let cartStorage = JSON.parse(localStorage.getItem("cart"));
+  return function(dispatch){
+    if(cartStorage && cartStorage.productcarts[0]){
+      let promises = cartStorage.productcarts.map(async (val)=>{
+        return axios.post(`/api/cart/addProduct`, {productId: val.productId, userId, quantity: val.quantity})
+      })
+      Promise.all(promises)
+        .then((resp)=>{
+          console.log(resp);
+          localStorage.removeItem("cart");
+          dispatch(getCart(userId));
+        }).catch(()=>{
+          console.log('err');
+          localStorage.removeItem("cart");
+          dispatch(getCart(userId));
+        })
+    }
   }
 }
