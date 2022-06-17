@@ -10,6 +10,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Hp 15-ef2126wm Spruce Blue 15.6 , Amd Ryzen 5 5500u  8gb De Ram 256gb Ssd, Amd Radeon Rx Vega 7 1920x1080px Windows 10 Home",
@@ -22,6 +23,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Gamer Armada Intel I5 10400 8gb M2 480 Core X6 Thread X12",
@@ -34,6 +36,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Disco Sólido Interno Kingston Sa400s37/480g 480gb Negro",
@@ -46,6 +49,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Disco Sólido Interno Kingston Sa400s37/240g 240gb Negro",
@@ -58,6 +62,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Lenovo Ideapad 14igl05 Platinum Grey 14  N4020 4gb 256gb Windows 11 Home",
@@ -70,6 +75,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Kit De Teclado Y Mouse Inalámbrico Logitech Mk235 Español De Color Negro",
@@ -82,6 +88,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Armada Gamer Amd Ryzen 5 5600g 6/12 Nucleos 16gb Ssd 480",
@@ -94,6 +101,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Turbina Cooler Fan Extractor 220v Ruleman 4 Pulgadas 120x38m",
@@ -106,6 +114,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Joystick Inalámbrico Microsoft Xbox Xbox Series X|s Controller + Usb-c Cable Carbon Black",
@@ -118,6 +127,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Hp 14-cf2533la Plata Natural 14 , Intel Core I3 10110u  4gb De Ram 256gb Ssd, Intel Uhd Graphics 620 1366x768px Windows 10 Home",
@@ -130,6 +140,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Tablet  Samsung Galaxy Tab A A8 2022 10.5  64gb Gray Y 4gb De Memoria Ram",
@@ -142,6 +153,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Tableta Gráfica Wacom One By Wacom Ctl-472  Negra Y Roja",
@@ -154,6 +166,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Disco Duro Externo Western Digital Wd Elements Portable Wdbu6y0020bbk 2tb Negro",
@@ -166,6 +179,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Armada Gamer Amd Ryzen 5 5600g 6/12 Nucleos 16g 24 Cuotas",
@@ -178,6 +192,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Monitor Gamer Samsung F22t35 Led 22   Dark Blue Gray 100v/240v",
@@ -190,6 +205,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Noblex 14.1  Pantalla Hd Intel Celeron 4gb/128gb Ssd",
@@ -202,6 +218,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Tablet  Samsung Galaxy Tab A7 Lite Sm-t220 8.7  32gb Gris Y 3gb De Memoria Ram",
@@ -214,6 +231,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Memoria Ram Fury Beast Ddr4 Gamer Color Negro  8gb 1 Kingston Kf426c16bb/8",
@@ -226,6 +244,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Mouse Inalámbrico Logitech  M170 Gris Y Negro",
@@ -238,6 +257,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Repetidor Tp-link Tl-wa850re Blanco 220v",
@@ -250,6 +270,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Banghó Max L4 I1 Gris Oscura 14 , Intel Celeron N4000  4gb De Ram 120gb Ssd, Intel Uhd Graphics 600 1366x768px Windows 10 Home",
@@ -262,6 +283,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Completa Armada Intel Dual Core 8gb Ssd 240 Windows 10",
@@ -274,6 +296,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Tablet  Samsung Galaxy Tab A7 Lite Sm-t220 8.7  32gb Plateada Y 3gb De Memoria Ram",
@@ -286,6 +309,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Monitor Gamer Iqual Iq24h Led 23.6   Negro 100v/240v",
@@ -298,6 +322,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Procesador Gamer Amd Ryzen 5 5600g 100-100000252box De 6 Núcleos Y  4.4ghz De Frecuencia Con Gráfica Integrada",
@@ -310,6 +335,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Adaptador Bluetooth Tplink Ub500 5.0 Usb Nano Pc Notebook",
@@ -322,6 +348,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Asus X515ea Slate Gray 15.6 , Intel Core I3 1115g4  4gb De Ram 256gb Ssd, Intel Uhd Graphics Xe G4 48eus 1920x1080px",
@@ -334,6 +361,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Gamer Armada Intel I3 10100 8gb M2 480 Core X4 Threads X8",
@@ -346,6 +374,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pendrive Multilaser Twist Pd589 32gb 2.0 Negro",
@@ -358,6 +387,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Mouse Inalámbrico Logitech  M280 Negro",
@@ -370,6 +400,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Kit De Teclado Y Mouse Gamer Noga Nkb-407 Español España De Color Negro",
@@ -382,6 +413,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Exo Smart P37 Plus Gris 14.1 , Intel Celeron N4020  4gb De Ram 1tb Hdd 64gb Ssd, Intel Uhd Graphics 600 1920x1080px Windows 11 Home",
@@ -394,6 +426,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Fuente De Alimentación Para Pc Redragon Rpgs Gc-ps002 600w Negra 100v/240v",
@@ -406,6 +439,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Fuente De Alimentación Para Pc Giga-byte Technology Gp-p750gm 750w Negra 100v/240v",
@@ -418,6 +452,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Disco Sólido Interno Gigabyte Gp-gstfs31120gntd 120gb Negro",
@@ -430,6 +465,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: " Pc Cpu Computadora Amd 3.5ghz  Dual-core Nueva C/garantia",
@@ -442,6 +478,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Estabilizador De Tensión Sic Neo 1000 1000va Entrada De 220v Y Salida De 200v Negro",
@@ -454,6 +491,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Tedge Win Nbi5-256/6/01 Negra 15.6 , Intel Core I5 7267u  4gb De Ram 256gb Ssd, Intel Iris Plus Graphics 650 1920x1080px Windows 10 Home",
@@ -466,6 +504,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Switch Tp-link Tl-sf1008d",
@@ -478,6 +517,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Auriculares Logitech H390 Negro",
@@ -490,6 +530,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Access Point, Range Extender Tp-link Re200 V3 Blanco 220v",
@@ -502,6 +543,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Memoria Ram Basics Color Verde  8gb 1 Crucial Cb8gu2666",
@@ -514,6 +556,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Dell Inspiron 3505 Gris 15.6 , Amd Ryzen 5 3450u  16gb De Ram 1tb Hdd 256gb Ssd, Amd Radeon Rx Vega 8 (ryzen 2000/3000) 60 Hz 1366x768px Windows 10 Home",
@@ -526,6 +569,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Pc Armada Gamer Amd Ryzen 5 4650g 8gb Ssd 480 Radeon Rx Vega",
@@ -538,6 +582,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Impresora A Color Multifunción Hp Ink Tank Wireless 415 Con Wifi Negra 200v - 240v",
@@ -550,6 +595,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Router, Access Point, Range Extender Tp-link Tl-wr941hp Negro",
@@ -562,6 +608,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Soporte Sarasanto Ss-1032m De Mesa Para Tv/monitor De 32   Negro",
@@ -574,6 +621,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Teclado Gamer Redragon Dragonborn K630 Qwerty Redragon Brown Inglés Us Color Blanco Con Luz Rgb",
@@ -586,6 +634,7 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
   {
     name: "Notebook Noblex 15.6 Full Hd Intel Core I3 4gb/256gb Ssd",
@@ -598,5 +647,6 @@ module.exports = [
     model: null,
     state: "active",
     category_id: "MLA1648",
+    userId: "dffaaad9-c172-47fc-b3ac-b035d0d79bb1",
   },
 ];
