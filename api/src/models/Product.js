@@ -14,6 +14,10 @@ module.exports = function(sequelize){
             type: DataTypes.STRING,
             allowNull: false
         },
+        public_id:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         description: {
             type: DataTypes.STRING,
             allowNull: false,

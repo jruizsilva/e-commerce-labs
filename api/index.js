@@ -22,6 +22,9 @@ app.use("/api", routes);
 //aca importamos nuesto middleware de control de errores
 app.use(errorHandler);
 
+
+
+
 //aca vamos arracar nuestro server
 conn.sync({ force: false }).then(() => {
   console.log("base de datos conectada");

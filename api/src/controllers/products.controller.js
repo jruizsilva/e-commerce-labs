@@ -1,6 +1,8 @@
 const { Product, Category, Question, Answer } = require('../models/index.js')
 // Me traigo el operador de sequelize 
-const {Op} = require('sequelize') 
+const {Op} = require('sequelize')
+const fs = require('fs-extra')
+const {uploadImage, deleteImage} = require('../utils/cloudinary/cloudinary.js') 
 
 //      ---- GET DE PRODUCTOS -----
 
@@ -105,47 +107,85 @@ const getProductsById = async (req, res ,next) => {
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
   // name price image description condition brand model stock score state
+  console.log(req.body)
   const {
-    name,   // obligatiorio
-    price, //obligatorio
-    image, //obligatorio
-    description, // obligatorio
-    condition, // obligatorio
-    brand, // obligatorio
+    name,   
+    price, 
+    description, 
+    condition, 
+    brand, 
     model, 
-    stock, // obligatorio
+    stock, 
     score, 
-    state, // obligatorio
+    state, 
     categories,
-    userId, // obligatorio
+    userId,
   } = req.body
-  const product = await Product.create({
-    name,
-    price,
-    image,
-    description,
-    condition,
-    brand,
-    model,
-    stock,
-    score,
-    state,
-    userId
-  })
-  const categoriesDb = await Category.findAll(
-    { where: { name: categories } 
-  })
-  await product.addCategory(categoriesDb)
-  return res.json({message: "Product Created"})
-  //await categoriesDb.map(c => console.log(c.toJSON()))
 
+  if(req.files?.image){
+    const result = await uploadImage(req.files.image.tempFilePath)
+    await fs.unlink(req.files.image.tempFilePath)
+    const product = await Product.create({
+      name,
+      price,
+      image: result.secure_url,
+      public_id: result.public_id,
+      description,
+      condition,
+      brand,
+      model,
+      stock,
+      score,
+      state,
+      userId
+    })
+    const categoriesDb = await Category.findAll(
+      { where: { name: categories } 
+    })
+    await product.addCategory(categoriesDb)
+    return res.json(product.toJSON())
+  }else{
+    res.json({message: "Ingresa una imagen"})
+  }
+
+  
+   
+
+  //await categoriesDb.map(c => console.log(c.toJSON()))
   //return res.json(product)
 }
 
+// Delete product
+const deleteProduct = async (req, res, next) => {
+  const {id} = req.params
+  const product = await Product.findByPk(id)
+  await deleteImage(product.public_id)
+  await Product.destroy({
+    where: {
+        id,
+    },
+  });
+  res.json({message: 'Product eliminado'})
+}
+// Delete product
+const updateProduct = async (req, res, next) => {
+  const {id } = req.params
+  const product = req.body
+  console.log(product)
+  console.log(id)
+  const productUpdate = await Product.update(product, {
+    where: {
+      id: id
+    }
+  })
+  return res.json({message: "Product Updated", productUpdate})
+}
 
 module.exports = {
     getProducts,
     getProductsById,
     getProductsByName,
-    createProducts
+    createProducts,
+    deleteProduct,
+    updateProduct
 }
