@@ -137,7 +137,7 @@ export default function ProductDetails() {
           </div>
           <div className={styles.questions}>
             <p className={styles.title}>Ask the seller</p>
-            <Question productId={productId} />
+            <Question productId={productId} productName={details?.name} sellerId={details.userId}/>
           </div>
         </div>
       </div>

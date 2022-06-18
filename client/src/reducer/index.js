@@ -15,6 +15,8 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  ADD_NOTIFICATIONS,
+  GET_NOTIFICATIONS,
 } from "../actions/types";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
   searchUser: true,
   loadingProducts: false,
   questionsWithAnswers: [],
+  notifications:[],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
   loadingProductCreation: false,
@@ -52,6 +55,15 @@ export default function reducer(state = initialState, actions) {
     case ADD_QUESTION:
       return {
         ...state,
+      };
+    case ADD_NOTIFICATIONS:
+      return {
+        ...state,
+      };
+    case GET_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications : actions.payload,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;

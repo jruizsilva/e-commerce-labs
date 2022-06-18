@@ -15,6 +15,8 @@ import {
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  GET_NOTIFICATIONS,
+  ADD_NOTIFICATIONS
 } from "./types";
 import axios from "axios";
 
@@ -181,6 +183,8 @@ export const addQuestion = (payload) => {
       .then((resp) => {
         dispatch({ type: ADD_QUESTION });
         dispatch(getQuestionsWithAnswers(payload.productId));
+        dispatch(addNotification(payload.sellerId, payload.productId, payload.name, 'comment'))
+
       })
       .catch((err) => {
         alert(err);
@@ -209,5 +213,32 @@ export const eliminateFromCart = (id) => {
   return {
     type: ELIMINATE_FROM_CART,
     payload: id,
+  };
+};
+export const getNotificationsByUserId = (userId) => {
+  return function (dispatch) {
+    return axios
+      .get(`/api/notifications/${userId}`)
+      .then((resp) => {
+        dispatch({ type: GET_NOTIFICATIONS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const addNotification = (userId, productId, productName, messageFrom) => {
+let message = `You have a ${messageFrom} on your publication ${productName}`
+  const payload ={userId,productId,message}
+  console.log('++++++', payload);
+  return function (dispatch) {
+    return axios
+      .post(`/api/notifications/`, payload)
+      .then((resp) => {
+        dispatch({ type: ADD_NOTIFICATIONS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 };
