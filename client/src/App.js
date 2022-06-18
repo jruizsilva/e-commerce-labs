@@ -10,6 +10,8 @@ import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
 import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";
+import { ADD_TO_CART } from '../src/actions/types.js'
+
 import Cart from "./components/Cart/Cart.jsx";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
@@ -22,6 +24,9 @@ function App() {
     let token = localStorage.getItem("token_id");
     if (token && !user) dispatch(getUser(token));
     else dispatch(loadingUser(false));
+
+    let cartStorage = localStorage.getItem("cart");
+    if(cartStorage && !user?.id) dispatch({type: ADD_TO_CART, payload: JSON.parse(cartStorage)});
   }, []);
 
   return searchUser ? (
@@ -48,6 +53,7 @@ function App() {
           path="/publications"
           element={user ? <PublicacionPage /> : <Navigate to="/home" />}
         />
+        <Route path="/cart" element={<Cart />} />
         <Route exact path="/err404" element={<Err404 />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>

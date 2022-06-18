@@ -13,7 +13,6 @@ import {
   CREATE_PRODUCT_ERROR,
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
-  ELIMINATE_FROM_CART,
   ADD_TO_CART,
 } from "../actions/types";
 
@@ -26,10 +25,10 @@ const initialState = {
   questionsWithAnswers: [],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
+  cart: {},
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
-  cart: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -126,36 +125,37 @@ export default function reducer(state = initialState, actions) {
         errorCreationMessage: actions.payload,
       };
     case ADD_TO_CART:
-      const allProductsAux = state.allProducts;
-      let cartCurrentProducts = state.cart;
-      let flag = false;
-      cartCurrentProducts.map((p) => {
-        if (p.id === actions.payload) {
-          alert("Ya se encuentra dentro de la lista");
-          flag = true;
+      return {...state, cart: actions.payload}
+    case "ADD_PRODUCT_STORAGE":
+      let productCart =  actions.payload;
+      if (state.cart.productcarts && state.cart.productcarts[0]) {
+        let findPr = state.cart.productcarts.find((val)=>val.productId == productCart.productId);
+        if(findPr) alert('the product already exists')
+        else{
+          let totalValue =  state.cart.productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
+          totalValue += productCart.totalValue;
+          return {...state, cart: {totalValue, productcarts: [...state.cart.productcarts, productCart]}}
         }
-      });
-      if (flag) {
-        return {
-          ...state,
-        };
+      }else{
+        let cart = {totalValue: productCart.totalValue, productcarts: [productCart]}
+        return {...state, cart}
       }
-      let filteredProductById = allProductsAux.filter((p) => {
-        return p.id === actions.payload;
-      });
-      return {
-        ...state,
-        cart: [...state.cart, ...filteredProductById],
-      };
-    case ELIMINATE_FROM_CART:
-      let aux = state.cart;
-      let filteredCart = aux.filter((p) => {
-        return p.id !== actions.payload;
-      });
-      return {
-        ...state,
-        cart: filteredCart,
-      };
+    case "UPDATE_PRODUCT_STORAGE":
+      const { idProduct, price, cant } = actions.payload;
+      let pcs = state.cart.productcarts;
+      let totalValue;
+      state.cart.productcarts.forEach((val, i)=>{
+        if(val.productId == idProduct){
+          pcs[i].quantity = pcs[i].quantity + cant;
+          pcs[i].totalValue = pcs[i].totalValue + (price * cant);
+        }
+      })
+      totalValue =  state.cart.productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
+      return {...state, cart: {...state.cart, totalValue, productcarts: pcs}}
+    case "DELETE_PRODUCT_STORAGE":
+      let productcarts = state.cart.productcarts.filter((val)=> val.productId != actions.payload);
+      let totalVal =  productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
+      return {...state, cart: {...state.cart, totalValue: totalVal, productcarts}}
     default:
       return state;
   }
