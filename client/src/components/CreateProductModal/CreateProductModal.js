@@ -13,6 +13,11 @@ const isRequired = "is a required field";
 
 export default function CreateProductModal(props) {
   const [previewSource, setPreviewSource] = useState("");
+  const {
+    user: { id: userId },
+    categories,
+  } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     name: "",
     price: "",
@@ -25,13 +30,8 @@ export default function CreateProductModal(props) {
     score: null,
     state: "",
     categories: [],
+    userId,
   });
-
-  const {
-    user: { id: usedId },
-    categories,
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
@@ -82,7 +82,7 @@ export default function CreateProductModal(props) {
   const handleFileInputChange = (e, values, setFieldValue) => {
     const file = e.target.files[0];
     previewFile(file);
-    setForm(values);
+    setForm({ ...form, ...values });
     setFieldValue("image", JSON.stringify({ data: previewSource }));
   };
 
@@ -115,9 +115,8 @@ export default function CreateProductModal(props) {
           validationSchema={validationSchema}
           onSubmit={() => {
             if (!previewSource) return;
-            const body = { ...form, usedId };
-            // console.log("/api/products/create");
-            dispatch(createProduct(body));
+            console.log(form);
+            dispatch(createProduct(form));
           }}
         >
           {({

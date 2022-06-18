@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserPublications } from "../../actions";
 import CreateProductModal from "../../components/CreateProductModal/CreateProductModal";
 import useModal from "../../hooks/useModal";
 
@@ -7,11 +9,18 @@ import style from "./PublicationsPage.module.css";
 const publications = [];
 
 export default function PublicationsPage() {
+  const { userPublications, user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const [
     isOpenCreateProductModal,
     openCreateProductModal,
     closeCreateProductModal,
   ] = useModal();
+
+  useEffect(() => {
+    dispatch(getUserPublications(user.id));
+  }, []);
 
   return (
     <>

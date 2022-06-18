@@ -132,6 +132,8 @@ const createProducts = async (req, res, next) => {
     image,
   } = req.body;
 
+  console.log(userId);
+
   try {
     const uploadResponse = await uploadImage(image);
     console.log(uploadResponse);

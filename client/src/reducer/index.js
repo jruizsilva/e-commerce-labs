@@ -14,6 +14,7 @@ import {
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
+  GET_USER_PUBLICATIONS,
 } from "../actions/types";
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
+  userPublications: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -183,6 +185,9 @@ export default function reducer(state = initialState, actions) {
         ...state,
         cart: { ...state.cart, totalValue: totalVal, productcarts },
       };
+    case GET_USER_PUBLICATIONS:
+      return { ...state, userPublications: actions.payload };
+
     default:
       return state;
   }

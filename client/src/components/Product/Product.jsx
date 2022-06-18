@@ -6,25 +6,31 @@ import style from "./Product.module.css";
 import { Image } from "cloudinary-react";
 
 const Product = ({ data }) => {
-  const { user, cart } = useSelector((state)=>state);
+  const { user, cart } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(cart?.productcarts && cart.productcarts[0] && !user?.id) localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart])
+  useEffect(() => {
+    if (cart?.productcarts && cart.productcarts[0] && !user?.id)
+      localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const onClickHandler = (productId) => {
     if (user?.id) {
       dispatch(addProductToCart(productId, user.id));
-    }else{
+    } else {
       //2) En el app usar useEffect -> para cada que cambie el estado cart se envie la data a (localstorage)
       //3) En el app usar useEffect -> cada que se monte el componente app se ponga toda la data del localstorage en el estado cart
       //4) Al momento del login pasar todo el storage a la DB
       //{totalValue, productCarts: [{quantity, totalValue, productId, product: {id, name, price, image, stock}}]}
-      let productCart = {quantity: 1, totalValue: data.price, productId: data.id, product: data}
-      dispatch({type: 'ADD_PRODUCT_STORAGE', payload: productCart});
+      let productCart = {
+        quantity: 1,
+        totalValue: data.price,
+        productId: data.id,
+        product: data,
+      };
+      dispatch({ type: "ADD_PRODUCT_STORAGE", payload: productCart });
     }
-  }
+  };
   return (
     <li className={style.productItem}>
       <article className={style.productContainer}>
@@ -34,15 +40,13 @@ const Product = ({ data }) => {
           title={data.name}
         >
           {data.public_id ? (
-            <>
-              <Image
-                cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                publicId={data.public_id}
-                crop="scale"
-                className={style.imageUploaded}
-                alt={`${data.name}`}
-              />
-            </>
+            <Image
+              cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+              publicId={data.public_id}
+              crop="scale"
+              className={style.imageUploaded}
+              alt={`${data.name}`}
+            />
           ) : (
             <img
               src={data.image}

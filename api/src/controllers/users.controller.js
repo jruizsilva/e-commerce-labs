@@ -2,7 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User } = require("../models/index.js");
+const { User, Product } = require("../models/index.js");
 
 const client = new OAuth2Client(config.googleId);
 
@@ -110,10 +110,23 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const getPublicationsByUserId = async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    const publications = await Product.findAll();
+    res.json(publications);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+};
+
 module.exports = {
   signUpUser,
   signInUser,
   googleAuth,
   getUser,
   meUser,
+  getPublicationsByUserId,
 };

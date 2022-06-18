@@ -15,6 +15,7 @@ import {
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  GET_USER_PUBLICATIONS,
 } from "./types";
 import axios from "axios";
 
@@ -264,5 +265,17 @@ export const getQuestionsWithAnswers = (productId) => {
       .catch((err) => {
         alert(err);
       });
+  };
+};
+
+export const getUserPublications = (userId) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/users/${userId}/publications`);
+      console.log(res.data);
+      dispatch({ type: GET_USER_PUBLICATIONS, payload: res.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
