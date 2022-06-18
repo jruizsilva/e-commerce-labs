@@ -24,8 +24,6 @@ function App() {
     else dispatch(loadingUser(false));
   }, []);
 
-  console.log(user);
-
   return searchUser ? (
     <Spiner />
   ) : (
