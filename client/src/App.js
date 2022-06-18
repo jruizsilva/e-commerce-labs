@@ -29,7 +29,6 @@ function App() {
     if(cartStorage && !user?.id) dispatch({type: ADD_TO_CART, payload: JSON.parse(cartStorage)});
   }, []);
 
-
   return searchUser ? (
     <Spiner />
   ) : (

@@ -19,12 +19,12 @@ export default function LandingPage() {
 
         <div className={style.buttons_container}>
           <button className={style.shop_now_button}>
-            <Link to="/" className={style.link_shopnow}>
+            <Link to="/home" className={style.link_shopnow}>
               Shop now
             </Link>
           </button>
           <button className={style.sell_now_button}>
-            <Link to="/" className={style.link_sellnow}>
+            <Link to="/signin" className={style.link_sellnow}>
               Sell now
             </Link>
           </button>
