@@ -24,7 +24,7 @@ export default function LandingPage() {
             </Link>
           </button>
           <button className={style.sell_now_button}>
-            <Link to="/signin" className={style.link_sellnow}>
+            <Link to="/publications" className={style.link_sellnow}>
               Sell now
             </Link>
           </button>
