@@ -88,7 +88,12 @@ export default function Cart() {
             <h1> Total Value:  ${cart && cart.totalValue} </h1>
           </div>
           <div className={styles.checkout}>
-              <button><Link to="/checkout">Checkout</Link></button>
+              <button>
+                {user ? 
+                  <Link to="/checkout">Checkout</Link>:
+                  <Link to="/signin">Checkout</Link>
+                }
+              </button>
           </div>
         </ul>
       </div>
