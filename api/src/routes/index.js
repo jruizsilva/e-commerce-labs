@@ -7,6 +7,7 @@ const categoriesRoutes = require('./categories.routes.js')
 const cartRoutes = require('./cart.routes.js')
 const questionsRoutes = require('./questions.routes.js')
 const answersRoutes = require('./answers.routes.js')
+const mercadopagoRoutes = require('./mercadopago.routes.js')
 
 router.use('/products', productsRoutes)
 router.use('/users', usersRoutes)
@@ -14,5 +15,6 @@ router.use('/categories', categoriesRoutes)
 router.use('/cart', cartRoutes)
 router.use('/answers', answersRoutes)
 router.use('/questions', questionsRoutes)
+router.use('/mercadopago', mercadopagoRoutes)
 
 module.exports = router
