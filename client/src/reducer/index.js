@@ -25,7 +25,7 @@ const initialState = {
   questionsWithAnswers: [],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
-  cart: {},
+  cart: null,
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
@@ -124,38 +124,67 @@ export default function reducer(state = initialState, actions) {
         loadingProductCreation: false,
         errorCreationMessage: actions.payload,
       };
-    case ADD_TO_CART:
-      return {...state, cart: actions.payload}
+    case ADD_TO_CART: {
+      console.log(state);
+      console.log(actions.payload);
+      return { ...state, cart: actions.payload };
+    }
+
     case "ADD_PRODUCT_STORAGE":
-      let productCart =  actions.payload;
+      let productCart = actions.payload;
       if (state.cart.productcarts && state.cart.productcarts[0]) {
-        let findPr = state.cart.productcarts.find((val)=>val.productId == productCart.productId);
-        if(findPr) alert('the product already exists')
-        else{
-          let totalValue =  state.cart.productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
+        let findPr = state.cart.productcarts.find(
+          (val) => val.productId == productCart.productId
+        );
+        if (findPr) alert("the product already exists");
+        else {
+          let totalValue = state.cart.productcarts
+            .map((val) => val.totalValue)
+            .reduce((a, b) => a + b, 0);
           totalValue += productCart.totalValue;
-          return {...state, cart: {totalValue, productcarts: [...state.cart.productcarts, productCart]}}
+          return {
+            ...state,
+            cart: {
+              totalValue,
+              productcarts: [...state.cart.productcarts, productCart],
+            },
+          };
         }
-      }else{
-        let cart = {totalValue: productCart.totalValue, productcarts: [productCart]}
-        return {...state, cart}
+      } else {
+        let cart = {
+          totalValue: productCart.totalValue,
+          productcarts: [productCart],
+        };
+        return { ...state, cart };
       }
     case "UPDATE_PRODUCT_STORAGE":
       const { idProduct, price, cant } = actions.payload;
       let pcs = state.cart.productcarts;
       let totalValue;
-      state.cart.productcarts.forEach((val, i)=>{
-        if(val.productId == idProduct){
+      state.cart.productcarts.forEach((val, i) => {
+        if (val.productId == idProduct) {
           pcs[i].quantity = pcs[i].quantity + cant;
-          pcs[i].totalValue = pcs[i].totalValue + (price * cant);
+          pcs[i].totalValue = pcs[i].totalValue + price * cant;
         }
-      })
-      totalValue =  state.cart.productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
-      return {...state, cart: {...state.cart, totalValue, productcarts: pcs}}
+      });
+      totalValue = state.cart.productcarts
+        .map((val) => val.totalValue)
+        .reduce((a, b) => a + b, 0);
+      return {
+        ...state,
+        cart: { ...state.cart, totalValue, productcarts: pcs },
+      };
     case "DELETE_PRODUCT_STORAGE":
-      let productcarts = state.cart.productcarts.filter((val)=> val.productId != actions.payload);
-      let totalVal =  productcarts.map((val)=>val.totalValue).reduce((a, b) => a + b, 0);
-      return {...state, cart: {...state.cart, totalValue: totalVal, productcarts}}
+      let productcarts = state.cart.productcarts.filter(
+        (val) => val.productId != actions.payload
+      );
+      let totalVal = productcarts
+        .map((val) => val.totalValue)
+        .reduce((a, b) => a + b, 0);
+      return {
+        ...state,
+        cart: { ...state.cart, totalValue: totalVal, productcarts },
+      };
     default:
       return state;
   }

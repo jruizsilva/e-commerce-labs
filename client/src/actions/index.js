@@ -159,62 +159,76 @@ export const updateLoginErrorMessage = (msg) => {
 };
 
 export const addProductToCart = (productId, userId) => {
-  return function(dispatch){
-    return axios.post(`/api/cart/addProduct`, {productId, userId, quantity: 1})
-      .then((resp)=>{
+  return function (dispatch) {
+    return axios
+      .post(`/api/cart/addProduct`, { productId, userId, quantity: 1 })
+      .then((resp) => {
         console.log(resp.data);
         dispatch(getCart(userId));
-      }).catch((err)=>{
+      })
+      .catch((err) => {
         alert(err.response.data);
-      })
-  }
-}
+      });
+  };
+};
 export const getCart = (userId) => {
-  return function(dispatch){
-    return axios.get(`/api/cart?id=${userId}`)
-      .then((resp)=>{
-        dispatch({type: ADD_TO_CART, payload: resp.data[0]})
+  return function (dispatch) {
+    return axios
+      .get(`/api/cart?id=${userId}`)
+      .then((resp) => {
+        console.log(resp);
+        dispatch({ type: ADD_TO_CART, payload: resp.data[0] });
       })
-  }
-}
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const changeQuantityCart = (productCardId, price, val, userId) => {
-  return function(dispatch){
-    return axios.put(`/api/cart`, {productCardId, price, val})
-      .then((resp)=>{
-        console.log(resp)
-        dispatch(getCart(userId));  
-      })
-  }
-}
+  return function (dispatch) {
+    return axios
+      .put(`/api/cart`, { productCardId, price, val })
+      .then((resp) => {
+        console.log(resp);
+        dispatch(getCart(userId));
+      });
+  };
+};
 export const deleteProductCart = (productCardId, userId) => {
-  return function(dispatch){
-    return axios.delete(`/api/cart?productCardId=${productCardId}`)
-      .then((resp)=>{
-        console.log(resp)
-        dispatch(getCart(userId));  
-      })
-  }
-}
+  return function (dispatch) {
+    return axios
+      .delete(`/api/cart?productCardId=${productCardId}`)
+      .then((resp) => {
+        console.log(resp);
+        dispatch(getCart(userId));
+      });
+  };
+};
 export const validateCartStorage = (userId) => {
   let cartStorage = JSON.parse(localStorage.getItem("cart"));
-  return function(dispatch){
-    if(cartStorage && cartStorage.productcarts[0]){
-      let promises = cartStorage.productcarts.map(async (val)=>{
-        return axios.post(`/api/cart/addProduct`, {productId: val.productId, userId, quantity: val.quantity})
-      })
+  return function (dispatch) {
+    if (cartStorage && cartStorage.productcarts[0]) {
+      let promises = cartStorage.productcarts.map(async (val) => {
+        return axios.post(`/api/cart/addProduct`, {
+          productId: val.productId,
+          userId,
+          quantity: val.quantity,
+        });
+      });
       Promise.all(promises)
-        .then((resp)=>{
+        .then((resp) => {
           console.log(resp);
           localStorage.removeItem("cart");
           dispatch(getCart(userId));
-        }).catch(()=>{
-          console.log('err');
+        })
+        .catch(() => {
+          console.log("err");
           localStorage.removeItem("cart");
           dispatch(getCart(userId));
-        })
+        });
     }
-  }
-}
+  };
+};
 export const createProduct = (body) => {
   return (dispatch) => {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
