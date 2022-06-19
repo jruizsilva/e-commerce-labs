@@ -2,7 +2,12 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product } = require("../models/index.js");
+const { User, Product, Category } = require("../models/index.js");
+const { Op } = require("sequelize");
+const {
+  uploadImage,
+  deleteImage,
+} = require("../utils/cloudinary/cloudinary.js");
 
 const client = new OAuth2Client(config.googleId);
 
@@ -112,13 +117,75 @@ const getUser = async (req, res, next) => {
 
 const getPublicationsByUserId = async (req, res, next) => {
   const { userId } = req.params;
+  const { state } = req.query;
+
+  const where = { userId };
+
+  if (state) where.state = state;
 
   try {
-    const publications = await Product.findAll();
+    const publications = await Product.findAll({ where });
     res.json(publications);
   } catch (error) {
     console.log(error);
     res.json(error);
+  }
+};
+
+const putPublicationById = async (req, res, next) => {
+  const { userId, publicationId } = req.params;
+  const {
+    name,
+    price,
+    stock,
+    condition,
+    categories,
+    state,
+    brand,
+    model,
+    description,
+    image,
+  } = req.body;
+
+  try {
+    const where = { id: publicationId, userId };
+    const userPublication = await Product.findOne({ where });
+    if (image) {
+      await deleteImage(userPublication.public_id);
+      const uploadResponse = await uploadImage(image);
+      userPublication.set({
+        name,
+        price,
+        stock,
+        condition,
+        state,
+        brand,
+        model,
+        description,
+        image: uploadResponse.secure_url,
+        public_id: uploadResponse.public_id,
+      });
+    } else {
+      await userPublication.set({
+        name,
+        price,
+        stock,
+        condition,
+        state,
+        brand,
+        model,
+        description,
+      });
+    }
+    await userPublication.save();
+    const categoriesDb = await Category.findAll({
+      where: { id: { [Op.or]: categories } },
+    });
+    userPublication.setCategories(categoriesDb);
+    res.send("Updated successfully!");
+  } catch (error) {
+    console.log(error);
+    res.send("error:", error);
   }
 };
 
@@ -129,4 +196,5 @@ module.exports = {
   getUser,
   meUser,
   getPublicationsByUserId,
+  putPublicationById,
 };

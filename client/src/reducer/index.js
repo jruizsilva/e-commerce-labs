@@ -15,6 +15,11 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
   GET_USER_PUBLICATIONS,
+  SET_EDIT_PRODUCT,
+  RESET_MESSAGES,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
 } from "../actions/types";
 
 const initialState = {
@@ -31,6 +36,10 @@ const initialState = {
   successCreationMessage: "",
   errorCreationMessage: "",
   userPublications: [],
+  editProduct: null,
+  loadingUpdateProduct: false,
+  successEditMessage: "",
+  errorEditMessage: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -119,13 +128,24 @@ export default function reducer(state = initialState, actions) {
         ...state,
         loadingProductCreation: false,
         successCreationMessage: actions.payload,
+        loadingProductCreation: false,
       };
     case CREATE_PRODUCT_ERROR:
       return {
         ...state,
         loadingProductCreation: false,
         errorCreationMessage: actions.payload,
+        loadingProductCreation: false,
       };
+    case RESET_MESSAGES: {
+      return {
+        ...state,
+        successCreationMessage: "",
+        errorCreationMessage: "",
+        successEditMessage: "",
+        errorEditMessage: "",
+      };
+    }
     case ADD_TO_CART:
       return { ...state, cart: actions.payload };
     case "ADD_PRODUCT_STORAGE":
@@ -187,7 +207,22 @@ export default function reducer(state = initialState, actions) {
       };
     case GET_USER_PUBLICATIONS:
       return { ...state, userPublications: actions.payload };
-
+    case SET_EDIT_PRODUCT:
+      return { ...state, editProduct: actions.payload };
+    case UPDATE_PRODUCT_REQUEST:
+      return { ...state, loadingUpdateProduct: true };
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loadingUpdateProduct: false,
+        successEditMessage: actions.payload,
+      };
+    case UPDATE_PRODUCT_ERROR:
+      return {
+        ...state,
+        loadingUpdateProduct: false,
+        errorEditMessage: actions.payload,
+      };
     default:
       return state;
   }

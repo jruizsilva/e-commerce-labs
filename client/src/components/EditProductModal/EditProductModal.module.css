@@ -1,7 +1,6 @@
 .create_product_container {
   height: 100%;
   width: 100%;
-  max-width: 600px;
 }
 
 .create_product_container .formContainer {

@@ -8,30 +8,46 @@ import { createProduct, getCategories } from "../../actions";
 import { SelectFieldCondition } from "./SelectFieldCondition";
 import { SelectFieldCategories } from "./SelectFieldCategories";
 import { SelectFieldState } from "./SelectFieldState";
+import { useSearchParams } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 
 const isRequired = "is a required field";
 
+const initialFormValues = {
+  name: "",
+  price: "",
+  image: "",
+  description: "",
+  condition: null,
+  brand: "",
+  model: "",
+  stock: "",
+  score: null,
+  state: null,
+  categories: [],
+};
+
 export default function CreateProductModal(props) {
+  const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const { loadingProductCreation } = useSelector((state) => state);
+
   const {
     user: { id: userId },
     categories,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    name: "",
-    price: "",
-    image: "",
-    description: "",
-    condition: "",
-    brand: "",
-    model: "",
-    stock: "",
-    score: null,
-    state: "",
-    categories: [],
-    userId,
-  });
+  const [form, setForm] = useState(initialFormValues);
+  const [params, setParams] = useSearchParams();
+
+  useEffect(() => {
+    if (params.has("reset")) {
+      setForm(initialFormValues);
+      setPreviewSource("");
+      setFileInputState("");
+      setParams({});
+    }
+  }, [params]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -80,6 +96,7 @@ export default function CreateProductModal(props) {
 
   // Image upload
   const handleFileInputChange = (e, values, setFieldValue) => {
+    setFileInputState(e.target.value);
     const file = e.target.files[0];
     previewFile(file);
     setForm({ ...form, ...values });
@@ -99,24 +116,12 @@ export default function CreateProductModal(props) {
     <Modal {...props}>
       <div className={style.create_product_container}>
         <Formik
-          initialValues={{
-            name: "",
-            price: "",
-            image: "",
-            description: "",
-            condition: "",
-            brand: "",
-            model: "",
-            stock: "",
-            score: null,
-            state: "",
-            categories: [],
-          }}
+          initialValues={initialFormValues}
           validationSchema={validationSchema}
-          onSubmit={() => {
+          onSubmit={(values, actions) => {
             if (!previewSource) return;
-            console.log(form);
-            dispatch(createProduct(form));
+            dispatch(createProduct({ ...values, image: form.image, userId }));
+            actions.resetForm();
           }}
         >
           {({
@@ -256,6 +261,7 @@ export default function CreateProductModal(props) {
                   onChange={(e) =>
                     handleFileInputChange(e, values, setFieldValue)
                   }
+                  value={fileInputState}
                 />
                 {errors.image && touched.image && (
                   <p className={style.error}>{errors.image}</p>
@@ -266,7 +272,7 @@ export default function CreateProductModal(props) {
                   <img
                     src={previewSource}
                     alt="chosen"
-                    style={{ height: "300px" }}
+                    style={{ height: "220px" }}
                   />
                 )}
               </div>
@@ -280,6 +286,7 @@ export default function CreateProductModal(props) {
                   Add product
                 </button>
               </div>
+              {loadingProductCreation && <Spinner />}
             </form>
           )}
         </Formik>
