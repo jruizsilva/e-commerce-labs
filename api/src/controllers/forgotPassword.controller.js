@@ -9,6 +9,7 @@ let verificationMail;
 const forgotPassword = async (req, res) =>  {
     
     const { email } = req.body;
+    console.log(email)
     // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 10 ~ forgotPassword ~ email", email);
 
     const user = await User.findOne({
