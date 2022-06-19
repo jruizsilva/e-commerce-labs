@@ -57,7 +57,7 @@ export default function Checkout() {
           handleSubmit,
           isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.addressContainer}>
               <div className={styles.title}>
                 <h1>Your address is:</h1>
@@ -65,6 +65,7 @@ export default function Checkout() {
               {inputActivate ? (
                 <div>
                   <input
+                    className={styles.input}
                     type="text"
                     id="address"
                     name="address"
@@ -77,7 +78,7 @@ export default function Checkout() {
                   {errors.address && touched.address && (
                     <p className={styles.error}>{errors.address}</p>
                   )}
-                  <a href="#/" onClick={activateInput}>
+                  <a className={styles.link} href="#/" onClick={activateInput}>
                     Previous Address
                   </a>
                 </div>
@@ -86,7 +87,7 @@ export default function Checkout() {
                   <div className={styles.address}>
                     <p>{user.address}</p>
                   </div>
-                  <a href="#/" onClick={activateInput}>
+                  <a className={styles.link} href="#/" onClick={activateInput}>
                     Edit Address
                   </a>
                 </div>
@@ -114,7 +115,7 @@ export default function Checkout() {
               })}
             </div>
             <div className={styles.buttonContainer}>
-              <button disabled={isSubmitting} type="submit">
+              <button className={styles.button}disabled={isSubmitting} type="submit">
                 Buy
               </button>
             </div>
@@ -123,7 +124,7 @@ export default function Checkout() {
       </Formik>
       <div className={styles.summary}>
         <h1>Purchase summary</h1>
-        <hr></hr>
+        <hr className={styles.line}></hr>
         <div className={styles.detailSumaryContainer}>
           <span className={styles.left}>
             Products {`(${productsQuantity})`}
@@ -131,7 +132,7 @@ export default function Checkout() {
 
           <span className={styles.rigth}>{`$ ${cart[0].total}`}</span>
         </div>
-         <hr></hr>
+         <hr className={styles.line}></hr>
         <div className={styles.detailSumaryContainer}>
           <span className={styles.left}>Total</span>
           <span className={styles.rigth}>{`$ ${cart[0].total}`}</span>
