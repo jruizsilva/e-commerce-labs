@@ -100,6 +100,9 @@ export default function LoginFormik() {
               {googleAuthErrorMessage && (
                 <p className={style.error}>{googleAuthErrorMessage}</p>
               )}
+              <a className={style.link} onClick={() => navigate("/forgot-password")}>
+                Forgot password?
+              </a>
               <a className={style.link} onClick={() => navigate("/signup")}>
                 You don't have an account already? Sign up
               </a>

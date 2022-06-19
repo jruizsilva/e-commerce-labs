@@ -16,6 +16,8 @@ import Cart from "./components/Cart/Cart.jsx";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
 import PublicacionPage from "./pages/PublicationsPage/PublicationsPage.js";
+import RestorePassword from "./components/RestorePassword/RestorePassword.jsx";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx"
 
 function App() {
@@ -57,6 +59,8 @@ function App() {
         />
         <Route path="/cart" element={<Cart />} />
         <Route exact path="/err404" element={<Err404 />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restore-password/:userId/:token" element={<RestorePassword />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
         <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
