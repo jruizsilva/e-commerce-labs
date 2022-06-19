@@ -78,6 +78,7 @@ export const loginAuth = (form) => {
       .then((resp) => {
         localStorage.setItem("token_id", resp.data.token);
         dispatch({ type: GET_USER, payload: resp.data.user });
+        dispatch(getNotificationsByUserId(resp.data.user.id));
       })
       .catch((err) => {
         // console.log(err);
@@ -183,7 +184,7 @@ export const addQuestion = (payload) => {
       .then((resp) => {
         dispatch({ type: ADD_QUESTION });
         dispatch(getQuestionsWithAnswers(payload.productId));
-        dispatch(addNotification(payload.sellerId, payload.productId, payload.name, 'comment'))
+        dispatch(addNotification(payload.sellerId, payload.productId, payload.productName, 'comment'))
 
       })
       .catch((err) => {

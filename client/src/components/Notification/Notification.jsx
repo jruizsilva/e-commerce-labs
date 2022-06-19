@@ -1,26 +1,29 @@
-import "./navbar.css";
-import notificationIco from "../../img/notification.svg";
-import Message from "../../img/message.svg";
-import Settings from "../../img/settings.svg";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationsByUserId } from "../../actions";
+import { Link } from "react-router-dom";
 
-const Notification = ({ userId }) => {
+const Notification = () => {
   //const [notifications, setNotifications] = useState([]);
   const [open, setOpen] = useState(false);
   const { user, notifications} = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-      dispatch(getNotificationsByUserId)
-  }, [dispatch]);
+ const activeNotifications = notifications?.filter(el=> el.state==="true")
+   
+
+   useEffect(() => {
+    if(user){
+        dispatch(getNotificationsByUserId(user.id));
+    }
+  }, [dispatch,user]);
+
 
   const displayNotification = ({ message }) => {
   
     return (
-      <span className="notification">{`${senderName} ${action} your publication.`}</span>
+      <span className="notification">{message}</span>
     );
   };
 
@@ -29,21 +32,28 @@ const Notification = ({ userId }) => {
   };
 
   return (
-    <div className="navbar">
-      <span className="logo">Lama App</span>
-      <div className="icons">
-        <div className="icon" onClick={() => setOpen(!open)}>
-          <img src={notificationIco} className="iconImg" alt="" />
+    <div>
+      <div >
+        <div  onClick={() => setOpen(!open)}>
+
+            <Link to="#" >
+              <span
+                className="material-symbols-rounded"
+                style={{ fontSize: "16px", color: "#000" }}
+              >
+                notifications
+              </span>
+            </Link>
           {
-notifications.length >0 &&
-            <div className="counter">{notifications.length}</div>
+activeNotifications.length >0 &&
+            <div >{activeNotifications.length}</div>
           }
         </div>
       </div>
       {open && (
-        <div className="notifications">
+        <div >
           {notifications.map((n) => displayNotification(n))}
-          <button className="nButton" onClick={handleRead}>
+          <button  onClick={handleRead}>
             Mark as read
           </button>
         </div>
