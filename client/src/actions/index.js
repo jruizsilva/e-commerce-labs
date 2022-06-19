@@ -15,6 +15,12 @@ import {
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  GET_USER_PUBLICATIONS,
+  SET_EDIT_PRODUCT,
+  RESET_MESSAGES,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
 } from "./types";
 import axios from "axios";
 
@@ -92,8 +98,8 @@ export const getUser = (token) => {
       .then((resp) => {
         dispatch({ type: GET_USER, payload: resp.data });
         dispatch(loadingUser(false));
-        dispatch(getCart(resp.data.id));
-        dispatch(validateCartStorage(resp.data.id));
+        dispatch(getCart(resp?.data?.id));
+        dispatch(validateCartStorage(resp?.data?.id));
       })
       .catch((err) => {
         console.log("Error:", err);
@@ -159,76 +165,87 @@ export const updateLoginErrorMessage = (msg) => {
 };
 
 export const addProductToCart = (productId, userId) => {
-  return function(dispatch){
-    return axios.post(`/api/cart/addProduct`, {productId, userId, quantity: 1})
-      .then((resp)=>{
+  return function (dispatch) {
+    return axios
+      .post(`/api/cart/addProduct`, { productId, userId, quantity: 1 })
+      .then((resp) => {
         console.log(resp.data);
         dispatch(getCart(userId));
-      }).catch((err)=>{
+      })
+      .catch((err) => {
         alert(err.response.data);
-      })
-  }
-}
+      });
+  };
+};
 export const getCart = (userId) => {
-  return function(dispatch){
-    return axios.get(`/api/cart?id=${userId}`)
-      .then((resp)=>{
-        dispatch({type: ADD_TO_CART, payload: resp.data[0]})
-      })
-  }
-}
+  return function (dispatch) {
+    return axios.get(`/api/cart?id=${userId}`).then((resp) => {
+      dispatch({ type: ADD_TO_CART, payload: resp.data[0] });
+    });
+  };
+};
 export const changeQuantityCart = (productCardId, price, val, userId) => {
-  return function(dispatch){
-    return axios.put(`/api/cart`, {productCardId, price, val})
-      .then((resp)=>{
-        console.log(resp)
-        dispatch(getCart(userId));  
-      })
-  }
-}
+  return function (dispatch) {
+    return axios
+      .put(`/api/cart`, { productCardId, price, val })
+      .then((resp) => {
+        console.log(resp);
+        dispatch(getCart(userId));
+      });
+  };
+};
 export const deleteProductCart = (productCardId, userId) => {
-  return function(dispatch){
-    return axios.delete(`/api/cart?productCardId=${productCardId}`)
-      .then((resp)=>{
-        console.log(resp)
-        dispatch(getCart(userId));  
-      })
-  }
-}
+  return function (dispatch) {
+    return axios
+      .delete(`/api/cart?productCardId=${productCardId}`)
+      .then((resp) => {
+        console.log(resp);
+        dispatch(getCart(userId));
+      });
+  };
+};
 export const validateCartStorage = (userId) => {
   let cartStorage = JSON.parse(localStorage.getItem("cart"));
-  return function(dispatch){
-    if(cartStorage && cartStorage.productcarts[0]){
-      let promises = cartStorage.productcarts.map(async (val)=>{
-        return axios.post(`/api/cart/addProduct`, {productId: val.productId, userId, quantity: val.quantity})
-      })
+  return function (dispatch) {
+    if (cartStorage && cartStorage.productcarts[0]) {
+      let promises = cartStorage.productcarts.map(async (val) => {
+        return axios.post(`/api/cart/addProduct`, {
+          productId: val.productId,
+          userId,
+          quantity: val.quantity,
+        });
+      });
       Promise.all(promises)
-        .then((resp)=>{
+        .then((resp) => {
           console.log(resp);
           localStorage.removeItem("cart");
           dispatch(getCart(userId));
-        }).catch(()=>{
-          console.log('err');
+        })
+        .catch(() => {
+          console.log("err");
           localStorage.removeItem("cart");
           dispatch(getCart(userId));
-        })
+        });
     }
-  }
-}
+  };
+};
 export const createProduct = (body) => {
   return (dispatch) => {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
     axios
       .post("/api/products/create", body)
       .then((res) => {
-        console.log(res);
-        alert("Success", res.data);
-        dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.message });
+        dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.data });
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
-        alert("Error", err.data);
         dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       });
   };
 };
@@ -256,5 +273,41 @@ export const getQuestionsWithAnswers = (productId) => {
       .catch((err) => {
         alert(err);
       });
+  };
+};
+
+export const getUserPublications = (userId, search = "") => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/users/${userId}/publications${search}`);
+      dispatch({ type: GET_USER_PUBLICATIONS, payload: res.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const setEditProduct = (product) => {
+  return { type: SET_EDIT_PRODUCT, payload: product };
+};
+
+export const updateProduct = (form, userId, publicationId) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_PRODUCT_REQUEST });
+      const res = await axios.put(
+        `/api/users/${userId}/publication/${publicationId}`,
+        form
+      );
+      console.log(res.data);
+      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: res.data });
+      dispatch(getUserPublications(userId));
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: UPDATE_PRODUCT_ERROR, payload: error });
+    }
   };
 };
