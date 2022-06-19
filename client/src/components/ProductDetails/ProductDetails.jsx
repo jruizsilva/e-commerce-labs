@@ -5,6 +5,7 @@ import Header from "../Header/Header";
 import Spinner from "../Spinner/Spinner";
 import styles from "./ProductDetails.module.css";
 import Question from "../Question/Question";
+import BtnAddCart from "../Cart/BtnAddCart/BtnAddCart";
 
 export default function ProductDetails() {
   let { productId } = useParams();
@@ -23,10 +24,6 @@ export default function ProductDetails() {
   const onClickBuyProduct = (e) => {
     e.preventDefault();
     console.log("Comprar producto");
-  };
-  const onClickAddToCart = (e) => {
-    e.preventDefault();
-    console.log("Agregar al carrito");
   };
 
   if (loading) {
@@ -82,12 +79,15 @@ export default function ProductDetails() {
                 </button>
               </div>
               <div className={styles.addToCartBtn}>
-                <button
+                {/* <button
                   onClick={onClickAddToCart}
                   className={styles.btnAddToCart}
                 >
                   Add to cart
-                </button>
+                </button> */}
+                <div className={styles.btnAddToCart}>
+                  <BtnAddCart data={details}/>
+                </div>
               </div>
             </div>
           </div>

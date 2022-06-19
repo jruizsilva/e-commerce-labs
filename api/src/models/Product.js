@@ -21,7 +21,7 @@ module.exports = function (sequelize) {
     },
     public_id:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
     },
     description: {
       type: DataTypes.STRING,

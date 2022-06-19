@@ -2,10 +2,11 @@
     background: #ededed;
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
 }
 
 .cartListContainer {
-    background: #c0c0c0;
+    background: white;
     width: 90%;
     display: flex;
     justify-content: flex-start;
@@ -23,17 +24,24 @@
     justify-content: space-around;
     align-items: center;
 }
+.purchaseDetails > div > h2{
+    padding-right: 10px;
+}
+.purchaseDetails > img{
+    width: 10%;
+}
+.purchaseDetails > div{
+    width: 40%;
+}
+.purchaseDetails > h3{
+    width: 10%;
+}
 
 .cartProduct {
-    border-top: 1px solid black;
-    border-bottom: 1px transparent black;
+    border-bottom: 1px solid rgba(114, 114, 114, 0.423);
     border-collapse: collapse;
     margin-bottom: 1px;
     padding: 10px;
-    height: 250px;
-    display: grid;
-    grid-template-rows: 2fr 1fr;
-    align-items: center;
 }
 
 .cartProduct li {
@@ -45,20 +53,66 @@
 
 .imgProduct {
     width: 100px;
-    /* height: 50px; */
 }
 
 .quantityToBuyCss {
     display: flex;
-    align-items: baseline;
+    justify-content: space-around    
+}
+.quantityToBuyCss > div{
+    border: 1px solid rgba(114, 114, 114, 0.423);
+    border-radius: 5px;
 }
 
+
 .quantityToBuyCss button{
+    color: blue;
+    margin: 0 !important;
+    background: none;
     margin: 10px;
     width: 25px;
     height: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .quantityToBuyCss input {
+    text-align: center;
+    border: none;
     width: 40px;
+}
+
+.bntDelete{
+    margin-top: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: blue;
+}
+
+.totalValue, .checkout{
+    display: flex;
+    height: 80px;
+    padding: 10px;
+    padding-right: 40px;
+    justify-content: flex-end;
+}
+.totalValue > h1{
+    display: flex;
+    align-items: flex-end;
+    font-weight: bold;
+    font-size: 25px;
+}
+.checkout > button{
+    background-color: #3483fa;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 15%;
+    margin-top: auto;
+    height: 40px;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
 }

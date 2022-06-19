@@ -63,38 +63,35 @@ export default function Cart() {
             cartList && cartList.map((p, i) => { //momentáneamente use i para las key pero se puede reemplazar por la id del producto
               return(
                 <li key={i} className={styles.cartProduct} id={p.product.id}>
-                    <div className={styles.purchaseDetails}>
-                        <img src={p.product.image} 
-                        alt="img not found"
-                        className={styles.imgProduct}
-                        /> 
-                        <h2>{p.product.name}</h2> {/* cambiar el i de 'data-id' al id del producto */}
-                        {/* cambiar la imágen de muestra */}
-                        <h3>Price: <b>${p.totalValue}</b></h3>
-                        <div className={styles.quantityToBuyCss}>
-                            <button onClick={e => onClickHandler(e, p.product.stock, p.product.price, p.quantity, p.id, p.productId)} name="-">-</button>
-                            <input type="tel" 
-                              name="quantity" 
-                              value={p.quantity}
-                              readOnly
-                            />
-                            <button onClick={e => onClickHandler(e, p.product.stock, p.product.price, p.quantity, p.id, p.productId)} name="+">+</button>
-                            <p>Stock available: {p.product.stock}</p>
-                        </div>
-                    </div>
+                  <div className={styles.purchaseDetails}>
+                    <img src={p.product.image} alt="img not found" className={styles.imgProduct}/> 
                     <div>
-                        <button onClick={() => deleteProdCart(p.id, p.productId)}>Eliminar</button>
+                      <h2>{p.product.name}</h2> {/* cambiar el i de 'data-id' al id del producto */}
+                      <button className={styles.bntDelete} onClick={() => deleteProdCart(p.id, p.productId)}>Eliminar</button>
                     </div>
+                    {/* cambiar la imágen de muestra */}
+                    <h3>Price: <b>${p.totalValue}</b></h3>
+                    <div className={styles.quantityToBuyCss}>
+                      <div>
+                        <button onClick={e => onClickHandler(e, p.product.stock, p.product.price, p.quantity, p.id, p.productId)} name="-">-</button>
+                        <input type="tel"  name="quantity" value={p.quantity} readOnly/>
+                        <button onClick={e => onClickHandler(e, p.product.stock, p.product.price, p.quantity, p.id, p.productId)} name="+">+</button>
+                      </div>
+                      <p>Stock available: {p.product.stock}</p>
+                    </div>
+                  </div>
                 </li>
               )
             })
           }
+          <div className={styles.totalValue}>
+            <h1> Total Value:  ${cart && cart.totalValue} </h1>
+          </div>
+          <div className={styles.checkout}>
+            <button>Checkout</button>
+          </div>
         </ul>
       </div>
-      <br />
-    </div>
-    <div>
-      <h1> {cart && cart.totalValue} </h1>
     </div>
     </>
   )
