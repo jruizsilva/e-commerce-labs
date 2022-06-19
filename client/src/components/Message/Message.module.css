@@ -1,0 +1,22 @@
+.success,
+.error {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  height: 64px;
+  padding: 0px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 24px;
+  z-index: 999999999;
+  user-select: none;
+}
+.success {
+  background-color: rgb(200, 255, 200);
+  color: green;
+}
+.error {
+  background-color: rgb(255, 200, 200);
+  color: red;
+}
