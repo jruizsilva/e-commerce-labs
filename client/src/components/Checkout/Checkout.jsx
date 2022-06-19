@@ -1,28 +1,28 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCart /*addOrder*/ } from '../../actions';
-import { Formik } from 'formik';
-import styles from './Checkout.module.css';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart /*addOrder*/ } from "../../actions";
+import { Formik } from "formik";
+import styles from "./Checkout.module.css";
 
 export default function Checkout() {
-  const { cart, user } = useSelector(state => state);
-  console.log(cart)
+  const { cart, user } = useSelector((state) => state);
+  console.log(cart);
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
 
   let productsQuantity = 0;
-  if (cart.productcarts) {
+  if (cart?.productcarts) {
     for (let i = 0; i < cart.productcarts.length; i++) {
       productsQuantity += cart.productcarts[i].quantity;
     }
   }
 
-  const addOrder = values => {
+  const addOrder = (values) => {
     console.log(values);
   };
 
-  const activateInput = e => {
+  const activateInput = (e) => {
     e.preventDefault();
     inputActivate ? setInputActivate(false) : setInputActivate(true);
   };
@@ -37,12 +37,12 @@ export default function Checkout() {
           products: cart.productcarts,
           address: user.address,
         }}
-        validate={form => {
+        validate={(form) => {
           let err = {};
           if (!form.address) {
             err.address =
-              'You have to enter an address or take the previous one';
-            document.getElementById('address').focus();
+              "You have to enter an address or take the previous one";
+            document.getElementById("address").focus();
           }
           return err;
         }}
@@ -98,7 +98,7 @@ export default function Checkout() {
             </div>
             <div className={styles.cartListContainer}>
               <h1 className={styles.title}>Your Products</h1>
-              {cart.productcarts?.map(el => {
+              {cart.productcarts?.map((el) => {
                 return (
                   <div key={el.productId} className={styles.cartContainer}>
                     <div>
@@ -118,7 +118,11 @@ export default function Checkout() {
               })}
             </div>
             <div className={styles.buttonContainer}>
-              <button className={styles.button}disabled={isSubmitting} type="submit">
+              <button
+                className={styles.button}
+                disabled={isSubmitting}
+                type="submit"
+              >
                 Buy
               </button>
             </div>
@@ -135,7 +139,7 @@ export default function Checkout() {
 
           <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
         </div>
-         <hr className={styles.line}></hr>
+        <hr className={styles.line}></hr>
         <div className={styles.detailSumaryContainer}>
           <span className={styles.left}>Total</span>
           <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
