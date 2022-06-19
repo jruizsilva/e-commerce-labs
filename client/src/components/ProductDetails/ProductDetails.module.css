@@ -124,7 +124,13 @@
     justify-content: center;
 }
 
-.btnAddToCart {
+.btnAddToCart{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btnAddToCart > button {
     margin-top: 8px;
     width: 90%;
     height: 50px;
