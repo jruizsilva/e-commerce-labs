@@ -19,9 +19,8 @@ module.exports = function (sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    public_id:{
-            type: DataTypes.STRING,
-            allowNull: true
+    public_id: {
+      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,

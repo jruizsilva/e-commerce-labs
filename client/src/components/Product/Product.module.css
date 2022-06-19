@@ -28,13 +28,19 @@
   overflow: hidden;
 }
 .image {
-  /* height: 245px;
-  width: 245px; */
   border-radius: 6px;
-
-  object-fit: cover;
+  object-fit: contain;
 }
 .image:hover {
+  cursor: pointer;
+}
+.imageUploaded {
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.imageUploaded:hover {
   cursor: pointer;
 }
 

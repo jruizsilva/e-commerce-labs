@@ -221,12 +221,13 @@ export const createProduct = (body) => {
     axios
       .post("/api/products/create", body)
       .then((res) => {
-        alert(res.data.message);
+        console.log(res);
+        alert("Success", res.data);
         dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: res.message });
       })
       .catch((err) => {
         console.log(err);
-        alert(err.data.message);
+        alert("Error", err.data);
         dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
       });
   };

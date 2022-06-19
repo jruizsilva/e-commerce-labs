@@ -1,0 +1,151 @@
+.container {
+  background: #ededed;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+}
+
+form {
+  background: #c0c0c0;
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+.addressContainer {
+  background: #c0c0c0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 10px;
+}
+.imgProduct {
+  width: 100px;
+  border-radius: 20px;
+  padding: 4px;
+  /* height: 50px; */
+}
+.summary {
+  background: #d6d6d6;
+  width: 30%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 15px;
+  position: fixed;
+  right: 30px;
+  height: 500px;
+}
+.summary > h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+button {
+  margin-top: 8px;
+  width: 80%;
+  height: 50px;
+  font-size: 20px;
+  /* background: #4729FE; */
+  background: var(--primary);
+  border-color: transparent;
+  color: #fff;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.cartListContainer {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.cartContainer {
+  margin-bottom: 12px;
+  background-color: rgb(235, 241, 241);
+  border-radius: 10px;
+  padding: 4px;
+  border: 1px solid #2f80ed;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.purchase {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+input[type='text'] {
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+  border: 1px solid #2f80ed;
+  margin-bottom: 5px;
+}
+
+.description {
+  font-size: 14px;
+}
+.address {
+  background-color: #ededed;
+  border-radius: 10px;
+  padding: 6px;
+  margin-bottom: 6px;
+}
+
+a {
+  text-decoration: none;
+  color: #2f80ed;
+}
+.error {
+  margin-top: 8px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+hr {
+  width: 60%;
+  height: 4px;
+  background-color: rgb(243, 238, 238);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-width: 2px;
+}
+
+.left {
+  align-items: flex-start;
+}
+.rigth {
+  align-content: flex-end;
+}
+
+.detailSumaryContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}

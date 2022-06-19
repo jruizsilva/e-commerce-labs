@@ -16,6 +16,7 @@ import Cart from "./components/Cart/Cart.jsx";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
 import PublicacionPage from "./pages/PublicationsPage/PublicationsPage.js";
+import Checkout from "./components/Checkout/Checkout.jsx"
 
 function App() {
   const { user, searchUser } = useSelector((state) => state);
@@ -28,7 +29,6 @@ function App() {
     let cartStorage = localStorage.getItem("cart");
     if(cartStorage && !user?.id) dispatch({type: ADD_TO_CART, payload: JSON.parse(cartStorage)});
   }, []);
-
 
   return searchUser ? (
     <Spiner />
@@ -57,6 +57,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route exact path="/err404" element={<Err404 />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
+        <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );
