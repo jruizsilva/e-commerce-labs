@@ -14,6 +14,8 @@ import Cart from "./components/Cart/Cart.jsx";
 import Spiner from "./components/Spinner/Spinner.js";
 import LandingPage from "./pages/LandingPage/LandingPage.js";
 import PublicacionPage from "./pages/PublicationsPage/PublicationsPage.js";
+import RestorePassword from "./components/RestorePassword/RestorePassword.jsx";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
 
 function App() {
   const { user, searchUser } = useSelector((state) => state);
@@ -24,7 +26,7 @@ function App() {
     else dispatch(loadingUser(false));
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   return searchUser ? (
     <Spiner />
@@ -51,6 +53,8 @@ function App() {
           element={user ? <PublicacionPage /> : <Navigate to="/home" />}
         />
         <Route exact path="/err404" element={<Err404 />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restore-password/:userId/:token" element={<RestorePassword />} />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>

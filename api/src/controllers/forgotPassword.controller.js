@@ -1,35 +1,71 @@
-const { User } = require("../models/User");
+const { User } = require("../models/index.js");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const config = require("../utils/auth/index");
 require("dotenv").config();
 
-const forgotPassword = (req, res) =>  {
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: 'heber.hudson18@ethereal.email',
-            pass: 'yuSy6mqFPHU66Ya1b2'
-        }
-    });
+let verificationMail;
 
-    const mailOptions = {
-        from: "Remitente",
-        to: "creadordecaminos@live.com.ar",
-        subject: "Restore your password // Ecommerce",
-        text: "Probando ando",
-    }
+const forgotPassword = async (req, res) =>  {
+    
+    const { email } = req.body;
+    // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 10 ~ forgotPassword ~ email", email);
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if(error) {
-            res.status(500).send(error.message);
-        } else {
-            console.log("Email enviado");
-            res.status(200).json(req.body);
+    const user = await User.findOne({
+        where: {
+            email
         }
     })
+    // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 17 ~ forgotPassword ~ user", user);
+    // console.log("Id del usuario " + user.name + ":", user.id);
+
+    if(user && user !== {}) {
+        // console.log("Encontré un usuario con ese email: ", user);
+        // console.log("ID: ", user.id);
+        const token = jwt.sign({id: user.id}, config.secret, {expiresIn: '10m'});
+
+        verificationMail = `http://localhost:3000/restore-password/${user.id}/${token}`;
+    
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_SENDER,
+                pass: process.env.EMAIL_PASSWORD_SENDER,
+            },
+        });
+        
+        await transporter.sendMail({
+            from: '"Ecommerce App" <creadordecaminos@gmail.com>',
+            to: email,
+            subject: "Forgot password",
+            html: `
+                <h1>This mail was sent because you want to restore your password.</h1>
+                To change your password, please clic the following link:
+                <br>
+                 <b>${verificationMail}</b> 
+                </br>
+                ...or copy it instead and paste it on your browser.
+            `,
+          });
+    
+        return res.send("Email was sent successfully. Check your email inbox.");
+    } else if (!user) {
+        console.log("No existe ningún usuario con ese email");
+    };
+    
+    res.send("That Email is not registered.")
+};
+
+const passwordRestauration = async (req, res) => {
+
+    const { token } = req.params;
+
+    res.send(token);
 }
 
 module.exports = {
-    forgotPassword
+    forgotPassword,
+    passwordRestauration,
 }
