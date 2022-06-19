@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./LoginFormik.module.css";
 import { GoogleLogin } from "react-google-login";
 import { googleAuth, loginAuth } from "../../actions/index.js";
+import initAuth2Google from "../../helpers/init_Auth2.js"
 
 export default function LoginFormik() {
   const { googleAuthErrorMessage, loginErrorMessage } = useSelector(
     (state) => state
   );
+  initAuth2Google();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -8,7 +8,7 @@ celulares = celulares.map((c) => {
     price: c.price,
     image: c.thumbnail,
     condition: c.condition,
-    stock: 1,
+    stock: 5,
     description: null,
     brand: null,
     model: null,
