@@ -14,6 +14,7 @@ import {
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
+  ADD_ORDER,
 } from "../actions/types";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   questionsWithAnswers: [],
   googleAuthErrorMessage: "",
   loginErrorMessage: "",
+  order:{},
   cart: {},
   loadingProductCreation: false,
   successCreationMessage: "",
@@ -42,6 +44,11 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case ADD_ORDER:
+      return {
+        ...state,
+        order: actions.payload,
       };
     case GET_QUESTIONS_WITH_ANSWERS:
       return {
