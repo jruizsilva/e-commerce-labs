@@ -6,13 +6,16 @@ import styles from './Checkout.module.css';
 
 export default function Checkout() {
   const { cart, user } = useSelector(state => state);
+  console.log(cart)
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
 
   let productsQuantity = 0;
-  for (let i = 0; i < cart[0].products.length; i++) {
-    productsQuantity += cart[0].products[i].cantidad;
+  if (cart.productcarts) {
+    for (let i = 0; i < cart.productcarts.length; i++) {
+      productsQuantity += cart.productcarts[i].quantity;
+    }
   }
 
   const addOrder = values => {
@@ -31,7 +34,7 @@ export default function Checkout() {
       <Formik
         initialValues={{
           userId: user.id,
-          products: cart[0].products,
+          products: cart.productcarts,
           address: user.address,
         }}
         validate={form => {
@@ -94,20 +97,20 @@ export default function Checkout() {
             </div>
             <div className={styles.cartListContainer}>
               <h1 className={styles.title}>Your Products</h1>
-              {cart[0].products.map(el => {
+              {cart.productcarts?.map(el => {
                 return (
-                  <div key={el.productID} className={styles.cartContainer}>
+                  <div key={el.productId} className={styles.cartContainer}>
                     <div>
                       <img
-                        src={el.image}
+                        src={el.product.image}
                         alt="img not found"
                         className={styles.imgProduct}
                       ></img>
                     </div>
                     <div className={styles.description}>
-                      <p>{el.productName}</p>
-                      <p>Cantidad: {el.cantidad}</p>
-                      <p>Total: $ {el.totalProducto} </p>
+                      <p>{el.product.name}</p>
+                      <p>Cantidad: {el.quantity}</p>
+                      <p>Total: $ {el.totalValue} </p>
                     </div>
                   </div>
                 );
@@ -129,12 +132,12 @@ export default function Checkout() {
             Products {`(${productsQuantity})`}
           </span>
 
-          <span className={styles.rigth}>{`$ ${cart[0].total}`}</span>
+          <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
         </div>
          <hr></hr>
         <div className={styles.detailSumaryContainer}>
           <span className={styles.left}>Total</span>
-          <span className={styles.rigth}>{`$ ${cart[0].total}`}</span>
+          <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
         </div>
       </div>
     </div>

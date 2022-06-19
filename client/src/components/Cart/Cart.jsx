@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 import { deleteProductCart, changeQuantityCart } from "../../actions";
 import styles from './Cart.module.css';
 
@@ -69,7 +70,6 @@ export default function Cart() {
                       <h2>{p.product.name}</h2> {/* cambiar el i de 'data-id' al id del producto */}
                       <button className={styles.bntDelete} onClick={() => deleteProdCart(p.id, p.productId)}>Eliminar</button>
                     </div>
-                    {/* cambiar la imágen de muestra */}
                     <h3>Price: <b>${p.totalValue}</b></h3>
                     <div className={styles.quantityToBuyCss}>
                       <div>
@@ -88,7 +88,7 @@ export default function Cart() {
             <h1> Total Value:  ${cart && cart.totalValue} </h1>
           </div>
           <div className={styles.checkout}>
-            <button>Checkout</button>
+              <button><Link to="/checkout">Checkout</Link></button>
           </div>
         </ul>
       </div>
