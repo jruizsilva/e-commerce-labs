@@ -100,13 +100,8 @@ Product.hasMany(ProductCart);
 ProductCart.belongsTo(Product);
 User.hasMany(Product);
 Product.belongsTo(User);
-Order.hasOne(Feedback);
-User.hasMany(Order, { as: "IdUserSeller" });
-Order.belongsTo(User, { as: "IdUserSeller" });
-User.hasMany(Order, { as: "IdUserBuyer" });
-Order.belongsTo(User, { as: "IdUserBuyer" });
-Product.hasMany(Order);
-Order.belongsTo(Product);
+User.hasMany(Order);
+Order.belongsTo(User);
 //////
 Order.hasMany(OrderDetail);
 OrderDetail.belongsTo(Order);
