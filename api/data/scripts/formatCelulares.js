@@ -5,7 +5,7 @@ const uuid = "dffaaad9-c172-47fc-b3ac-b035d0d79bb1";
 celulares = celulares.map((c) => {
   return {
     name: c.title,
-    price: Math.ceil(c.price),
+    price: c.price,
     image: c.thumbnail,
     condition: c.condition,
     stock: 5,
