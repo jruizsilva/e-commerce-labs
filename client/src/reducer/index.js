@@ -48,7 +48,6 @@ export default function reducer(state = initialState, actions) {
     case ADD_ORDER:
       return {
         ...state,
-        order: actions.payload,
       };
     case GET_QUESTIONS_WITH_ANSWERS:
       return {

@@ -15,6 +15,7 @@ import {
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  ADD_ORDER,
 } from "./types";
 import axios from "axios";
 
@@ -164,6 +165,16 @@ export const addProductToCart = (productId, userId) => {
       .then((resp)=>{
         console.log(resp.data);
         dispatch(getCart(userId));
+      }).catch((err)=>{
+        alert(err.response.data);
+      })
+  }
+}
+export const addOrder = (payload) => {
+  return function(dispatch){
+    return axios.post(`/api/mercadopago`, payload)
+      .then((resp)=>{
+        dispatch({type: ADD_ORDER});
       }).catch((err)=>{
         alert(err.response.data);
       })

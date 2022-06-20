@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCart /*addOrder*/ } from '../../actions';
+import { addOrder } from '../../actions';
 import { Formik } from 'formik';
 import styles from './Checkout.module.css';
 
 export default function Checkout() {
   const { cart, user } = useSelector(state => state);
-  console.log(cart)
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
-
+  
   let productsQuantity = 0;
   if (cart.productcarts) {
     for (let i = 0; i < cart.productcarts.length; i++) {
       productsQuantity += cart.productcarts[i].quantity;
     }
   }
-
-  const addOrder = values => {
-    console.log(values);
-  };
 
   const activateInput = e => {
     e.preventDefault();
@@ -34,8 +29,8 @@ export default function Checkout() {
       <Formik
         initialValues={{
           userId: user.id,
-          products: cart.productcarts,
           address: user.address,
+          cart: cart
         }}
         validate={form => {
           let err = {};
@@ -48,7 +43,7 @@ export default function Checkout() {
         }}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
-          addOrder(values);
+          dispatch(addOrder(values));
         }}
       >
         {({
