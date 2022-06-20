@@ -1,36 +1,37 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCart /*addOrder*/ } from '../../actions';
-import { Formik } from 'formik';
-import styles from './Checkout.module.css';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart /*addOrder*/ } from "../../actions";
+import { Formik } from "formik";
+import styles from "./Checkout.module.css";
+import createPreference from "../../helpers/createPreference";
 
 export default function Checkout() {
-  const { cart, user } = useSelector(state => state);
-  console.log(cart)
+  const { cart, user } = useSelector((state) => state);
+  console.log(cart);
+  console.log(user);
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
 
   let productsQuantity = 0;
   if (cart?.productcarts) {
-
     for (let i = 0; i < cart.productcarts.length; i++) {
       productsQuantity += cart.productcarts[i].quantity;
     }
   }
 
-  const addOrder = values => {
-    console.log(values);
+  const addOrder = (values) => {
+    // console.log(values);
   };
 
-  const activateInput = e => {
+  const activateInput = (e) => {
     e.preventDefault();
     inputActivate ? setInputActivate(false) : setInputActivate(true);
   };
 
   useEffect(() => {}, [dispatch]);
 
-  if(user){
+  if (user) {
     return (
       <div className={styles.container}>
         <Formik
@@ -39,18 +40,20 @@ export default function Checkout() {
             products: cart.productcarts,
             address: user.address,
           }}
-          validate={form => {
+          validate={(form) => {
             let err = {};
             if (!form.address) {
               err.address =
-                'You have to enter an address or take the previous one';
-              document.getElementById('address').focus();
+                "You have to enter an address or take the previous one";
+              document.getElementById("address")?.focus();
             }
             return err;
           }}
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             addOrder(values);
+            const preference = createPreference(cart, user);
+            console.log(preference);
           }}
         >
           {({
@@ -83,7 +86,11 @@ export default function Checkout() {
                     {errors.address && touched.address && (
                       <p className={styles.error}>{errors.address}</p>
                     )}
-                    <a className={styles.link} href="#/" onClick={activateInput}>
+                    <a
+                      className={styles.link}
+                      href="#/"
+                      onClick={activateInput}
+                    >
                       Previous Address
                     </a>
                   </div>
@@ -92,7 +99,11 @@ export default function Checkout() {
                     <div className={styles.address}>
                       <p>{user.address}</p>
                     </div>
-                    <a className={styles.link} href="#/" onClick={activateInput}>
+                    <a
+                      className={styles.link}
+                      href="#/"
+                      onClick={activateInput}
+                    >
                       Edit Address
                     </a>
                   </div>
@@ -100,7 +111,7 @@ export default function Checkout() {
               </div>
               <div className={styles.cartListContainer}>
                 <h1 className={styles.title}>Your Products</h1>
-                {cart.productcarts?.map(el => {
+                {cart.productcarts?.map((el) => {
                   return (
                     <div key={el.productId} className={styles.cartContainer}>
                       <div>
@@ -120,7 +131,11 @@ export default function Checkout() {
                 })}
               </div>
               <div className={styles.buttonContainer}>
-                <button className={styles.button}disabled={isSubmitting} type="submit">
+                <button
+                  className={styles.button}
+                  disabled={isSubmitting}
+                  type="submit"
+                >
                   Buy
                 </button>
               </div>
@@ -134,10 +149,10 @@ export default function Checkout() {
             <span className={styles.left}>
               Products {`(${productsQuantity})`}
             </span>
-  
+
             <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
           </div>
-           <hr className={styles.line}></hr>
+          <hr className={styles.line}></hr>
           <div className={styles.detailSumaryContainer}>
             <span className={styles.left}>Total</span>
             <span className={styles.rigth}>{`$ ${cart.totalValue}`}</span>
@@ -145,7 +160,7 @@ export default function Checkout() {
         </div>
       </div>
     );
-  }else{
+  } else {
     return null;
   }
 }
