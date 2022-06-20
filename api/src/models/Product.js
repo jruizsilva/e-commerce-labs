@@ -12,7 +12,7 @@ module.exports = function (sequelize) {
       allowNull: false,
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     image: {

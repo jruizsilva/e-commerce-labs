@@ -5,7 +5,7 @@ const uuid = "dffaaad9-c172-47fc-b3ac-b035d0d79bb1";
 computacion = computacion.map((c) => {
   return {
     name: c.title,
-    price: c.price,
+    price: Math.ceil(c.price),
     image: c.thumbnail,
     condition: c.condition,
     stock: 5,
