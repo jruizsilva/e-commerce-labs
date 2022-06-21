@@ -16,13 +16,15 @@ import {
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
   GET_USER_PUBLICATIONS,
-  SET_EDIT_PRODUCT,
+  SET_PRODUCT_TO_EDIT,
+  SET_EDIT_INITIAL_VALUES,
   RESET_MESSAGES,
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
 } from "./types";
 import axios from "axios";
+import formatUpdateInitialValues from "../helpers/formatUpdateInitialValues";
 
 export const getAllProducts = (search) => {
   return function (dispatch) {
@@ -230,7 +232,8 @@ export const validateCartStorage = (userId) => {
   };
 };
 export const createProduct = (body) => {
-  return (dispatch) => {
+  console.log(body);
+  return async (dispatch) => {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
     axios
       .post("/api/products/create", body)
@@ -241,8 +244,8 @@ export const createProduct = (body) => {
         }, 2000);
       })
       .catch((err) => {
-        console.log(err);
-        dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
+        console.log("error create product", err);
+        // dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
         setTimeout(() => {
           dispatch({ type: RESET_MESSAGES });
         }, 2000);
@@ -287,8 +290,11 @@ export const getUserPublications = (userId, search = "") => {
   };
 };
 
-export const setEditProduct = (product) => {
-  return { type: SET_EDIT_PRODUCT, payload: product };
+export const setProductToEdit = (productToEdit) => {
+  return { type: SET_PRODUCT_TO_EDIT, payload: productToEdit };
+};
+export const setEditInitialValues = (editInitialValues) => {
+  return { type: SET_EDIT_INITIAL_VALUES, payload: editInitialValues };
 };
 
 export const updateProduct = (form, userId, publicationId) => {
@@ -300,8 +306,7 @@ export const updateProduct = (form, userId, publicationId) => {
         form
       );
       console.log(res.data);
-      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: res.data });
-      dispatch(getUserPublications(userId));
+      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: res.data.message });
       setTimeout(() => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);

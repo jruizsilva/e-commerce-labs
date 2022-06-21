@@ -15,7 +15,8 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
   GET_USER_PUBLICATIONS,
-  SET_EDIT_PRODUCT,
+  SET_PRODUCT_TO_EDIT,
+  SET_EDIT_INITIAL_VALUES,
   RESET_MESSAGES,
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
@@ -36,7 +37,8 @@ const initialState = {
   successCreationMessage: "",
   errorCreationMessage: "",
   userPublications: [],
-  editProduct: null,
+  productToEdit: null,
+  editInitialValues: null,
   loadingUpdateProduct: false,
   successEditMessage: "",
   errorEditMessage: "",
@@ -128,14 +130,12 @@ export default function reducer(state = initialState, actions) {
         ...state,
         loadingProductCreation: false,
         successCreationMessage: actions.payload,
-        loadingProductCreation: false,
       };
     case CREATE_PRODUCT_ERROR:
       return {
         ...state,
         loadingProductCreation: false,
         errorCreationMessage: actions.payload,
-        loadingProductCreation: false,
       };
     case RESET_MESSAGES: {
       return {
@@ -207,8 +207,10 @@ export default function reducer(state = initialState, actions) {
       };
     case GET_USER_PUBLICATIONS:
       return { ...state, userPublications: actions.payload };
-    case SET_EDIT_PRODUCT:
-      return { ...state, editProduct: actions.payload };
+    case SET_PRODUCT_TO_EDIT:
+      return { ...state, productToEdit: actions.payload };
+    case SET_EDIT_INITIAL_VALUES:
+      return { ...state, editInitialValues: actions.payload };
     case UPDATE_PRODUCT_REQUEST:
       return { ...state, loadingUpdateProduct: true };
     case UPDATE_PRODUCT_SUCCESS:

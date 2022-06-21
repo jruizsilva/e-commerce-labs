@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserPublications, setEditProduct } from "../../actions";
+import {
+  getUserPublications,
+  setProductToEdit,
+  setEditInitialValues,
+} from "../../actions";
 import CreateProductModal from "../../components/CreateProductModal/CreateProductModal";
 import useModal from "../../hooks/useModal";
 import Select from "react-select";
 import style from "./PublicationsPage.module.css";
 import { useSearchParams } from "react-router-dom";
 import EditProductModal from "../../components/EditProductModal/EditProductModal";
+import CreateProductModalHooks from "../../components/CreateProductModalHooks/CreateProductModalHooks";
+import EditProductModalHooks from "../../components/EditProductModalHooks/EditProductModalHooks";
+import formatUpdateInitialValues from "../../helpers/formatUpdateInitialValues";
 
 const { format } = new Intl.NumberFormat("es-ES");
 
@@ -15,12 +22,8 @@ export default function PublicationsPage() {
   const dispatch = useDispatch();
   const [params, setParams] = useSearchParams();
   const [filterState, setFilterState] = useState(null);
-  const {
-    successCreationMessage,
-    errorCreationMessage,
-    successEditMessage,
-    errorEditMessage,
-  } = useSelector((state) => state);
+  const { successCreationMessage, successEditMessage, editInitialValues } =
+    useSelector((state) => state);
 
   const [
     isOpenCreateProductModal,
@@ -32,7 +35,12 @@ export default function PublicationsPage() {
 
   useEffect(() => {
     dispatch(getUserPublications(user.id, window.location.search));
-  }, [user.id]);
+  }, []);
+
+  useEffect(() => {
+    if (successCreationMessage || successEditMessage || filterState)
+      dispatch(getUserPublications(user.id, window.location.search));
+  }, [user.id, successCreationMessage, successEditMessage, filterState]);
 
   useEffect(() => {
     if (params.has("reset")) {
@@ -40,20 +48,6 @@ export default function PublicationsPage() {
       setParams({});
     }
   }, [params]);
-
-  useEffect(() => {
-    closeCreateProductModal();
-    setParams({ reset: true });
-  }, [successCreationMessage, errorCreationMessage]);
-
-  useEffect(() => {
-    closeEditProductModal();
-    setParams({ reset: true });
-  }, [successEditMessage, errorEditMessage]);
-
-  useEffect(() => {
-    dispatch(getUserPublications(user.id, window.location.search));
-  }, [filterState]);
 
   const customStyles = {
     container: (provided, state) => ({
@@ -104,7 +98,8 @@ export default function PublicationsPage() {
   };
   const handleEditButton = (e, product) => {
     e.preventDefault();
-    dispatch(setEditProduct(product));
+    dispatch(setProductToEdit(product));
+    dispatch(setEditInitialValues(formatUpdateInitialValues(product)));
     openEditProductModal();
   };
   const handleResetButton = (e) => {
@@ -209,16 +204,28 @@ export default function PublicationsPage() {
       >
         <span className="material-symbols-rounded">add</span>
       </button>
-      <CreateProductModal
+      {/* <CreateProductModal
+        isOpen={isOpenCreateProductModal}
+        openModal={openCreateProductModal}
+        closeModal={closeCreateProductModal}
+      /> */}
+      <CreateProductModalHooks
         isOpen={isOpenCreateProductModal}
         openModal={openCreateProductModal}
         closeModal={closeCreateProductModal}
       />
-      <EditProductModal
+      {/* <EditProductModal
         isOpen={isOpenEditProductModal}
         openModal={openEditProductModal}
         closeModal={closeEditProductModal}
-      />
+      /> */}
+      {editInitialValues && (
+        <EditProductModalHooks
+          isOpen={isOpenEditProductModal}
+          openModal={openEditProductModal}
+          closeModal={closeEditProductModal}
+        />
+      )}
     </>
   );
 }

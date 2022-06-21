@@ -124,7 +124,8 @@ const getPublicationsByUserId = async (req, res, next) => {
   if (state) where.state = state;
 
   try {
-    const publications = await Product.findAll({ where });
+    let include = [{ model: Category }];
+    const publications = await Product.findAll({ include, where });
     res.json(publications);
   } catch (error) {
     console.log(error);
@@ -148,8 +149,9 @@ const putPublicationById = async (req, res, next) => {
   } = req.body;
 
   try {
+    let include = [{ model: Category }];
     const where = { id: publicationId, userId };
-    const userPublication = await Product.findOne({ where });
+    const userPublication = await Product.findOne({ include, where });
     if (image) {
       await deleteImage(userPublication.public_id);
       const uploadResponse = await uploadImage(image);
@@ -182,7 +184,7 @@ const putPublicationById = async (req, res, next) => {
       where: { id: { [Op.or]: categories } },
     });
     userPublication.setCategories(categoriesDb);
-    res.send("Updated successfully!");
+    res.json({ results: userPublication, message: "Updated successfully!" });
   } catch (error) {
     console.log(error);
     res.send("error:", error);
