@@ -34,12 +34,14 @@ export default function PublicationsPage() {
     useModal();
 
   useEffect(() => {
-    dispatch(getUserPublications(user.id, window.location.search));
-  }, []);
-
-  useEffect(() => {
-    if (successCreationMessage || successEditMessage || filterState)
+    if (
+      successCreationMessage ||
+      successEditMessage ||
+      filterState ||
+      !filterState
+    ) {
       dispatch(getUserPublications(user.id, window.location.search));
+    }
   }, [user.id, successCreationMessage, successEditMessage, filterState]);
 
   useEffect(() => {
