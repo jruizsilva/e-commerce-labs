@@ -66,3 +66,32 @@
   padding: 5px;
   margin-top: 10px;
 }
+
+.counter {
+  width: 5px;
+  height: 5px;
+  /*background-color: red;*/
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  color: red;
+}
+.iconImg {
+  width: 20px;
+  height: 20px;
+}
+.icon {
+  margin-left: 15px;
+  cursor: pointer;
+  position: relative;
+}
+.iconImg {
+  width: 20px;
+  height: 20px;
+}

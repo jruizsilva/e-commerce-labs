@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotificationsByUserId } from "../../actions";
 import { Link } from "react-router-dom";
+import styles from "./Notification.module.css";
 
 const Notification = () => {
   //const [notifications, setNotifications] = useState([]);
@@ -34,19 +35,16 @@ const Notification = () => {
   return (
     <div>
       <div >
-        <div  onClick={() => setOpen(!open)}>
-
-            <Link to="#" >
-              <span
+        <div  className={styles.icon} onClick={() => setOpen(!open)}>
+           <span
                 className="material-symbols-rounded"
                 style={{ fontSize: "16px", color: "#000" }}
-              >
-                notifications
+              >  
+             notifications
               </span>
-            </Link>
           {
-activeNotifications.length >0 &&
-            <div >{activeNotifications.length}</div>
+            activeNotifications.length >0 &&
+            <div className={styles.counter}>{activeNotifications.length}</div>
           }
         </div>
       </div>
