@@ -252,6 +252,7 @@ export default function EditProductModalHooks(props) {
             <input
               type="file"
               name="image"
+              accept="image/*"
               onChange={(e) => handleFileInputChange(e)}
               value={fileInputState}
             />
