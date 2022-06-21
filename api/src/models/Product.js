@@ -12,16 +12,15 @@ module.exports = function (sequelize) {
       allowNull: false,
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    public_id:{
-            type: DataTypes.STRING,
-            allowNull: false
+    public_id: {
+      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,

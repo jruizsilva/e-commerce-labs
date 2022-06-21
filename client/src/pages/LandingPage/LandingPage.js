@@ -19,12 +19,12 @@ export default function LandingPage() {
 
         <div className={style.buttons_container}>
           <button className={style.shop_now_button}>
-            <Link to="/" className={style.link_shopnow}>
+            <Link to="/home" className={style.link_shopnow}>
               Shop now
             </Link>
           </button>
           <button className={style.sell_now_button}>
-            <Link to="/" className={style.link_sellnow}>
+            <Link to="/publications" className={style.link_sellnow}>
               Sell now
             </Link>
           </button>
@@ -34,7 +34,7 @@ export default function LandingPage() {
         <div className={style.image_container}>
           <img
             src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            alt="photo"
+            alt="computer"
             className={style.image}
           />
         </div>

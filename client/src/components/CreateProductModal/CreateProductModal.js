@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./CreateProductModal.module.css";
@@ -8,19 +8,55 @@ import { createProduct, getCategories } from "../../actions";
 import { SelectFieldCondition } from "./SelectFieldCondition";
 import { SelectFieldCategories } from "./SelectFieldCategories";
 import { SelectFieldState } from "./SelectFieldState";
+import { useSearchParams } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 
 const isRequired = "is a required field";
 
+const initialFormValues = {
+  name: "",
+  price: "",
+  image: "",
+  description: "",
+  condition: null,
+  brand: "",
+  model: "",
+  stock: "",
+  score: null,
+  state: null,
+  categories: [],
+};
+
 export default function CreateProductModal(props) {
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+  const { loadingProductCreation } = useSelector((state) => state);
+
   const {
-    user: { id: usedId },
+    user: { id: userId },
     categories,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [form, setForm] = useState(initialFormValues);
+  const [params, setParams] = useSearchParams();
+
+  useEffect(() => {
+    if (params.has("reset")) {
+      setForm(initialFormValues);
+      setPreviewSource("");
+      setFileInputState("");
+      setParams({});
+    }
+  }, [params]);
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!previewSource) return;
+    setForm({ ...form, image: previewSource });
+  }, [previewSource]);
 
   const categoriesOptions = categories.map((c) => {
     return { value: c.id, label: c.name };
@@ -50,39 +86,42 @@ export default function CreateProductModal(props) {
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(`Name ${isRequired}`),
-    brand: yup.string().required(`Name ${isRequired}`),
     price: yup.number().required(`Price ${isRequired}`),
     stock: yup.number().required(`Stock ${isRequired}`),
     state: yup.string().required(`State ${isRequired}`),
     condition: yup.string().required(`Condition ${isRequired}`),
     categories: yup.array().required(`Categories ${isRequired}`).min(1),
-    description: yup.string().required(`Description ${isRequired}`),
+    image: yup.string().required(`Image ${isRequired}`),
   });
+
+  // Image upload
+  const handleFileInputChange = (e, values, setFieldValue) => {
+    setFileInputState(e.target.value);
+    const file = e.target.files[0];
+    previewFile(file);
+    setForm({ ...form, ...values });
+    setFieldValue("image", JSON.stringify({ data: previewSource }));
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result.substring(0, 4));
+      setPreviewSource(reader.result);
+    };
+  };
 
   return (
     <Modal {...props}>
       <div className={style.create_product_container}>
         <Formik
-          initialValues={{
-            name: "",
-            price: "",
-            image: "https://i.ibb.co/QrL04yT/245.png",
-            description: "",
-            condition: "",
-            brand: "",
-            model: "",
-            stock: "",
-            score: null,
-            state: "",
-            categories: [],
-          }}
+          initialValues={initialFormValues}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(false);
-            const body = { ...values, usedId };
-            console.log("/api/products/create");
-            console.log(body);
-            dispatch(createProduct(body));
+          onSubmit={(values, actions) => {
+            if (!previewSource) return;
+            dispatch(createProduct({ ...values, image: form.image, userId }));
+            actions.resetForm();
           }}
         >
           {({
@@ -93,6 +132,7 @@ export default function CreateProductModal(props) {
             handleBlur,
             handleSubmit,
             isSubmitting,
+            setFieldValue,
           }) => (
             <form className={style.formContainer} onSubmit={handleSubmit}>
               <h3 className={style.title}>Add a new product</h3>
@@ -138,36 +178,7 @@ export default function CreateProductModal(props) {
                   <p className={style.error}>{errors.stock}</p>
                 )}
               </div>
-              <div className={style.fieldContainer}>
-                <input
-                  type="text"
-                  name="brand"
-                  className={style.input}
-                  placeholder="Brand (*)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.brand}
-                />
-                {errors.brand && touched.brand && (
-                  <p className={style.error}>{errors.brand}</p>
-                )}
-              </div>
-              {values?.brand && (
-                <div className={style.fieldContainer}>
-                  <input
-                    type="text"
-                    name="model"
-                    className={style.input}
-                    placeholder="Model"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.model}
-                  />
-                  {errors.model && touched.model && (
-                    <p className={style.error}>{errors.model}</p>
-                  )}
-                </div>
-              )}
+
               <div className={style.fieldContainer}>
                 <Field
                   name={"condition"}
@@ -200,11 +211,40 @@ export default function CreateProductModal(props) {
                   <p className={style.error}>{errors.state}</p>
                 )}
               </div>
-
+              <div className={style.fieldContainer}>
+                <input
+                  type="text"
+                  name="brand"
+                  className={style.input}
+                  placeholder="Brand"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.brand}
+                />
+                {errors.brand && touched.brand && (
+                  <p className={style.error}>{errors.brand}</p>
+                )}
+              </div>
+              {values?.brand && (
+                <div className={style.fieldContainer}>
+                  <input
+                    type="text"
+                    name="model"
+                    className={style.input}
+                    placeholder="Model"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.model}
+                  />
+                  {errors.model && touched.model && (
+                    <p className={style.error}>{errors.model}</p>
+                  )}
+                </div>
+              )}
               <div className={style.fieldContainer}>
                 <textarea
                   name="description"
-                  placeholder="Description (*)"
+                  placeholder="Description"
                   className={style.textarea}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -215,6 +255,29 @@ export default function CreateProductModal(props) {
                 )}
               </div>
               <div className={style.fieldContainer}>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={(e) =>
+                    handleFileInputChange(e, values, setFieldValue)
+                  }
+                  value={fileInputState}
+                />
+                {errors.image && touched.image && (
+                  <p className={style.error}>{errors.image}</p>
+                )}
+              </div>
+              <div className={style.fieldContainer}>
+                {previewSource && (
+                  <img
+                    src={previewSource}
+                    alt="chosen"
+                    style={{ height: "220px" }}
+                  />
+                )}
+              </div>
+
+              <div className={style.fieldContainer}>
                 <button
                   type="submit"
                   className={style.button}
@@ -223,6 +286,7 @@ export default function CreateProductModal(props) {
                   Add product
                 </button>
               </div>
+              {loadingProductCreation && <Spinner />}
             </form>
           )}
         </Formik>

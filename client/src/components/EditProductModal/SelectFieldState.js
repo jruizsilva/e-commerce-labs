@@ -16,21 +16,17 @@ const selectCustomStyles = {
   }),
 };
 
-export const SelectFieldCategories = ({ options, field, form }) =>
+export const SelectFieldState = ({ options, field, form }) =>
   React.createElement(Select, {
     styles: selectCustomStyles,
     options: options,
     name: field.name,
     value: options
       ? options.find((option) => option.value === field.value)
-      : null,
-    onChange: (options) => {
-      const formatData = options.map((option) => {
-        return option.value;
-      });
-      return form.setFieldValue(field.name, formatData);
+      : "",
+    onChange: (option) => {
+      return form.setFieldValue(field.name, option.value);
     },
     onBlur: field.onBlur,
-    isMulti: true,
-    placeholder: "Categories (*)",
+    placeholder: "State (*)",
   });
