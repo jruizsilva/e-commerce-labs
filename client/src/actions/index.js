@@ -25,6 +25,8 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
+  RESTORE_PASSWORD_SUCCESS_MESSAGE,
+  RESTORE_PASSWORD_ERROR_MESSAGE,
 } from "./types";
 import axios from "axios";
 
@@ -353,4 +355,12 @@ export const updateProduct = (form, userId, publicationId) => {
       }, 2000);
     }
   };
+};
+
+export const setRestorePasswordSuccessMessage = (msg) => {
+  return { type: RESTORE_PASSWORD_SUCCESS_MESSAGE, payload: msg };
+};
+
+export const setRestorePasswordErrorMessage = (msg) => {
+  return { type: RESTORE_PASSWORD_ERROR_MESSAGE, payload: msg };
 };

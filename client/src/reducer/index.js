@@ -24,6 +24,8 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
+  RESTORE_PASSWORD_SUCCESS_MESSAGE,
+  RESTORE_PASSWORD_ERROR_MESSAGE,
 } from "../actions/types";
 
 const initialState = {
@@ -48,6 +50,8 @@ const initialState = {
   loadingUpdateProduct: false,
   successEditMessage: "",
   errorEditMessage: "",
+  restorePasswordSuccessMessage: "",
+  restorePasswordErrorMessage: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -129,6 +133,11 @@ export default function reducer(state = initialState, actions) {
     case LOGIN_ERROR_MESSAGE:
       return { ...state, loginErrorMessage: actions.payload };
 
+    case RESTORE_PASSWORD_SUCCESS_MESSAGE:
+      return { ...state, restorePasswordSuccessMessage: actions.payload };
+    case RESTORE_PASSWORD_ERROR_MESSAGE:
+      return { ...state, restorePasswordErrorMessage: actions.payload };
+
     case SET_REGISTER_ERROR_MESSAGE:
       return { ...state, registerErrorMessage: actions.payload };
 
@@ -158,6 +167,8 @@ export default function reducer(state = initialState, actions) {
         loginErrorMessage: "",
         cartSuccessMessage: "",
         cartErrorMessage: "",
+        restorePasswordErrorMessage: "",
+        restorePasswordSuccessMessage: "",
       };
     }
     case ADD_TO_CART:

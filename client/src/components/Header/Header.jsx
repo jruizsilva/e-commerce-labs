@@ -13,6 +13,8 @@ const Header = () => {
     registerErrorMessage,
     cartSuccessMessage,
     cartErrorMessage,
+    restorePasswordSuccessMessage,
+    restorePasswordErrorMessage,
   } = useSelector((state) => state);
   return (
     <>
@@ -29,6 +31,12 @@ const Header = () => {
       {registerErrorMessage && <MessageError msg={registerErrorMessage} />}
       {cartSuccessMessage && <MessageSuccess msg={cartSuccessMessage} />}
       {cartErrorMessage && <MessageError msg={cartErrorMessage} />}
+      {restorePasswordSuccessMessage && (
+        <MessageSuccess msg={restorePasswordSuccessMessage} />
+      )}
+      {restorePasswordErrorMessage && (
+        <MessageError msg={restorePasswordErrorMessage} />
+      )}
     </>
   );
 };

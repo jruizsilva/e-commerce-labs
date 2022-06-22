@@ -7,8 +7,8 @@ require("dotenv").config();
 let verificationMail = "";
 
 if (process.env.NODE_ENV === "production")
-  verificationMail += "https://e-commerce-labs.herokuapp.com";
-else verificationMail += "http://localhost:3001";
+  verificationMail += "https://e-commerce-labs.vercel.app";
+else verificationMail += "http://localhost:3000";
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -61,7 +61,8 @@ const forgotPassword = async (req, res) => {
     console.log("No existe ningún usuario con ese email");
   }
 
-  res.send("That Email is not registered.");
+  res.status(404).send("That Email is not registered.");
+  // res.send("That Email is not registered.");
 };
 
 const passwordRestauration = async (req, res) => {
