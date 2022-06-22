@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart /*addOrder*/ } from "../../actions";
 import { Formik } from "formik";
 import styles from "./Checkout.module.css";
-import createPreference from "../../helpers/createPreference";
 
 export default function Checkout() {
-  const { cart, user } = useSelector((state) => state);
-  console.log(cart);
-  console.log(user);
+  const { cart, user, mercadopago } = useSelector((state) => state);
+
+  console.log(mercadopago);
+
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
@@ -52,8 +52,6 @@ export default function Checkout() {
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             addOrder(values);
-            const preference = createPreference(cart, user);
-            console.log(preference);
           }}
         >
           {({

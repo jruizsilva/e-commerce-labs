@@ -27,6 +27,7 @@ import {
   UPDATE_PRODUCT_ERROR,
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
+  MERCADO_PAGO,
 } from "./types";
 import axios from "axios";
 
@@ -363,4 +364,8 @@ export const setRestorePasswordSuccessMessage = (msg) => {
 
 export const setRestorePasswordErrorMessage = (msg) => {
   return { type: RESTORE_PASSWORD_ERROR_MESSAGE, payload: msg };
+};
+
+export const setMercadoPago = (data) => {
+  return { type: MERCADO_PAGO, payload: data };
 };

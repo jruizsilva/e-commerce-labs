@@ -26,6 +26,7 @@ import {
   UPDATE_PRODUCT_ERROR,
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
+  MERCADO_PAGO,
 } from "../actions/types";
 
 const initialState = {
@@ -52,6 +53,7 @@ const initialState = {
   errorEditMessage: "",
   restorePasswordSuccessMessage: "",
   restorePasswordErrorMessage: "",
+  mercadopago: null,
 };
 
 export default function reducer(state = initialState, actions) {
@@ -255,6 +257,12 @@ export default function reducer(state = initialState, actions) {
         ...state,
         loadingUpdateProduct: false,
         errorEditMessage: actions.payload,
+      };
+
+    case MERCADO_PAGO:
+      return {
+        ...state,
+        mercadopago: actions.payload,
       };
     default:
       return state;
