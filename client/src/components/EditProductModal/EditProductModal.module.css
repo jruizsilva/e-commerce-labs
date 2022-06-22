@@ -1,0 +1,85 @@
+.create_product_container {
+  height: 100%;
+  width: 100%;
+}
+
+.create_product_container .formContainer {
+  background-color: #fafafb;
+  border: solid 1px var(--border-color2);
+  border-top-left-radius: 24px;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 60px;
+  padding-bottom: 50px;
+  display: grid;
+  resize: horizontal;
+  overflow: auto;
+}
+
+.create_product_container .title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 14px;
+}
+.create_product_container .fieldContainer {
+  margin-bottom: 12px;
+}
+.create_product_container .input,
+.create_product_container .textarea {
+  background-color: #fff;
+  border: solid 1px var(--border-color2);
+  border-radius: 8px;
+  height: 48px;
+  padding: 12px 24px;
+  width: 100%;
+  font-size: 16px;
+  color: #828282;
+}
+.create_product_container .input::placeholder,
+.create_product_container .textarea::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: #bdbdbd;
+}
+.create_product_container .input:focus,
+.create_product_container .textarea:focus {
+  outline-color: #828282;
+  outline-width: 1px;
+}
+.create_product_container .button {
+  background-color: var(--primary);
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+.create_product_container .button:enabled {
+  cursor: pointer;
+}
+.create_product_container .link {
+  font-size: 14px;
+  color: #828282;
+  text-decoration: none;
+  margin-top: auto;
+  text-align: center;
+  user-select: none;
+}
+.create_product_container .link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.create_product_container .error {
+  margin-top: 4px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
+}
+.create_product_container .textarea {
+  min-height: 96px;
+  resize: vertical;
+}

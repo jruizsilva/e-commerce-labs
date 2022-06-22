@@ -1,6 +1,7 @@
 .create_product_container {
   height: 100%;
   width: 100%;
+  max-width: 600px;
 }
 
 .create_product_container .formContainer {
@@ -11,6 +12,7 @@
   width: 100%;
   margin: 0 auto;
   padding: 30px 60px;
+  padding-bottom: 50px;
   display: grid;
   resize: horizontal;
   overflow: auto;

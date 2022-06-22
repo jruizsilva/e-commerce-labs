@@ -1,0 +1,24 @@
+.error {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  height: 64px;
+  padding: 0px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 24px;
+  z-index: 999999999;
+  user-select: none;
+}
+.error {
+  background-color: rgb(255, 200, 200);
+  color: red;
+}
+.button_close {
+  border: none;
+  background-color: transparent;
+}
+.button_close:hover {
+  cursor: pointer;
+}

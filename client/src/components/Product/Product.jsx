@@ -13,15 +13,13 @@ const Product = ({ data }) => {
           title={data.name}
         >
           {data.public_id ? (
-            <>
-              <Image
-                cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-                publicId={data.public_id}
-                crop="scale"
-                className={style.imageUploaded}
-                alt={`${data.name}`}
-              />
-            </>
+            <Image
+              cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+              publicId={data.public_id}
+              crop="scale"
+              className={style.imageUploaded}
+              alt={`${data.name}`}
+            />
           ) : (
             <img
               src={data.image}

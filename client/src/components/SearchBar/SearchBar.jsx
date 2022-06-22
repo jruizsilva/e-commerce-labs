@@ -18,7 +18,7 @@ const SearchBar = () => {
       name: e.target.value,
     });
   };
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(e);
     if (input.name.trim() === "") return;
     dispatch(getNameProduct(input.name));
@@ -32,7 +32,7 @@ const SearchBar = () => {
     navigate(`/home${window.location.search}`);
   };
   return (
-    <div className={s.container}>
+    <form onSubmit={handleSubmit} className={s.container}>
       <input
         className={s.inputContainer}
         type="text"
@@ -40,7 +40,7 @@ const SearchBar = () => {
         value={input.name}
         onChange={(e) => handleChange(e)}
       />
-      <button className={s.btn} onClick={(e) => handleClick(e)}>
+      <button className={s.btn} type="submit">
         <span
           className="material-symbols-rounded"
           style={{ fontSize: "16px", marginRight: "6px" }}
@@ -49,7 +49,7 @@ const SearchBar = () => {
         </span>
         Search
       </button>
-    </div>
+    </form>
   );
 };
 

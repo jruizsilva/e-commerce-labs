@@ -100,6 +100,9 @@ ul {
   cursor: pointer;
   user-select: none;
 }
+.page__numbers {
+  cursor: auto;
+}
 .page__dots {
   width: 2.6rem;
   height: 2.6rem;
@@ -111,9 +114,6 @@ ul {
   height: 2.6rem;
 
   border-radius: 0.4rem;
-}
-.page__numbers:hover {
-  color: var(--secondary);
 }
 .page__numbers.active {
   color: #ffffff;

@@ -35,6 +35,10 @@
   width: 100%;
   font-size: 16px;
   color: #828282;
+  margin-bottom: 8px;
+}
+.input:last-child {
+  margin-bottom: 0;
 }
 .input::placeholder {
   font-size: 16px;
@@ -54,7 +58,6 @@
   color: white;
   border: none;
   border-radius: 8px;
-  margin-bottom: 14px;
 }
 .button:enabled {
   cursor: pointer;
@@ -72,7 +75,6 @@
   cursor: pointer;
 }
 .error {
-  margin-top: 8px;
   color: var(--danger);
   font-weight: 400;
   font-size: 13px;

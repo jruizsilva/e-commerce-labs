@@ -1,11 +1,7 @@
-const { Router } = require('express');
-
-const { addOrder } = require('../controllers/mercadopago.controller.js');
+const { Router } = require("express");
 const router = Router();
+const { addOrder } = require('../controllers/mercadopago.controller.js');
+
 
 router.get('/', addOrder);
-
-//router.get('/:questionId', getAnswersByQuestionId);
-
 module.exports = router;
-

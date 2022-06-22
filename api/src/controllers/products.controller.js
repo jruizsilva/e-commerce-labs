@@ -116,6 +116,7 @@ const getProductsById = async (req, res, next) => {
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
   // name price image description condition brand model stock score state
+  console.log("llege");
   const {
     name,
     price,
@@ -128,13 +129,11 @@ const createProducts = async (req, res, next) => {
     state,
     categories,
     userId,
-    category_id,
     image,
   } = req.body;
 
   try {
     const uploadResponse = await uploadImage(image);
-    console.log(uploadResponse);
     const product = await Product.create({
       name,
       price,
@@ -148,13 +147,12 @@ const createProducts = async (req, res, next) => {
       score,
       state,
       userId,
-      category_id,
     });
     const categoriesDb = await Category.findAll({
       where: { id: { [Op.or]: categories } },
     });
-    await product.addCategory(categoriesDb);
-    return res.json(JSON.stringify(product));
+    await product.addCategories(categoriesDb);
+    return res.send("Successfully created");
   } catch (error) {
     console.log(error);
     res.json(error);
