@@ -8,6 +8,7 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  SET_REGISTER_ERROR_MESSAGE,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
@@ -15,6 +16,8 @@ import {
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
+  UPDATE_CART_SUCCESS_MESSAGE,
+  UPDATE_CART_ERROR_MESSAGE,
   GET_USER_PUBLICATIONS,
   SET_PRODUCT_TO_EDIT,
   SET_EDIT_INITIAL_VALUES,
@@ -24,7 +27,6 @@ import {
   UPDATE_PRODUCT_ERROR,
 } from "./types";
 import axios from "axios";
-import formatUpdateInitialValues from "../helpers/formatUpdateInitialValues";
 
 export const getAllProducts = (search) => {
   return function (dispatch) {
@@ -65,14 +67,15 @@ export const googleAuth = (googleData) => {
         token: googleData.tokenId,
       })
       .then((resp) => {
-        updateGoogleAuthErrorMessage("");
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
       })
       .catch((err) => {
         console.log(err.response.data.message);
         dispatch(updateGoogleAuthErrorMessage(err.response.data.message));
-        // alert(err.response.data.message);
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -84,11 +87,15 @@ export const loginAuth = (form) => {
       .then((resp) => {
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
+        dispatch(updateLoginErrorMessage(""));
       })
       .catch((err) => {
         // console.log(err);
         dispatch(updateLoginErrorMessage(err.response.data.message));
         // alert(err.response.data.message);
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -145,9 +152,13 @@ export const createUser = (form) => {
         alert(resp.data.message);
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
+        dispatch(setRegisterErrorMessage(""));
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        dispatch(setRegisterErrorMessage(err.response.data.message));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -165,17 +176,30 @@ export const updateLoginErrorMessage = (msg) => {
     payload: msg,
   };
 };
+export const setRegisterErrorMessage = (msg) => {
+  return {
+    type: SET_REGISTER_ERROR_MESSAGE,
+    payload: msg,
+  };
+};
 
 export const addProductToCart = (productId, userId) => {
   return function (dispatch) {
+    dispatch({ type: RESET_MESSAGES });
     return axios
       .post(`/api/cart/addProduct`, { productId, userId, quantity: 1 })
       .then((resp) => {
-        console.log(resp.data);
         dispatch(getCart(userId));
+        dispatch(updateCartSuccessMessage("Product added successfully"));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       })
       .catch((err) => {
-        alert(err.response.data);
+        dispatch(updateCartErrorMessage(err.response.data));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       });
   };
 };
@@ -201,8 +225,11 @@ export const deleteProductCart = (productCardId, userId) => {
     return axios
       .delete(`/api/cart?productCardId=${productCardId}`)
       .then((resp) => {
-        console.log(resp);
         dispatch(getCart(userId));
+        dispatch(updateCartSuccessMessage("Product removed successfully"));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       });
   };
 };
@@ -231,6 +258,14 @@ export const validateCartStorage = (userId) => {
     }
   };
 };
+
+export const updateCartSuccessMessage = (msg) => {
+  return { type: UPDATE_CART_SUCCESS_MESSAGE, payload: msg };
+};
+export const updateCartErrorMessage = (msg) => {
+  return { type: UPDATE_CART_ERROR_MESSAGE, payload: msg };
+};
+
 export const createProduct = (body) => {
   console.log(body);
   return async (dispatch) => {
@@ -245,7 +280,7 @@ export const createProduct = (body) => {
       })
       .catch((err) => {
         console.log("error create product", err);
-        // dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
+        dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
         setTimeout(() => {
           dispatch({ type: RESET_MESSAGES });
         }, 2000);
@@ -313,6 +348,9 @@ export const updateProduct = (form, userId, publicationId) => {
     } catch (error) {
       console.log(error);
       dispatch({ type: UPDATE_PRODUCT_ERROR, payload: error });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
     }
   };
 };

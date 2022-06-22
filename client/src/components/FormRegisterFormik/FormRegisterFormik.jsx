@@ -3,12 +3,13 @@ import style from "./FormRegisterFormik.module.css";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../actions/index.js";
 
 const FormRegisterFormik = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { registerErrorMessage } = useSelector((state) => state);
 
   return (
     <>
@@ -145,6 +146,9 @@ const FormRegisterFormik = () => {
                   Sign up
                 </button>
               </div>
+              {registerErrorMessage && (
+                <p className={style.error}>{registerErrorMessage}</p>
+              )}
               <a className={style.link} onClick={() => navigate("/signin")}>
                 You already have an account? Sign in
               </a>

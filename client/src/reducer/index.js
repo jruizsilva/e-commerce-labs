@@ -8,12 +8,15 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  SET_REGISTER_ERROR_MESSAGE,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
+  UPDATE_CART_SUCCESS_MESSAGE,
+  UPDATE_CART_ERROR_MESSAGE,
   GET_USER_PUBLICATIONS,
   SET_PRODUCT_TO_EDIT,
   SET_EDIT_INITIAL_VALUES,
@@ -31,8 +34,11 @@ const initialState = {
   loadingProducts: false,
   questionsWithAnswers: [],
   googleAuthErrorMessage: "",
+  registerErrorMessage: "",
   loginErrorMessage: "",
   cart: {},
+  cartSuccessMessage: "",
+  cartErrorMessage: "",
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
@@ -123,6 +129,9 @@ export default function reducer(state = initialState, actions) {
     case LOGIN_ERROR_MESSAGE:
       return { ...state, loginErrorMessage: actions.payload };
 
+    case SET_REGISTER_ERROR_MESSAGE:
+      return { ...state, registerErrorMessage: actions.payload };
+
     case CREATE_PRODUCT_REQUEST:
       return { ...state, loadingProductCreation: true };
     case CREATE_PRODUCT_SUCCESS:
@@ -144,6 +153,11 @@ export default function reducer(state = initialState, actions) {
         errorCreationMessage: "",
         successEditMessage: "",
         errorEditMessage: "",
+        googleAuthErrorMessage: "",
+        registerErrorMessage: "",
+        loginErrorMessage: "",
+        cartSuccessMessage: "",
+        cartErrorMessage: "",
       };
     }
     case ADD_TO_CART:
@@ -205,6 +219,12 @@ export default function reducer(state = initialState, actions) {
         ...state,
         cart: { ...state.cart, totalValue: totalVal, productcarts },
       };
+    case UPDATE_CART_SUCCESS_MESSAGE:
+      return { ...state, cartSuccessMessage: actions.payload };
+
+    case UPDATE_CART_ERROR_MESSAGE:
+      return { ...state, cartErrorMessage: actions.payload };
+
     case GET_USER_PUBLICATIONS:
       return { ...state, userPublications: actions.payload };
     case SET_PRODUCT_TO_EDIT:

@@ -1,4 +1,3 @@
-.success,
 .error {
   position: fixed;
   bottom: 32px;
@@ -12,11 +11,14 @@
   z-index: 999999999;
   user-select: none;
 }
-.success {
-  background-color: rgb(200, 255, 200);
-  color: green;
-}
 .error {
   background-color: rgb(255, 200, 200);
   color: red;
+}
+.button_close {
+  border: none;
+  background-color: transparent;
+}
+.button_close:hover {
+  cursor: pointer;
 }
