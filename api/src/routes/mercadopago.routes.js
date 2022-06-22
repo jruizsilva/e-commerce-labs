@@ -3,5 +3,5 @@ const router = Router();
 const { addOrder } = require('../controllers/mercadopago.controller.js');
 
 
-router.get('/', addOrder);
+router.post('/', addOrder);
 module.exports = router;

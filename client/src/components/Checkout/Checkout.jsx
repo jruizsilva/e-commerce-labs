@@ -7,7 +7,7 @@ import styles from "./Checkout.module.css";
 export default function Checkout() {
   const { cart, user, mercadopago } = useSelector((state) => state);
 
-  console.log(mercadopago?.sandbox_init_point);
+  console.log('*******',mercadopago?.sandbox_init_point);
 
   const [inputActivate, setInputActivate] = useState(false);
 
