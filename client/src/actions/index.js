@@ -16,6 +16,7 @@ import {
   ELIMINATE_FROM_CART,
   ADD_TO_CART,
   ADD_ORDER,
+  GET_MERCADOPAGO, 
 } from "./types";
 import axios from "axios";
 
@@ -50,7 +51,19 @@ export function getNameProduct(name) {
     }
   };
 }
-
+export function getMercadopago(id_user) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get("/api/mercadopago?user="+ id_user);
+      return dispatch({
+        type: GET_MERCADOPAGO,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export const googleAuth = (googleData) => {
   return function (dispatch) {
     return axios

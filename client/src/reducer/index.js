@@ -15,6 +15,7 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
   ADD_ORDER,
+  GET_MERCADOPAGO,
 } from "../actions/types";
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
   loadingProductCreation: false,
   successCreationMessage: "",
   errorCreationMessage: "",
+  mercadopago:""
 };
 
 export default function reducer(state = initialState, actions) {
@@ -44,6 +46,11 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case GET_MERCADOPAGO:
+      return {
+        ...state,
+        mercadopago: actions.payload,
       };
     case ADD_ORDER:
       return {

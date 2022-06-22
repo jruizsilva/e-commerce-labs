@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import styles from './Checkout.module.css';
 
 export default function Checkout() {
-  const { cart, user } = useSelector(state => state);
+  const { cart, user, mercadopago } = useSelector(state => state);
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();

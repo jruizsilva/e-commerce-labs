@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom";
-import { deleteProductCart, changeQuantityCart } from "../../actions";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteProductCart, changeQuantityCart, getMercadopago } from "../../actions";
 import styles from './Cart.module.css';
 
 export default function Cart() {
   const { cart, user } = useSelector(state => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if(!user?.id){
@@ -46,6 +47,11 @@ export default function Cart() {
     }else{
       dispatch({type: 'DELETE_PRODUCT_STORAGE', payload: productId});
     }
+  }
+  
+  const onClicCheckout = () =>{
+      getMercadopago(user?.id)
+      navigate('/checkout');
   }
 
   if(!cartList?.length) {
@@ -88,7 +94,7 @@ export default function Cart() {
             <h1> Total Value:  ${cart && cart.totalValue} </h1>
           </div>
           <div className={styles.checkout}>
-              <button><Link to="/checkout">Checkout</Link></button>
+              <button onClick={e => onClicCheckout()}></button>
           </div>
         </ul>
       </div>
