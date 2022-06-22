@@ -1,5 +1,5 @@
 const back_urls_local = {
-  success: "http://localhost:3000",
+  success: "http://localhost:3001/api/mercadopago/payment",
   failure: "http://localhost:3000",
   // pending: "http://localhost:3000",
 };

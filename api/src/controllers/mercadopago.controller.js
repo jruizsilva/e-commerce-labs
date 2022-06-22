@@ -37,14 +37,14 @@ try{
     await OrderDetail.create({state: "pending", quantity: el.quantity, totalprice: el.totalValue, orderId: order.id, productId: el.productId})     
 
   })
-  preferences.external_reference= ""+order.id
+console.log('******************',order.id)
+  preference.external_reference = `${order.id}`
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
       console.info('respondio');
       //Este valor reemplazará el string"<%= global.id %>" en tu HTML
       global.sandbox_init_point = response.body.sandbox_init_point;
-      console.log(response.body);
       res.json({
         sandbox_init_point: global.sandbox_init_point,
       });
@@ -52,13 +52,53 @@ try{
     .catch(function (error) {
       console.log(error);
     }); 
-res.json(user);
+
 }catch(err){
 console.log(err);
 res.status(200).json({message:err})
 }
 }
 
+const payment = async (req, res, next) => { 
+  console.info('*******EN LA RUTA PAGOS *******');
+  const payment_id = req.query.payment_id;
+  const payment_status = req.query.status;
+  const external_reference = parseInt(req.query.external_reference);
+  const merchant_order_id = req.query.merchant_order_id;
+  console.log('EXTERNAL REFERENCE ', external_reference);
+
+  //Aquí edito el status de mi orden
+  Order.findByPk(external_reference)
+    .then(order => {
+      order.payment_id = payment_id;
+      order.payment_status = payment_status;
+      order.merchant_order_id = merchant_order_id;
+      order.status = 'completed';
+      console.info('Salvando order');
+      order
+        .save()
+        .then(_ => {
+          console.info('redirect success');
+          
+          return res.redirect('http://localhost:3000');
+        })
+        .catch(err => {
+          console.error('error al salvar', err);
+          return res.redirect(
+            `http://localhost:3000/?error=${err}&where=al+salvar`
+          );
+        });
+    })
+    .catch(err => {
+      console.error('error al buscar', err);
+      return res.redirect(
+        `http://localhost:3000/?error=${err}&where=al+buscar`
+      );
+    });
+
+  //proceso los datos del pago
+  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
+}
 
 
 // //Ruta que genera la URL de MercadoPago
@@ -177,4 +217,5 @@ res.status(200).json({message:err})
 
 module.exports = {
   addOrder,
+  payment,
 };
