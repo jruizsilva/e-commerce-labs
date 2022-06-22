@@ -2,6 +2,12 @@ const { DataTypes } = require('sequelize')
 
 module.exports = function(sequelize){
     return sequelize.define('orderdetail', {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+      },
       score: {
         type: DataTypes.INTEGER,
         allowNull: true,

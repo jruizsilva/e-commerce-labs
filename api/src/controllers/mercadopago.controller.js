@@ -1,5 +1,6 @@
-const { Order, OrderDetail, Cart, ProductCart } = require('../models');
-
+const { Order, OrderDetail, Cart, ProductCart, User, Product } = require('../models');
+const createPreferenceObj =require('../utils/mercadopago/createPreference')
+const { Op, REAL } = require("sequelize");
 // SDK de Mercado Pago
 const mercadopago = require('mercadopago');
 
@@ -11,37 +12,101 @@ mercadopago.configure({
 });
 
 const addOrder = async (req, res, next) => {
-  const { address, cart, userId } = req.body;
-  
-if(!userId) return res.status(404)
-console.log(userId,address,cart.productcarts);
+  const { userId } = req.query;
+  console.log(userId);
 try{
-  const order = await Order.create({
-    price: cart.totalValue,
-    address: address,
-    status: "created",
-    userId: userId,
-  })
-console.log('tyytytyty',order);
-  let products = cart.productcarts.map(el=>{
-      return el.id
-  })
-//bulkCreate
+  
+  if(!userId) return res.json("Error : Must provide a valid id");
 
-    const orderDetail = cart.productcarts.map(el=>{
-       return { 
-          state: "pending",
-          quantity: el.quantity,
-          totalprice: el.totalValue,
-          productId: el.id,
-       }
-    })
-console.log('*********----',orderDetail);
+  const user = await User.findOne({
+        include:[
+                  {
+                    model: Cart,
+                    include: [{model: ProductCart}]
+                  } 
+                ],
+        where: {
+          id: userId,
+        },
+  });
+  
+  const productId=user.cart.productcarts.map(el => {
+    return el.productId;
+  })
 
-res.send('ok');
+
+  const products = await Product.findAll({
+      where: { id: { [Op.or]: productId } },
+  });
+
+user.cart.productcarts.map(el => {
+    
+  })
+
+  const order = await Order.create({ price: user.cart.totalValue, address: user.address, status: "created", userId: userId });
+
+  
+  user.cart.productcarts.map(async function(el){
+    await OrderDetail.create({state: "pending", quantity: el.quantity, totalprice: el.totalValue, orderId: order.id, productId: el.productId})     
+// await order.addProduct(products,{through:{state: "pending", quantity: el.quantity, totalprice: el.totalValue}})
+  })
+  
+      // const orderdetail = await OrderDetail.create({ state: "pending", quantity: el.quantity, totalprice: el.totalValue, productId: el.productId})
+    
+
+//console.log(createPreferenceObj(user.cart, user ));
+
+// const carrito = [
+//     { title: 'Producto 1', quantity: 5, price: 10 },
+//     { title: 'Producto 2', quantity: 15, price: 100 },
+//     { title: 'Producto 3', quantity: 6, price: 200 },
+//   ];
+
+// const items_ml = carrito.map(i => ({
+//     title: i.title,
+//     unit_price: i.price,
+//     quantity: i.quantity,
+//   }));
+
+//   // Crea un objeto de preferencia
+//   let preference = {
+//     items: items_ml,
+//     external_reference: `${id_orden}`,
+//     payment_methods: {
+//       excluded_payment_types: [
+//         {
+//           id: 'atm',
+//         },
+//       ],
+//       installments: 3, //Cantidad máximo de cuotas
+//     },
+//     back_urls: {
+//       success: 'http://localhost:3001/mercadopago/pagos',
+//       failure: 'http://localhost:3001/mercadopago/pagos',
+//       pending: 'http://localhost:3001/mercadopago/pagos',
+//     },
+//   };
+
+//   mercadopago.preferences
+//     .create(preference)
+//     .then(function (response) {
+//       console.info('respondio');
+//       //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+//       global.id = response.body.id; //or id
+//       global.sandbox_init_point = response.body.sandbox_init_point;
+//       console.log(response.body);
+//       res.json({
+//         id: global.id,
+//         sandbox_init_point: global.sandbox_init_point,
+//       });
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     }); 
+res.json(user);
 }catch(err){
 console.log(err);
-res.status(301).send(err)
+res.status(200).json({message:err})
 }
 }
 

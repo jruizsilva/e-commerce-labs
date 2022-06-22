@@ -94,6 +94,7 @@ User.hasMany(Notification);
 Notification.belongsTo(Product);
 Product.hasMany(Notification);
 Cart.hasOne(User);
+User.belongsTo(Cart);
 Cart.hasMany(ProductCart);
 ProductCart.belongsTo(Cart);
 Product.hasMany(ProductCart);
@@ -103,10 +104,9 @@ Product.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 //////
-Order.hasMany(OrderDetail);
-OrderDetail.belongsTo(Order);
-Product.hasMany(OrderDetail);
-OrderDetail.belongsTo(Product);
+Order.belongsToMany(Product, {through: OrderDetail});
+Product.belongsToMany(Order, {through: OrderDetail});
+
 
 
 module.exports = {
