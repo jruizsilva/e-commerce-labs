@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart /*addOrder*/ } from "../../actions";
+import { getCart, addOrder } from "../../actions";
 import { Formik } from "formik";
 import styles from "./Checkout.module.css";
-import createPreference from "../../helpers/createPreference";
 
 export default function Checkout() {
-  const { cart, user } = useSelector((state) => state);
-  console.log(cart);
-  console.log(user);
+  const { cart, user, mercadopago } = useSelector((state) => state);
+
+  console.log('*******',mercadopago?.sandbox_init_point);
+
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
-
+  
   let productsQuantity = 0;
   if (cart?.productcarts) {
     for (let i = 0; i < cart.productcarts.length; i++) {
@@ -51,9 +51,7 @@ export default function Checkout() {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
-            addOrder(values);
-            const preference = createPreference(cart, user);
-            console.log(preference);
+            
           }}
         >
           {({
@@ -136,7 +134,7 @@ export default function Checkout() {
                   disabled={isSubmitting}
                   type="submit"
                 >
-                  Buy
+                  <a href={mercadopago?.sandbox_init_point}>Buy</a>
                 </button>
               </div>
             </form>

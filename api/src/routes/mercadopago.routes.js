@@ -1,11 +1,8 @@
 const { Router } = require("express");
 const router = Router();
+const { addOrder, payment } = require('../controllers/mercadopago.controller.js');
 
-// SDK de Mercado Pago
-const mercadopago = require("mercadopago");
-// Agrega credenciales
-mercadopago.configure({
-  access_token: process.env.ACCESS_TOKEN,
-});
 
+router.post('/', addOrder);
+router.get('/payment', payment);
 module.exports = router;

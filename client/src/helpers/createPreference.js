@@ -1,5 +1,5 @@
 const back_urls_local = {
-  success: "http://localhost:3000",
+  success: "http://localhost:3001/api/mercadopago/payment",
   failure: "http://localhost:3000",
   // pending: "http://localhost:3000",
 };
@@ -18,8 +18,8 @@ const formatCart = (cart) => {
   const { productcarts, user } = cart;
   const items = productcarts.map((cart) => {
     const { product, quantity } = cart;
-    const { name: title, price: unit_price, description } = product;
-    return { title, quantity, unit_price, description };
+    const { name: title, price: unit_price } = product;
+    return { title, quantity, unit_price };
   });
   return items;
 };

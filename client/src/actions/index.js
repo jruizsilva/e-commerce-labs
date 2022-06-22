@@ -8,6 +8,7 @@ import {
   LOADING_USER,
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
+  SET_REGISTER_ERROR_MESSAGE,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
@@ -17,12 +18,19 @@ import {
   ADD_TO_CART,
   GET_NOTIFICATIONS,
   ADD_NOTIFICATIONS,
+  UPDATE_CART_SUCCESS_MESSAGE,
+  UPDATE_CART_ERROR_MESSAGE,
   GET_USER_PUBLICATIONS,
-  SET_EDIT_PRODUCT,
+  SET_PRODUCT_TO_EDIT,
+  SET_EDIT_INITIAL_VALUES,
   RESET_MESSAGES,
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR,
+  RESTORE_PASSWORD_SUCCESS_MESSAGE,
+  RESTORE_PASSWORD_ERROR_MESSAGE,
+  MERCADO_PAGO,
+  ADD_ORDER,
 } from "./types";
 import axios from "axios";
 
@@ -57,7 +65,6 @@ export function getNameProduct(name) {
     }
   };
 }
-
 export const googleAuth = (googleData) => {
   return function (dispatch) {
     return axios
@@ -65,14 +72,15 @@ export const googleAuth = (googleData) => {
         token: googleData.tokenId,
       })
       .then((resp) => {
-        updateGoogleAuthErrorMessage("");
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
       })
       .catch((err) => {
         console.log(err.response.data.message);
         dispatch(updateGoogleAuthErrorMessage(err.response.data.message));
-        // alert(err.response.data.message);
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -85,11 +93,15 @@ export const loginAuth = (form) => {
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
         dispatch(getNotificationsByUserId(resp.data.user.id));
+        dispatch(updateLoginErrorMessage(""));
       })
       .catch((err) => {
         // console.log(err);
         dispatch(updateLoginErrorMessage(err.response.data.message));
         // alert(err.response.data.message);
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -146,9 +158,13 @@ export const createUser = (form) => {
         alert(resp.data.message);
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
+        dispatch(setRegisterErrorMessage(""));
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        dispatch(setRegisterErrorMessage(err.response.data.message));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 3000);
       });
   };
 };
@@ -166,20 +182,44 @@ export const updateLoginErrorMessage = (msg) => {
     payload: msg,
   };
 };
+export const setRegisterErrorMessage = (msg) => {
+  return {
+    type: SET_REGISTER_ERROR_MESSAGE,
+    payload: msg,
+  };
+};
 
 export const addProductToCart = (productId, userId) => {
   return function (dispatch) {
+    dispatch({ type: RESET_MESSAGES });
     return axios
       .post(`/api/cart/addProduct`, { productId, userId, quantity: 1 })
       .then((resp) => {
-        console.log(resp.data);
         dispatch(getCart(userId));
+        dispatch(updateCartSuccessMessage("Product added successfully"));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       })
       .catch((err) => {
-        alert(err.response.data);
+        dispatch(updateCartErrorMessage(err.response.data));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       });
   };
 };
+
+export const addOrder = (payload) => {
+  return function(dispatch){
+    return axios.post(`/api/mercadopago`, payload)
+      .then((resp)=>{
+        dispatch({type: ADD_ORDER});
+      }).catch((err)=>{
+        alert(err.response.data);
+      })
+  }
+}
 export const getCart = (userId) => {
   return function (dispatch) {
     return axios.get(`/api/cart?id=${userId}`).then((resp) => {
@@ -187,6 +227,7 @@ export const getCart = (userId) => {
     });
   };
 };
+
 export const changeQuantityCart = (productCardId, price, val, userId) => {
   return function (dispatch) {
     return axios
@@ -202,8 +243,11 @@ export const deleteProductCart = (productCardId, userId) => {
     return axios
       .delete(`/api/cart?productCardId=${productCardId}`)
       .then((resp) => {
-        console.log(resp);
         dispatch(getCart(userId));
+        dispatch(updateCartSuccessMessage("Product removed successfully"));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
       });
   };
 };
@@ -232,8 +276,17 @@ export const validateCartStorage = (userId) => {
     }
   };
 };
+
+export const updateCartSuccessMessage = (msg) => {
+  return { type: UPDATE_CART_SUCCESS_MESSAGE, payload: msg };
+};
+export const updateCartErrorMessage = (msg) => {
+  return { type: UPDATE_CART_ERROR_MESSAGE, payload: msg };
+};
+
 export const createProduct = (body) => {
-  return (dispatch) => {
+  console.log(body);
+  return async (dispatch) => {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
     axios
       .post("/api/products/create", body)
@@ -244,7 +297,7 @@ export const createProduct = (body) => {
         }, 2000);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error create product", err);
         dispatch({ type: CREATE_PRODUCT_ERROR, payload: err.message });
         setTimeout(() => {
           dispatch({ type: RESET_MESSAGES });
@@ -292,8 +345,11 @@ export const getUserPublications = (userId, search = "") => {
   };
 };
 
-export const setEditProduct = (product) => {
-  return { type: SET_EDIT_PRODUCT, payload: product };
+export const setProductToEdit = (productToEdit) => {
+  return { type: SET_PRODUCT_TO_EDIT, payload: productToEdit };
+};
+export const setEditInitialValues = (editInitialValues) => {
+  return { type: SET_EDIT_INITIAL_VALUES, payload: editInitialValues };
 };
 
 export const updateProduct = (form, userId, publicationId) => {
@@ -305,14 +361,16 @@ export const updateProduct = (form, userId, publicationId) => {
         form
       );
       console.log(res.data);
-      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: res.data });
-      dispatch(getUserPublications(userId));
+      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: res.data.message });
       setTimeout(() => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);
     } catch (error) {
       console.log(error);
       dispatch({ type: UPDATE_PRODUCT_ERROR, payload: error });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
     }
   };
 };
@@ -342,4 +400,16 @@ let message = `You have a ${messageFrom} on your publication ${productName}`
         alert(err);
       });
   };
+};
+
+export const setRestorePasswordSuccessMessage = (msg) => {
+  return { type: RESTORE_PASSWORD_SUCCESS_MESSAGE, payload: msg };
+};
+
+export const setRestorePasswordErrorMessage = (msg) => {
+  return { type: RESTORE_PASSWORD_ERROR_MESSAGE, payload: msg };
+};
+
+export const setMercadoPago = (data) => {
+  return { type: MERCADO_PAGO, payload: data };
 };
