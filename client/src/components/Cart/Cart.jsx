@@ -97,9 +97,9 @@ export default function Cart() {
   const handleCheckoutClick = async () => {
     const preference = createPreferenceObj(cart, user);
     console.log(preference);
-    // const response = await axios.post("/api/mercadopago", preference);
-    // console.log(response);
-    // dispatch(setMercadoPago(response.data));
+    const response = await axios.post("/api/mercadopago", preference);
+    console.log(response);
+    dispatch(setMercadoPago(response.data));
   };
 
   if (!cartList?.length) {

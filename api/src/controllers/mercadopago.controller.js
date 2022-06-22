@@ -1,8 +1,7 @@
 const { Order, OrderDetail, Cart, ProductCart, User, Product } = require('../models');
-const createPreferenceObj =require('../utils/mercadopago/createPreference')
-const { Op, REAL } = require("sequelize");
 // SDK de Mercado Pago
 const mercadopago = require('mercadopago');
+const { preferences } = require('mercadopago');
 
 const { ACCESS_TOKEN } = process.env;
 
@@ -12,11 +11,11 @@ mercadopago.configure({
 });
 
 const addOrder = async (req, res, next) => {
-  const { userId } = req.query;
-  console.log(userId);
+  const preference = req.body;
+  console.log('------',preference)
+
 try{
   
-  if(!userId) return res.json("Error : Must provide a valid id");
 
   const user = await User.findOne({
         include:[
@@ -26,90 +25,80 @@ try{
                   } 
                 ],
         where: {
-          id: userId,
+          email: preference.payer.email,
         },
   });
   
-  const productId=user.cart.productcarts.map(el => {
-    return el.productId;
-  })
 
-
-  const products = await Product.findAll({
-      where: { id: { [Op.or]: productId } },
-  });
-
-user.cart.productcarts.map(el => {
-    
-  })
-
-  const order = await Order.create({ price: user.cart.totalValue, address: user.address, status: "created", userId: userId });
+  const order = await Order.create({ price: user.cart.totalValue, address: user.address, status: "created", userId: user.id });
 
   
   user.cart.productcarts.map(async function(el){
     await OrderDetail.create({state: "pending", quantity: el.quantity, totalprice: el.totalValue, orderId: order.id, productId: el.productId})     
-// await order.addProduct(products,{through:{state: "pending", quantity: el.quantity, totalprice: el.totalValue}})
+
   })
-  
-      // const orderdetail = await OrderDetail.create({ state: "pending", quantity: el.quantity, totalprice: el.totalValue, productId: el.productId})
-    
+console.log('******************',order.id)
+  preference.external_reference = `${order.id}`
+  mercadopago.preferences
+    .create(preference)
+    .then(function (response) {
+      console.info('respondio');
+      //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+      global.sandbox_init_point = response.body.sandbox_init_point;
+      res.json({
+        sandbox_init_point: global.sandbox_init_point,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
 
-//console.log(createPreferenceObj(user.cart, user ));
-
-// const carrito = [
-//     { title: 'Producto 1', quantity: 5, price: 10 },
-//     { title: 'Producto 2', quantity: 15, price: 100 },
-//     { title: 'Producto 3', quantity: 6, price: 200 },
-//   ];
-
-// const items_ml = carrito.map(i => ({
-//     title: i.title,
-//     unit_price: i.price,
-//     quantity: i.quantity,
-//   }));
-
-//   // Crea un objeto de preferencia
-//   let preference = {
-//     items: items_ml,
-//     external_reference: `${id_orden}`,
-//     payment_methods: {
-//       excluded_payment_types: [
-//         {
-//           id: 'atm',
-//         },
-//       ],
-//       installments: 3, //Cantidad máximo de cuotas
-//     },
-//     back_urls: {
-//       success: 'http://localhost:3001/mercadopago/pagos',
-//       failure: 'http://localhost:3001/mercadopago/pagos',
-//       pending: 'http://localhost:3001/mercadopago/pagos',
-//     },
-//   };
-
-//   mercadopago.preferences
-//     .create(preference)
-//     .then(function (response) {
-//       console.info('respondio');
-//       //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-//       global.id = response.body.id; //or id
-//       global.sandbox_init_point = response.body.sandbox_init_point;
-//       console.log(response.body);
-//       res.json({
-//         id: global.id,
-//         sandbox_init_point: global.sandbox_init_point,
-//       });
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     }); 
-res.json(user);
 }catch(err){
 console.log(err);
 res.status(200).json({message:err})
 }
 }
 
+const payment = async (req, res, next) => { 
+  console.info('*******EN LA RUTA PAGOS *******');
+  const payment_id = req.query.payment_id;
+  const payment_status = req.query.status;
+  const external_reference = parseInt(req.query.external_reference);
+  const merchant_order_id = req.query.merchant_order_id;
+  console.log('EXTERNAL REFERENCE ', external_reference);
+
+  //Aquí edito el status de mi orden
+  Order.findByPk(external_reference)
+    .then(order => {
+      order.payment_id = payment_id;
+      order.payment_status = payment_status;
+      order.merchant_order_id = merchant_order_id;
+      order.status = 'completed';
+      console.info('Salvando order');
+      order
+        .save()
+        .then(_ => {
+          console.info('redirect success');
+          
+          return res.redirect('http://localhost:3000');
+        })
+        .catch(err => {
+          console.error('error al salvar', err);
+          return res.redirect(
+            `http://localhost:3000/?error=${err}&where=al+salvar`
+          );
+        });
+    })
+    .catch(err => {
+      console.error('error al buscar', err);
+      return res.redirect(
+        `http://localhost:3000/?error=${err}&where=al+buscar`
+      );
+    });
+
+  //proceso los datos del pago
+  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
+}
 
 
 // //Ruta que genera la URL de MercadoPago
@@ -228,4 +217,5 @@ res.status(200).json({message:err})
 
 module.exports = {
   addOrder,
+  payment,
 };
