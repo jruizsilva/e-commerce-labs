@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart /*addOrder*/ } from "../../actions";
+import { getCart, addOrder } from "../../actions";
 import { Formik } from "formik";
 import styles from "./Checkout.module.css";
 
@@ -12,7 +12,7 @@ export default function Checkout() {
   const [inputActivate, setInputActivate] = useState(false);
 
   const dispatch = useDispatch();
-
+  
   let productsQuantity = 0;
   if (cart?.productcarts) {
     for (let i = 0; i < cart.productcarts.length; i++) {

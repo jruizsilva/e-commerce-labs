@@ -20,6 +20,7 @@ const modelNotification = require("./Notification.js");
 const modelQuestion = require("./Question.js");
 const modelAnswer = require("./Answer.js");
 const modelProductCart = require("./ProductCart.js");
+const modelOrderDetail = require("./OrderDetail.js")
 
 const sequelize =
   process.env.NODE_ENV === "production"
@@ -75,6 +76,7 @@ const Notification = modelNotification(sequelize);
 const Question = modelQuestion(sequelize);
 const Answer = modelAnswer(sequelize);
 const ProductCart = modelProductCart(sequelize);
+const OrderDetail = modelOrderDetail(sequelize);
 
 //aca hacemos nuestras relaciones
 Category.belongsToMany(Product, { through: "product_category" });
@@ -92,19 +94,21 @@ User.hasMany(Notification);
 Notification.belongsTo(Product);
 Product.hasMany(Notification);
 Cart.hasOne(User);
+User.belongsTo(Cart);
 Cart.hasMany(ProductCart);
 ProductCart.belongsTo(Cart);
 Product.hasMany(ProductCart);
 ProductCart.belongsTo(Product);
 User.hasMany(Product);
 Product.belongsTo(User);
-Order.hasOne(Feedback);
-User.hasMany(Order, { as: "IdUserSeller" });
-Order.belongsTo(User, { as: "IdUserSeller" });
-User.hasMany(Order, { as: "IdUserBuyer" });
-Order.belongsTo(User, { as: "IdUserBuyer" });
-Product.hasMany(Order);
-Order.belongsTo(Product);
+User.hasMany(Order);
+Order.belongsTo(User);
+//////
+Order.belongsToMany(Product, {through: OrderDetail});
+Product.belongsToMany(Order, {through: OrderDetail});
+
+
+
 module.exports = {
   conn: sequelize,
   Product,
@@ -117,4 +121,5 @@ module.exports = {
   Question,
   Answer,
   ProductCart,
+  OrderDetail,
 };

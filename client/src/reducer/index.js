@@ -15,6 +15,7 @@ import {
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
+  ADD_ORDER,
   UPDATE_CART_SUCCESS_MESSAGE,
   UPDATE_CART_ERROR_MESSAGE,
   GET_USER_PUBLICATIONS,
@@ -39,6 +40,7 @@ const initialState = {
   googleAuthErrorMessage: "",
   registerErrorMessage: "",
   loginErrorMessage: "",
+  order:{},
   cart: {},
   cartSuccessMessage: "",
   cartErrorMessage: "",
@@ -67,6 +69,10 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         user: actions.payload,
+      };
+    case ADD_ORDER:
+      return {
+        ...state,
       };
     case GET_QUESTIONS_WITH_ANSWERS:
       return {

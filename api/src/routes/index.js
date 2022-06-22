@@ -8,7 +8,7 @@ const cartRoutes = require("./cart.routes.js");
 const questionsRoutes = require("./questions.routes.js");
 const answersRoutes = require("./answers.routes.js");
 const forgotPassword = require("./forgotPassword.routes");
-const mercadoPago = require("./mercadopago.routes");
+const mercadopagoRoutes = require('./mercadopago.routes.js')
 
 router.use("/products", productsRoutes);
 router.use("/users", usersRoutes);
@@ -17,6 +17,6 @@ router.use("/cart", cartRoutes);
 router.use("/answers", answersRoutes);
 router.use("/questions", questionsRoutes);
 router.use("/forgotpassword", forgotPassword);
-router.use("/mercadopago", mercadoPago);
+router.use('/mercadopago', mercadopagoRoutes)
 
 module.exports = router;

@@ -28,6 +28,7 @@ import {
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
+  ADD_ORDER,
 } from "./types";
 import axios from "axios";
 
@@ -62,7 +63,6 @@ export function getNameProduct(name) {
     }
   };
 }
-
 export const googleAuth = (googleData) => {
   return function (dispatch) {
     return axios
@@ -206,6 +206,17 @@ export const addProductToCart = (productId, userId) => {
       });
   };
 };
+
+export const addOrder = (payload) => {
+  return function(dispatch){
+    return axios.post(`/api/mercadopago`, payload)
+      .then((resp)=>{
+        dispatch({type: ADD_ORDER});
+      }).catch((err)=>{
+        alert(err.response.data);
+      })
+  }
+}
 export const getCart = (userId) => {
   return function (dispatch) {
     return axios.get(`/api/cart?id=${userId}`).then((resp) => {
@@ -213,6 +224,7 @@ export const getCart = (userId) => {
     });
   };
 };
+
 export const changeQuantityCart = (productCardId, price, val, userId) => {
   return function (dispatch) {
     return axios
