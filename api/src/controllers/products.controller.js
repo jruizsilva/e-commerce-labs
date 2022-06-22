@@ -116,6 +116,7 @@ const getProductsById = async (req, res, next) => {
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
   // name price image description condition brand model stock score state
+  console.log("llege");
   const {
     name,
     price,
