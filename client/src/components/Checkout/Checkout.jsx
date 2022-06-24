@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCart, addOrder } from "../../actions";
+import { useSelector } from "react-redux";
 import { Formik } from "formik";
 import styles from "./Checkout.module.css";
+import createPreferenceObj from "../../helpers/createPreference";
+import axios from "axios";
 
 export default function Checkout() {
-  const { cart, user, mercadopago } = useSelector((state) => state);
+  const { cart, user } = useSelector((state) => state);
+  const [mercadopago, setMercadopago] = useState(null);
+  const [preferenceId, setPreferenceId] = useState(null);
 
-  console.log('*******',mercadopago?.sandbox_init_point);
+  console.log(preferenceId);
+  console.log(mercadopago);
 
   const [inputActivate, setInputActivate] = useState(false);
 
-  const dispatch = useDispatch();
-  
   let productsQuantity = 0;
   if (cart?.productcarts) {
     for (let i = 0; i < cart.productcarts.length; i++) {
@@ -20,16 +22,33 @@ export default function Checkout() {
     }
   }
 
-  const addOrder = (values) => {
-    // console.log(values);
-  };
-
   const activateInput = (e) => {
     e.preventDefault();
     inputActivate ? setInputActivate(false) : setInputActivate(true);
   };
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://sdk.mercadopago.com/js/v2";
+
+    script.addEventListener("load", () => {
+      const mp = new window.MercadoPago(process.env.REACT_APP_MP_PUBLIC_KEY, {
+        locale: "es-AR", // The most common are: 'pt-BR', 'es-AR' and 'en-US'
+      });
+
+      setMercadopago(mp);
+    });
+
+    document.body.appendChild(script);
+    if (preferenceId) {
+      mercadopago.checkout({
+        preference: {
+          id: preferenceId,
+        },
+        autoOpen: true, // Habilita la apertura automática del Checkout Pro
+      });
+    }
+  }, [preferenceId]);
 
   if (user) {
     return (
@@ -40,18 +59,23 @@ export default function Checkout() {
             products: cart.productcarts,
             address: user.address,
           }}
-          validate={(form) => {
-            let err = {};
-            if (!form.address) {
-              err.address =
-                "You have to enter an address or take the previous one";
-              document.getElementById("address")?.focus();
-            }
-            return err;
-          }}
-          onSubmit={(values, { setSubmitting }) => {
+          // validate={(form) => {
+          //   let err = {};
+          //   if (!form.address) {
+          //     err.address =
+          //       "You have to enter an address or take the previous one";
+          //     document.getElementById("address")?.focus();
+          //   }
+          //   return err;
+          // }}
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false);
-            
+            const preference = createPreferenceObj(cart, user);
+            console.log(preference);
+            const response = await axios.post("/api/mercadopago", preference);
+            console.log(response);
+            console.log(response.data);
+            setPreferenceId(response.data.preferenceId);
           }}
         >
           {({
@@ -134,7 +158,7 @@ export default function Checkout() {
                   disabled={isSubmitting}
                   type="submit"
                 >
-                  <a href={mercadopago?.sandbox_init_point}>Buy</a>
+                  Buy
                 </button>
               </div>
             </form>

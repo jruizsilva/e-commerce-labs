@@ -1,7 +1,14 @@
-const { Order, OrderDetail, Cart, ProductCart, User, Product, Notification } = require('../models');
+const {
+  Order,
+  OrderDetail,
+  Cart,
+  ProductCart,
+  User,
+  Product,
+  Notification
+} = require("../models");
 // SDK de Mercado Pago
-const mercadopago = require('mercadopago');
-const { preferences } = require('mercadopago');
+const mercadopago = require("mercadopago");
 const { Op } = require("sequelize");
 
 const { ACCESS_TOKEN } = process.env;
@@ -13,78 +20,77 @@ mercadopago.configure({
 
 const addOrder = async (req, res, next) => {
   const preference = req.body;
+  console.log("------", preference);
 
-try{
-  
-
-  const user = await User.findOne({
-        include:[
-                  {
-                    model: Cart,
-                    include: [{model: ProductCart}]
-                  } 
-                ],
-        where: {
-          email: preference.payer.email,
+  try {
+    const user = await User.findOne({
+      include: [
+        {
+          model: Cart,
+          include: [{ model: ProductCart }],
         },
-  });
-  //preference.payer.email,
+      ],
+      where: {
+        email: preference.payer.email,
+      },
+    });
 
-  const order = await Order.create({ price: user.cart.totalValue, address: user.address, status: "created", userId: user.id });
-  
-  user.cart.productcarts.map(async function(el){
-    await OrderDetail.create({state: "pending", quantity: el.quantity, totalprice: el.totalValue, orderId: order.id, productId: el.productId})    
-  })
+    const order = await Order.create({
+      price: user.cart.totalValue,
+      address: user.address,
+      status: "created",
+      userId: user.id,
+    });
 
-  //  const productsID = user.cart.productcarts.map(el => {
-  //     return el.productId;
-  // })
-
-  // const products = await Product.findAll({
-  //     where: { id: { [Op.or]: productsID} },
-  // })
-
-  preference.external_reference = `${order.id}`
-  mercadopago.preferences
-    .create(preference)
-    .then(function (response) {
-      console.info('respondio');
-      //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-      global.sandbox_init_point = response.body.sandbox_init_point;
-      res.json({
-        sandbox_init_point: global.sandbox_init_point,
+    user.cart.productcarts.map(async function (el) {
+      await OrderDetail.create({
+        state: "pending",
+        quantity: el.quantity,
+        totalprice: el.totalValue,
+        orderId: order.id,
+        productId: el.productId,
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    }); 
+    });
+    console.log("******************", order.id);
+    preference.external_reference = `${order.id}`;
+    mercadopago.preferences
+      .create(preference)
+      .then(function (response) {
+        console.info("respondio");
+        //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+        // global.sandbox_init_point = response.body.sandbox_init_point;
+        res.json({
+          // sandbox_init_point: global.sandbox_init_point,
+          preferenceId: response.body.id,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(200).json({ message: err });
+  }
+};
 
-}catch(err){
-console.log(err);
-res.status(200).json({message:err})
-}
-}
-
-
-const payment = async (req, res, next) => { 
-
-  
-  console.info('*******EN LA RUTA PAGOS *******', req);
+const payment = async (req, res, next) => {
+  console.info("*******EN LA RUTA PAGOS *******");
   const payment_id = req.query.payment_id;
   const payment_status = req.query.status;
   const external_reference = parseInt(req.query.external_reference);
   const merchant_order_id = req.query.merchant_order_id;
-  console.log('EXTERNAL REFERENCE ', external_reference);
-   
+  console.log("EXTERNAL REFERENCE ", external_reference);
 
   //Aquí edito el status de mi orden
-  Order.findByPk(external_reference)
-    .then(order => {
+  Order.findByPk(external_reference, {
+    include: [{ model: User }],
+  })
+    .then((order) => {
       order.payment_id = payment_id;
       order.payment_status = payment_status;
       order.merchant_order_id = merchant_order_id;
-      order.status = 'completed';
-      console.info('Salvando order');
+      order.status = "completed";
+      console.info("Salvando order");
 
       //add notification
       async function addNotification(){
@@ -109,26 +115,36 @@ const payment = async (req, res, next) => {
 
       order
         .save()
-        .then(_ => {
-          console.info('redirect success');
-          return res.redirect('http://localhost:3000');
+        .then(() => {
+          console.log("Order ", order);
         })
-        .catch(err => {
-          console.error('error al salvar', err);
+        .then((_) => {
+          console.info("redirect success");
+
           return res.redirect(
-            `http://localhost:3000/?error=${err}&where=al+salvar`
+            process.env.NODE_ENV === "production"
+              ? "https://e-commerce-labs.vercel.app"
+              : "http://localhost:3000"
+          );
+        })
+        .catch((err) => {
+          console.error("error al salvar", err);
+          return res.redirect(
+            process.env.NODE_ENV === "production"
+              ? `https://e-commerce-labs.vercel.app/?error=${err}&where=al+salvar`
+              : `http://localhost:3000/?error=${err}&where=al+salvar`
           );
         });
     })
-    .catch(err => {
-      console.error('error al buscar', err);
+    .catch((err) => {
+      console.error("error al buscar", err);
       return res.redirect(
-        `http://localhost:3000/?error=${err}&where=al+buscar`
+        process.env.NODE_ENV === "production"
+          ? `https://e-commerce-labs.vercel.app/?error=${err}&where=al+buscar`
+          : `http://localhost:3000/?error=${err}&where=al+buscar`
       );
     });
 
-  //proceso los datos del pago
-  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 }
 
 module.exports = {
