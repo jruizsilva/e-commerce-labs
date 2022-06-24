@@ -6,7 +6,7 @@ import { Formik, Form } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuestion, getQuestionsWithAnswers } from "../../actions";
 
-export default function Question({ productId }) {
+export default function Question({ productId, productName, sellerId }) {
   const dispatch = useDispatch();
   const { user, questionsWithAnswers } = useSelector((state) => state);
   const userQuestions = questionsWithAnswers?.filter(
@@ -41,7 +41,7 @@ export default function Question({ productId }) {
   return (
     <div className={style.questionContainer}>
       <Formik
-        initialValues={{ question: "", productId: productId, userId: user?.id }}
+        initialValues={{ question: "", productId: productId, userId: user?.id, productName, sellerId }}
         validate={(form) => {
           let err = {};
           if (!form.question) {
