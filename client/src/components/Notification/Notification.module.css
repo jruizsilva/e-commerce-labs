@@ -39,7 +39,7 @@
   z-index: 1;
   margin-right: 5px;
   border-radius: 10px;
-  
+
 }
 .link:link, .link:visited{
   color: black;
@@ -95,6 +95,7 @@
   /* width: 100%;  */
   white-space:pre-line ;
   font-family: var(--fuente);
+  cursor: pointer;
 
 }
 
