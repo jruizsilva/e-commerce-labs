@@ -56,9 +56,10 @@ const addOrder = async (req, res, next) => {
       .then(function (response) {
         console.info("respondio");
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-        global.sandbox_init_point = response.body.sandbox_init_point;
+        // global.sandbox_init_point = response.body.sandbox_init_point;
         res.json({
-          sandbox_init_point: global.sandbox_init_point,
+          // sandbox_init_point: global.sandbox_init_point,
+          preferenceId: response.body.id,
         });
       })
       .catch(function (error) {
@@ -79,7 +80,9 @@ const payment = async (req, res, next) => {
   console.log("EXTERNAL REFERENCE ", external_reference);
 
   //Aquí edito el status de mi orden
-  Order.findByPk(external_reference)
+  Order.findByPk(external_reference, {
+    include: [{ model: User }],
+  })
     .then((order) => {
       order.payment_id = payment_id;
       order.payment_status = payment_status;
@@ -88,6 +91,9 @@ const payment = async (req, res, next) => {
       console.info("Salvando order");
       order
         .save()
+        .then(() => {
+          console.log("Order ", order);
+        })
         .then((_) => {
           console.info("redirect success");
 

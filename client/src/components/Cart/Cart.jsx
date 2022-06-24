@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,15 +5,12 @@ import {
   deleteProductCart,
   changeQuantityCart,
   updateCartErrorMessage,
-  setMercadoPago,
 } from "../../actions";
-import createPreferenceObj from "../../helpers/createPreference";
+
 import styles from "./Cart.module.css";
 
 export default function Cart() {
   const { cart, user } = useSelector((state) => state);
-  console.log(cart);
-  console.log(user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -94,14 +90,6 @@ export default function Cart() {
     }
   };
 
-  const handleCheckoutClick = async () => {
-    const preference = createPreferenceObj(cart, user);
-    console.log(preference);
-    const response = await axios.post("/api/mercadopago", preference);
-    console.log(response);
-    dispatch(setMercadoPago(response.data));
-  };
-
   if (!cartList?.length) {
     return (
       <div>
@@ -109,6 +97,8 @@ export default function Cart() {
       </div>
     );
   }
+
+  const handleClick = () => {};
   return (
     <>
       <div className={styles.container}>
@@ -189,7 +179,7 @@ export default function Cart() {
             <div className={styles.checkout}>
               <button>
                 {user ? (
-                  <Link to="/checkout" onClick={handleCheckoutClick}>
+                  <Link to="/checkout" onClick={handleClick}>
                     Checkout
                   </Link>
                 ) : (
