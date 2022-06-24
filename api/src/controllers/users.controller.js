@@ -2,7 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product, Category } = require("../models/index.js");
+const { User, Product, Category, Order } = require("../models/index.js");
 const { Op } = require("sequelize");
 const {
   uploadImage,
@@ -191,6 +191,22 @@ const putPublicationById = async (req, res, next) => {
   }
 };
 
+const getMyPurchases = async (req, res, next) => {
+  const { userId } = req.params;
+  // const id = "eb435a69-c84a-4155-966d-bd4438df54f5";
+  const orders = await Order.findAll({
+    where: { userId },
+    include: [{ model: Product }],
+  });
+  const my_purchases = [];
+  orders.forEach((order) => {
+    order.products.forEach((p) => {
+      my_purchases.push(p);
+    });
+  });
+  res.json(my_purchases);
+};
+
 module.exports = {
   signUpUser,
   signInUser,
@@ -199,4 +215,5 @@ module.exports = {
   meUser,
   getPublicationsByUserId,
   putPublicationById,
+  getMyPurchases,
 };

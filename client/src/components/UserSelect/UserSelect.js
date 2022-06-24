@@ -10,6 +10,10 @@ const UserSelect = ({ user }) => {
         navigate("/publications");
         break;
       }
+      case "my-purchases": {
+        navigate("/my-purchases");
+        break;
+      }
       case "logout": {
         localStorage.removeItem("token_id");
         window.location.reload();
@@ -54,6 +58,7 @@ const UserSelect = ({ user }) => {
     // { value: "favorites", label: "Favoritos" },
     // { value: "sell", label: "Vender" },
     { value: "publications", label: "Publications" },
+    { value: "my-purchases", label: "My purchases" },
     { value: "logout", label: "Log out" },
   ];
 
