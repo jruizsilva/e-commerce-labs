@@ -18,7 +18,8 @@ import LandingPage from "./pages/LandingPage/LandingPage.js";
 import PublicacionPage from "./pages/PublicationsPage/PublicationsPage.js";
 import RestorePassword from "./components/RestorePassword/RestorePassword.jsx";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
-import Checkout from "./components/Checkout/Checkout.jsx"
+import Checkout from "./components/Checkout/Checkout.jsx";
+import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
 
 function App() {
   const { user, searchUser } = useSelector((state) => state);
@@ -60,9 +61,12 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route exact path="/err404" element={<Err404 />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/restore-password/:userId/:token" element={<RestorePassword />} />
+        <Route
+          path="/restore-password/:userId/:token"
+          element={<RestorePassword />}
+        />
         <Route path="*" element={<Navigate to="/err404" replace />} />
-        <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/checkout" element={<CheckoutHooks />} />
       </Routes>
     </>
   );

@@ -17,8 +17,9 @@ mercadopago.configure({
 });
 
 const addOrder = async (req, res, next) => {
-  const preference = req.body;
+  const { preference, shipping } = req.body;
   console.log("------", preference);
+  console.log(shipping);
 
   try {
     const user = await User.findOne({

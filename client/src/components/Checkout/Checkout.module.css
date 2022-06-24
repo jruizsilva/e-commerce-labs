@@ -41,13 +41,6 @@
   right: 30px;
   height: 500px;
 }
-.summary > h1 {
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
-  width: 100%;
-  margin-bottom: 10px;
-}
 .button {
   margin-top: 8px;
   width: 80%;
@@ -122,6 +115,13 @@
   font-size: 13px;
 }
 
+.summary > h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
 .line {
   width: 60%;
   height: 4px;

@@ -1,0 +1,140 @@
+.container {
+ padding: 30px 5%;
+}
+.checkout_container{
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-around;
+}
+.form_container {
+  background-color: #fafafb;
+  border: solid 1px var(--border-color2);
+  border-radius: 24px;
+  height: 100%;
+  padding: 30px 50px;
+  margin-right: 8px;
+  display: grid;
+}
+.fieldContainer {
+  margin-bottom: 12px;
+}
+.input,
+.textarea {
+  background-color: #fff;
+  border: solid 1px var(--border-color2);
+  border-radius: 8px;
+  height: 48px;
+  padding: 12px 24px;
+  width: 100%;
+  font-size: 16px;
+  color: #828282;
+}
+.input::placeholder,
+.textarea::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: #bdbdbd;
+}
+.input:focus,
+.textarea:focus {
+  outline-color: #828282;
+  outline-width: 1px;
+}
+.button {
+  background-color: var(--primary);
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 16px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+.button:enabled {
+  cursor: pointer;
+}
+.error {
+  margin-top: 4px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* Table */
+.table {
+  background-color: #fafafb;
+  border: solid 1px var(--border-color2);
+  height: 100%;
+  padding: 30px 50px;
+  margin-right: 8px;
+  flex-basis: 60%;
+  -webkit-box-shadow: 0 5px 12px -12px rgb(0 0 0 / 29%);
+  -moz-box-shadow: 0 5px 12px -12px rgba(0, 0, 0, 0.29);
+  box-shadow: 0 5px 12px -12px rgb(0 0 0 / 29%);
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+.thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  background: #e5e5e5;
+}
+.thead tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+.thead th {
+  border: none;
+  padding: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: black;
+  vertical-align: bottom;
+}
+.thead th:nth-child(2) {
+  text-align: left;
+}
+.tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+.tbody tr {
+  margin-bottom: 10px;
+}
+.tbody td {
+  border: none;
+  padding: 20px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+  vertical-align: middle;
+  text-align: center;
+}
+.tbody td:nth-child(2) {
+  max-width: 140px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tbody td img {
+  width: 100px;
+  height: 80px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.tbody td span {
+  display: block;
+  text-align: left;
+  margin-bottom: 4px;
+}
+.tbody td span:last-child {
+  display: block;
+  font-size: 13px;
+  color: #828282;
+}
