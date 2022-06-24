@@ -6,7 +6,7 @@ import {
   getAllProducts,
   updateNotificationsByProduct,
 } from '../../actions';
-import { Link } from 'react-router-dom';
+import Comment from './Comment';
 import styles from './Notification.module.css';
 
 const Notification = () => {
@@ -17,12 +17,12 @@ const Notification = () => {
 
   const activeNotifications = notifications?.filter(el => el.state === 'true');
 
-  // document.addEventListener('click', function handleClickOutsideBox(event) {
-  //   const box = document.getElementById('notifications');
-  //   if (!box.contains(event.target)) {
-  //     closeNotifications();
-  //   }
-  // });
+  document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('notifications');
+    if (!box.contains(event.target)) {
+      closeNotifications();
+    }
+  });
 
   useEffect(() => {
     dispatch(getAllProducts(window.location.search));
@@ -30,34 +30,6 @@ const Notification = () => {
       dispatch(getNotificationsByUserId(user.id));
     }
   }, [dispatch, user]);
-
-  const displayNotification = (n, currentProduct) => {
-    let { message, productId } = n;
-    return (
-      <div>
-        <Link
-          to={`/details/${productId}`}
-          className={styles.link}
-          onClick={() => closeNotifications()}
-        >
-          <div className={styles.notificationContainer}>
-            <img
-              src={currentProduct?.image}
-              className={styles.image}
-              alt={`${currentProduct?.name}`}
-            />
-            <Link
-              to={'#'}
-              onClick={() => eliminateNotification(productId, user.id)}
-            >
-              Eliminate
-            </Link>
-            <div className={styles.notification}>{message}</div>
-          </div>
-        </Link>
-      </div>
-    );
-  };
 
   const closeNotifications = () => {
     setOpen(false);
@@ -91,12 +63,21 @@ const Notification = () => {
 
           {notifications.length ? (
             <div>
-            {notifications?.map(n => {
-              let currentProduct = allProductsCopy?.find(
-                el => el.id === n.productId
-              );
-              return displayNotification(n, currentProduct);
-            })}
+              {notifications?.map(n => {
+                let currentProduct = allProductsCopy?.find(
+                  el => el.id === n.productId
+                );
+                return (
+                  <div key={n.productId}>
+                    <Comment
+                      n={n}
+                      currentProduct={currentProduct}
+                      closeNotifications={closeNotifications}
+                      eliminateNotification={eliminateNotification}
+                    ></Comment>
+                  </div>
+                );
+              })}
               <button className={styles.nButton} onClick={handleRead}>
                 Mark as read
               </button>
