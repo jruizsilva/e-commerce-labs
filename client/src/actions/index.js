@@ -15,6 +15,7 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
+  UPDATE_NOTIFICATIONS,
   ADD_TO_CART,
   GET_NOTIFICATIONS,
   ADD_NOTIFICATIONS,
@@ -386,10 +387,21 @@ export const getNotificationsByUserId = (userId) => {
       });
   };
 };
+export const updateNotificationsByUserId = (userId) => {
+  return function (dispatch) {
+    return axios
+      .put(`/api/notifications/${userId}`)
+      .then((resp) => {
+        dispatch({ type: UPDATE_NOTIFICATIONS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
 export const addNotification = (userId, productId, productName, messageFrom) => {
-let message = `You have a ${messageFrom} on your publication ${productName}`
+  let message = `You have a ${messageFrom} on your publication ${productName}.`
   const payload ={userId,productId,message}
-  console.log('++++++', payload);
   return function (dispatch) {
     return axios
       .post(`/api/notifications/`, payload)

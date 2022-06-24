@@ -19,7 +19,7 @@ export default function ProductDetails() {
       setDetails(response[0]); // [0] así me ahorro aclarar que es la posición 0 (ya que es el único dato) en futuras ocaciones
       setLoading(false);
     });
-  }, []);
+  }, [productId]);
 
   const onClickBuyProduct = (e) => {
     e.preventDefault();

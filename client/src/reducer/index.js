@@ -30,6 +30,7 @@ import {
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
+  UPDATE_NOTIFICATIONS,
 } from "../actions/types";
 
 const initialState = {
@@ -87,6 +88,10 @@ export default function reducer(state = initialState, actions) {
         ...state,
       };
     case ADD_NOTIFICATIONS:
+      return {
+        ...state,
+      };
+    case UPDATE_NOTIFICATIONS:
       return {
         ...state,
       };
