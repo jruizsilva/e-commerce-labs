@@ -4,27 +4,25 @@ import {
   getNotificationsByUserId,
   updateNotificationsByUserId,
   getAllProducts,
+  updateNotificationsByProduct,
 } from '../../actions';
 import { Link } from 'react-router-dom';
 import styles from './Notification.module.css';
 
 const Notification = () => {
   const [open, setOpen] = useState(false);
-  const { user, notifications, allProducts } = useSelector(state => state);
+  const { user, notifications, allProductsCopy } = useSelector(state => state);
 
   const dispatch = useDispatch();
 
   const activeNotifications = notifications?.filter(el => el.state === 'true');
 
-  document.addEventListener('click', function handleClickOutsideBox(event) {
-    const box = document.getElementById('notifications');
-    if (!box.contains(event.target)) {
-      closeNotifications();
-    }
-  });
-  useEffect(() => {
-    dispatch(getAllProducts(window.location.search));
-  }, [dispatch]);
+  // document.addEventListener('click', function handleClickOutsideBox(event) {
+  //   const box = document.getElementById('notifications');
+  //   if (!box.contains(event.target)) {
+  //     closeNotifications();
+  //   }
+  // });
 
   useEffect(() => {
     dispatch(getAllProducts(window.location.search));
@@ -48,7 +46,12 @@ const Notification = () => {
               className={styles.image}
               alt={`${currentProduct?.name}`}
             />
-
+            <Link
+              to={'#'}
+              onClick={() => eliminateNotification(productId, user.id)}
+            >
+              Eliminate
+            </Link>
             <div className={styles.notification}>{message}</div>
           </div>
         </Link>
@@ -61,7 +64,10 @@ const Notification = () => {
   };
   const handleRead = () => {
     setOpen(false);
-    updateNotificationsByUserId(user.id);
+    dispatch(updateNotificationsByUserId(user.id));
+  };
+  const eliminateNotification = (product, user) => {
+    dispatch(updateNotificationsByProduct(product, user));
   };
 
   return (
@@ -82,14 +88,22 @@ const Notification = () => {
           <span className={styles.notificationTitle}>Notifications</span>
           <hr className={styles.line}></hr>
           <hr></hr>
-          {notifications.map(n => {
-            let currentProduct = allProducts.find(el => el.id === n.productId);
-            return displayNotification(n, currentProduct);
-          })}
 
-          <button className={styles.nButton} onClick={handleRead}>
-            Mark as read
-          </button>
+          {notifications.length ? (
+            <div>
+            {notifications?.map(n => {
+              let currentProduct = allProductsCopy?.find(
+                el => el.id === n.productId
+              );
+              return displayNotification(n, currentProduct);
+            })}
+              <button className={styles.nButton} onClick={handleRead}>
+                Mark as read
+              </button>
+            </div>
+          ) : (
+            <span>You don't have any notification.</span>
+          )}
         </div>
       )}
     </div>

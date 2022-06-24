@@ -32,6 +32,23 @@ const updateNotification = async (req, res, next) => {
     next(error);
   }
 };
+const updateNotificationByProduct = async (req, res, next) => {
+  const {userId} = req.body;
+  const { productId } = req.params;
+  console.log('user:  ',userId,'   product  :', productId)
+  try {
+    await Notification.update({
+      state: false},{
+      where: {
+        userId: userId,
+        productId:productId,
+      },
+    });
+    return res.status(200).send('ok');
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getNotificationsByUserId = async (req, res, next) => {
   const { userId } = req.params;
@@ -40,6 +57,7 @@ const getNotificationsByUserId = async (req, res, next) => {
     const notification = await Notification.findAll({
       where: {
         userId: userId,
+        state: 'true',
       },
       order: [['createdAt', 'DESC']],
     });
@@ -52,5 +70,6 @@ const getNotificationsByUserId = async (req, res, next) => {
 module.exports = {
   addNotification,
   getNotificationsByUserId,
-  updateNotification
+  updateNotification,
+  updateNotificationByProduct,
 };

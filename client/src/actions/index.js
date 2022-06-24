@@ -32,6 +32,7 @@ import {
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
   ADD_ORDER,
+  UPDATE_NOTIFICATIONS_BY_PRODUCT,
 } from "./types";
 import axios from "axios";
 
@@ -390,9 +391,23 @@ export const getNotificationsByUserId = (userId) => {
 export const updateNotificationsByUserId = (userId) => {
   return function (dispatch) {
     return axios
-      .put(`/api/notifications/${userId}`)
+      .put(`/api/notifications`,{userId: userId})
       .then((resp) => {
         dispatch({ type: UPDATE_NOTIFICATIONS, payload: resp.data });
+        dispatch(getNotificationsByUserId(userId));
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const updateNotificationsByProduct = (productId, userId) => {
+  return function (dispatch) {
+    return axios
+      .put(`/api/notifications/${productId}`, {userId: userId})
+      .then((resp) => {
+        dispatch({ type: UPDATE_NOTIFICATIONS_BY_PRODUCT, payload: resp.data });
+        dispatch(getNotificationsByUserId(userId));
       })
       .catch((err) => {
         alert(err);

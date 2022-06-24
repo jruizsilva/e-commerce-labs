@@ -31,10 +31,12 @@ import {
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
   UPDATE_NOTIFICATIONS,
+  UPDATE_NOTIFICATIONS_BY_PRODUCT,
 } from "../actions/types";
 
 const initialState = {
   allProducts: [],
+  allProductsCopy:[],
   categories: [],
   user: null,
   searchUser: true,
@@ -64,10 +66,12 @@ const initialState = {
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
-    case GET_ALL_PRODUCTS:
+    case GET_ALL_PRODUCTS:  
+      let products= state.allProductsCopy.length ? state.allProductsCopy : actions.payload;
       return {
         ...state,
         allProducts: actions.payload,
+        allProductsCopy: products,
       };
     case GET_USER:
       return {
@@ -92,6 +96,10 @@ export default function reducer(state = initialState, actions) {
         ...state,
       };
     case UPDATE_NOTIFICATIONS:
+      return {
+        ...state,
+      };
+    case UPDATE_NOTIFICATIONS_BY_PRODUCT:
       return {
         ...state,
       };
