@@ -22,6 +22,8 @@ const addOrder = async (req, res, next) => {
   const body = JSON.parse(req.body.data);
   const { preference, shipping } = body;
 
+  console.log(body);
+
   try {
     const user = await User.findOne({
       include: [
