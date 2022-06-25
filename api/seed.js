@@ -26,9 +26,13 @@ conn
   .then(() => {
     // Llenar db
     console.log("Agregando celulares..");
-    celulares.forEach((celular) => {
-      Product.create(celular);
-    });
+    setTimeout(async () => {
+      const user = await User.findByPk("dffaaad9-c172-47fc-b3ac-b035d0d79bb1");
+      celulares.forEach(async (celular) => {
+        const productToAdd = await Product.create(celular);
+        user.addProduct(productToAdd);
+      });
+    }, 2000);
   })
   .then(() => {
     console.log("Asignando categoria celulares...");
@@ -47,9 +51,13 @@ conn
   .then(() => {
     // Llenar db
     console.log("Agregando productos de computación..");
-    computacion.forEach((product) => {
-      Product.create(product);
-    });
+    setTimeout(async () => {
+      const user = await User.findByPk("dffaaad9-c172-47fc-b3ac-b035d0d79bb1");
+      computacion.forEach(async (product) => {
+        const productToAdd = await Product.create(product);
+        user.addProduct(productToAdd);
+      });
+    }, 2000);
   })
   .then(() => {
     console.log("Asignando categoria computacion...");

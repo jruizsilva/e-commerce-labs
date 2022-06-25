@@ -54,6 +54,7 @@ export default function MyPurchasesPage() {
                             {format(p.orderdetail.quantity)} items purchased
                           </span>
                         </td>
+                        <td>{p.users[0].name}</td>
                       </tr>
                     ))}
                   </tbody>

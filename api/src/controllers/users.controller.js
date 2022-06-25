@@ -57,6 +57,7 @@ const signInUser = async (req, res, next) => {
         email,
       },
     });
+    console.log(user);
     if (!user) {
       // el usuario  no existe
       return res.status(401).json({ message: "The email doesn't exists" });
@@ -108,7 +109,12 @@ const meUser = (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { id } = jwt.verify(req.body.token, config.secret);
-    const user = await User.findOne({ where: { id } });
+    const user = await User.findOne({
+      where: { id },
+      attributes: {
+        exclude: ["password"],
+      },
+    });
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -195,14 +201,26 @@ const getMyPurchases = async (req, res, next) => {
   const { userId } = req.params;
   // const id = "eb435a69-c84a-4155-966d-bd4438df54f5";
   const orders = await Order.findAll({
-    where: { userId },
-    include: [{ model: Product }],
+    where: {
+      payment_status: "approved",
+    },
+    include: [
+      {
+        model: Product,
+        include: [
+          {
+            model: User,
+            attributes: {
+              exclude: ["password"],
+            },
+          },
+        ],
+      },
+    ],
   });
   const my_purchases = [];
-  orders.forEach((order) => {
-    order.products.forEach((p) => {
-      my_purchases.push(p);
-    });
+  orders.forEach(({ products }) => {
+    products.forEach((p) => my_purchases.push(p));
   });
   res.json(my_purchases);
 };

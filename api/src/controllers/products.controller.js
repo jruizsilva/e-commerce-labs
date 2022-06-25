@@ -75,7 +75,15 @@ const getProducts = async (req, res, next) => {
 
     // devuelve todos los productos que contenga la categoria con el id enviado
     // busca producto por el nombre que se ingreso en el search anteriormente
-    let include = [{ model: Category }];
+    let include = [
+      { model: Category },
+      {
+        model: User,
+        attributes: {
+          exclude: ["password"],
+        },
+      },
+    ];
     if (categoryId) include[0].where = { id: categoryId };
     if (name) where.name = { [Op.iLike]: "%" + name + "%" };
     // ------------------------------------------------------------------------
@@ -100,6 +108,7 @@ const getProductsById = async (req, res, next) => {
         {
           model: Category,
           model: Question,
+          model: User,
           //  model: Answer, // error: answer is not asociated to Question!
         },
       ],
@@ -133,6 +142,8 @@ const createProducts = async (req, res, next) => {
   } = req.body;
 
   try {
+    const user = await User.findByPk(userId);
+    console.log(user.__proto__);
     const uploadResponse = await uploadImage(image);
     const product = await Product.create({
       name,
@@ -152,6 +163,7 @@ const createProducts = async (req, res, next) => {
       where: { id: { [Op.or]: categories } },
     });
     await product.addCategories(categoriesDb);
+    await user.addProduct(product);
     return res.send("Successfully created");
   } catch (error) {
     console.log(error);

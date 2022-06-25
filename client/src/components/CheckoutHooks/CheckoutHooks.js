@@ -33,6 +33,7 @@ export default function Checkout() {
   const { cart, user } = useSelector((state) => state);
   const [mercadopago, setMercadopago] = useState(null);
   const [preferenceId, setPreferenceId] = useState(null);
+  console.log(cart);
   const formik = useFormik({
     initialValues,
     validationSchema,
