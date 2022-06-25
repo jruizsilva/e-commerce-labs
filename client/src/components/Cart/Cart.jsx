@@ -97,8 +97,6 @@ export default function Cart() {
       </div>
     );
   }
-
-  const handleClick = () => {};
   return (
     <>
       <div className={styles.container}>
@@ -179,7 +177,7 @@ export default function Cart() {
             <div className={styles.checkout}>
               <button>
                 {user ? (
-                  <Link to="/checkout" onClick={handleClick}>
+                  <Link to="/checkout">
                     Checkout
                   </Link>
                 ) : (
