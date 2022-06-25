@@ -49,6 +49,9 @@ export default function Checkout() {
           data: {
             data,
           },
+          headers: {
+            "Content-Type": "text/plain",
+          },
         });
         setPreferenceId(response.data.preferenceId);
       } catch (error) {
