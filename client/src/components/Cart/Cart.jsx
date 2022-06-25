@@ -184,9 +184,7 @@ export default function Cart() {
             <div className={styles.checkout}>
                 {user ? (
                 <button onClick={() => navigate("/checkout")}>
-                {/* <Link to="/checkout" onClick={handleCheckoutClick}> */}
                       Checkout
-                    {/* </Link> */}
                 </button>
                 ) : (
                 <button onClick={() => navigate("/signin")}>
