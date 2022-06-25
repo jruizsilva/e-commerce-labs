@@ -4,7 +4,7 @@ const back_urls_local = {
   // pending: "http://localhost:3000",
 };
 const back_urls_deploy = {
-  success: "https://e-commerce-labs.vercel.app",
+  success: "https://e-commerce-labs.vercel.app/api/mercadopago/payment",
   failure: "https://e-commerce-labs.vercel.app",
   // pending: "https://e-commerce-labs.vercel.app",
 };
