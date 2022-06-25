@@ -11,14 +11,13 @@ import CustomSelect from "../CustomSelect/CustomSelect";
 const isRequired = "is a required field";
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required(`Name ${isRequired}`).length(254),
+  name: yup.string().required(`Name ${isRequired}`).max(254),
   price: yup.number().required(`Price ${isRequired}`),
   stock: yup.number().required(`Stock ${isRequired}`),
   condition: yup.object().required(`Condition ${isRequired}`),
   categories: yup.array().required(`Categories ${isRequired}`).min(1),
   state: yup.object().required(`State ${isRequired}`),
   image: yup.string().required(`Image ${isRequired}`),
-  description: yup.string(),
 });
 
 const conditionOptions = [

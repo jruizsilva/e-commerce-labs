@@ -104,14 +104,13 @@ export default function EditProductModal(props) {
   ];
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(`Name ${isRequired}`).length(254),
+    name: yup.string().required(`Name ${isRequired}`).max(254),
     price: yup.number().required(`Price ${isRequired}`),
     stock: yup.number().required(`Stock ${isRequired}`),
     state: yup.string().required(`State ${isRequired}`),
     condition: yup.string().required(`Condition ${isRequired}`),
     categories: yup.array().required(`Categories ${isRequired}`).min(1),
     image: yup.string(),
-    description: yup.string(),
   });
 
   // Image upload
