@@ -6,8 +6,7 @@ import style from "./CheckoutHooks.module.css";
 import createPreferenceObj from "../../helpers/createPreference";
 import axios from "axios";
 import PhoneInput from "react-phone-input-2";
-// import "react-phone-input-2/lib/style.css";
-import "./style.css";
+import "react-phone-input-2/lib/style.css";
 
 const { format } = new Intl.NumberFormat("es-ES");
 const isRequired = "is a required field";
