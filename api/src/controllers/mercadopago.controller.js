@@ -5,7 +5,7 @@ const {
   ProductCart,
   User,
   Product,
-  Notification
+  Notification,
 } = require("../models");
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
@@ -19,9 +19,9 @@ mercadopago.configure({
 });
 
 const addOrder = async (req, res, next) => {
-  const {preference, shipping} = req.body;
-  //console.log("------", req.body);
-  console.log(preference)
+  const { preference, shipping } = req.body;
+
+  console.log(preference);
 
   try {
     const user = await User.findOne({
@@ -40,11 +40,11 @@ const addOrder = async (req, res, next) => {
       status: "created",
       price: user.cart.totalValue,
       street_name: shipping.street_name,
-		  street_number: shipping.street_number,
-		  zip_code: shipping.zip_code,
-		  phone: shipping.phone,
-		  country: shipping.country,
-		  city: shipping.city,
+      street_number: shipping.street_number,
+      zip_code: shipping.zip_code,
+      phone: shipping.phone,
+      country: shipping.country,
+      city: shipping.city,
       userId: user.id,
     });
 
@@ -63,7 +63,7 @@ const addOrder = async (req, res, next) => {
       .create(preference)
       .then(function (response) {
         console.info("respondio");
-        console.log(response)
+        console.log(response);
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
         // global.sandbox_init_point = response.body.sandbox_init_point;
         res.json({
@@ -100,25 +100,28 @@ const payment = async (req, res, next) => {
       console.info("Salvando order");
 
       //add notification
-      async function addNotification(){
+      async function addNotification() {
         const productsPaymentIds = await OrderDetail.findAll({
-          attributes: ['productId'],
+          attributes: ["productId"],
           where: { orderId: order.id },
-        })
-        const producIds = productsPaymentIds.map(el=>el.productId)
+        });
+        const producIds = productsPaymentIds.map((el) => el.productId);
         const productSeller = await Product.findAll({
-          attributes: ['userId','name','id'],
-          where: { id: { [Op.or]: producIds} },
-        })
-        
-        productSeller.map(async function(el){
-          let message = `You have a sell on your publication ${el.name}.`
-          await Notification.create({message: message, state: "true", userId: el.userId, productId: el.id})    
-        })
-        
+          attributes: ["userId", "name", "id"],
+          where: { id: { [Op.or]: producIds } },
+        });
+
+        productSeller.map(async function (el) {
+          let message = `You have a sell on your publication ${el.name}.`;
+          await Notification.create({
+            message: message,
+            state: "true",
+            userId: el.userId,
+            productId: el.id,
+          });
+        });
       }
       addNotification();
-
 
       order
         .save()
@@ -151,8 +154,7 @@ const payment = async (req, res, next) => {
           : `http://localhost:3000/?error=${err}&where=al+buscar`
       );
     });
-
-}
+};
 
 module.exports = {
   addOrder,
