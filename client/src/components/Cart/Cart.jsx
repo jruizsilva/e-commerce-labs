@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   deleteProductCart,
   changeQuantityCart,
@@ -12,6 +12,7 @@ import styles from "./Cart.module.css";
 export default function Cart() {
   const { cart, user } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.id) {
@@ -39,7 +40,7 @@ export default function Cart() {
         if (quantity - 1 > 0)
           dispatch(changeQuantityCart(productCardId, price, -1, user.id));
         else {
-          dispatch(updateCartErrorMessage("Cantidad minima 1"));
+          dispatch(updateCartErrorMessage("Cannot be less than 1"));
           setTimeout(() => {
             dispatch(updateCartErrorMessage(""));
           }, 2000);
@@ -50,8 +51,9 @@ export default function Cart() {
           dispatch(changeQuantityCart(productCardId, price, 1, user.id));
         else {
           dispatch(
+            // "La cantidad de productos a comprar no puede ser superior a la cantidad de stock disponible"
             updateCartErrorMessage(
-              "La cantidad de productos a comprar no puede ser superior a la cantidad de stock disponible"
+              "The number of products to buy cannot be more than the available stock"
             )
           );
           setTimeout(() => {
@@ -66,7 +68,7 @@ export default function Cart() {
             type: "UPDATE_PRODUCT_STORAGE",
             payload: { idProduct, price, cant: -1 },
           });
-        else alert("Cantidad minima 1");
+        else alert("Cannot be less than 1");
       }
       if (e.target.name === "+") {
         if (quantity + 1 <= stock)
@@ -75,8 +77,9 @@ export default function Cart() {
             payload: { idProduct, price, cant: 1 },
           });
         else
+        // "La cantidad de productos a comprar no puede ser superior a la cantidad de stock disponible"
           alert(
-            "La cantidad de productos a comprar no puede ser superior a la cantidad de stock disponible"
+            "The number of products to buy cannot be more than the available stock"
           );
       }
     }
@@ -92,8 +95,10 @@ export default function Cart() {
 
   if (!cartList?.length) {
     return (
-      <div>
-        <h2>You have not added any product to your cart yet.</h2>
+      <div className={styles.noProductContainer}>
+        <div className={styles.noProductMessage}>
+          <h2>You have not added any product to your cart yet.</h2>
+        </div>
       </div>
     );
   }
@@ -122,7 +127,7 @@ export default function Cart() {
                           className={styles.bntDelete}
                           onClick={() => deleteProdCart(p.id, p.productId)}
                         >
-                          Eliminar
+                          Delete
                         </button>
                       </div>
                       <h3>
@@ -167,7 +172,7 @@ export default function Cart() {
                             +
                           </button>
                         </div>
-                        <p>Stock available: {p.product.stock}</p>
+                        <p>Available stock: {p.product.stock}</p>
                       </div>
                     </div>
                   </li>
@@ -177,15 +182,17 @@ export default function Cart() {
               <h1> Total Value: ${cart && cart.totalValue} </h1>
             </div>
             <div className={styles.checkout}>
-              <button>
                 {user ? (
-                  <Link to="/checkout" onClick={handleClick}>
-                    Checkout
-                  </Link>
+                <button onClick={() => navigate("/checkout")}>
+                      Checkout
+                </button>
                 ) : (
-                  <Link to="/signin">Checkout</Link>
-                )}
-              </button>
+                <button onClick={() => navigate("/signin")}>
+                  {/* <Link to="/signin"> */}
+                    Checkout
+                    {/* </Link> */}
+                </button>
+                  )}
             </div>
           </ul>
         </div>
