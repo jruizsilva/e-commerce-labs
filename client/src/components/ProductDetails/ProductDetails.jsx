@@ -12,6 +12,7 @@ export default function ProductDetails() {
 
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([]);
+  console.log("🚀 ~ file: ProductDetails.jsx ~ line 15 ~ ProductDetails ~ details", details)
 
   useEffect(() => {
     axios.get(`/api/products/${productId}`).then((r) => {
@@ -92,48 +93,52 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          <div className={styles.details}>
-            <div className={styles.information}>
-              <h2>Product information</h2>
+          <div className={styles.detailsContainer}>
+            <div className={styles.details}>
+              <div className={styles.information}>
+                <h2>Product information</h2>
+              </div>
+              <div className={styles.descriptionTableContainer}>
+                <table className={styles.descriptionTable}>
+                  <tbody>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+            <div className={styles.descriptionContainer}>
+              <div className={styles.description}>
+                <h2>Description</h2>
+              </div>
+              <div className={styles.descriptionText}>
+                <p>{details.description}</p>
             </div>
-            <div className={styles.descriptionTableContainer}>
-              <table className={styles.descriptionTable}>
-                <tbody>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className={styles.description}>
-              <h2>Description</h2>
-            </div>
-            <div className={styles.descriptionText}>
-              <p></p>
             </div>
 
             {/* <p><b>Model:</b> {details.model}</p> por el momento no lo agrego. Posiblemente no vaya acá */}
 
             {/* <p><b>Condition:</b> {details.condition}</p> lo mismo que arriba */}
 
-            <div className={styles.moreInfo}>
+            {/* <div className={styles.moreInfo}>
               <p>
                 <b>More info:</b> {details?.description}
               </p>
-            </div>
+            </div> */}
           </div>
           <div className={styles.questions}>
             <p className={styles.title}>Ask the seller</p>
