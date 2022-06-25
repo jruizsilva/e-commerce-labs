@@ -199,10 +199,11 @@ const putPublicationById = async (req, res, next) => {
 
 const getMyPurchases = async (req, res, next) => {
   const { userId } = req.params;
-  // const id = "eb435a69-c84a-4155-966d-bd4438df54f5";
+  // const id = "b95ebb9e-6ad5-47c1-b68f-449bff3b058c";
   const orders = await Order.findAll({
     where: {
-      payment_status: "approved",
+      status: "completed",
+      userId,
     },
     include: [
       {
