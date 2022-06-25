@@ -2,7 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product, Category } = require("../models/index.js");
+const { User, Product, Category, Order } = require("../models/index.js");
 const { Op } = require("sequelize");
 const {
   uploadImage,
@@ -57,6 +57,7 @@ const signInUser = async (req, res, next) => {
         email,
       },
     });
+    console.log(user);
     if (!user) {
       // el usuario  no existe
       return res.status(401).json({ message: "The email doesn't exists" });
@@ -108,7 +109,12 @@ const meUser = (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { id } = jwt.verify(req.body.token, config.secret);
-    const user = await User.findOne({ where: { id } });
+    const user = await User.findOne({
+      where: { id },
+      attributes: {
+        exclude: ["password"],
+      },
+    });
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -191,6 +197,34 @@ const putPublicationById = async (req, res, next) => {
   }
 };
 
+const getMyPurchases = async (req, res, next) => {
+  const { userId } = req.params;
+  // const id = "eb435a69-c84a-4155-966d-bd4438df54f5";
+  const orders = await Order.findAll({
+    where: {
+      payment_status: "approved",
+    },
+    include: [
+      {
+        model: Product,
+        include: [
+          {
+            model: User,
+            attributes: {
+              exclude: ["password"],
+            },
+          },
+        ],
+      },
+    ],
+  });
+  const my_purchases = [];
+  orders.forEach(({ products }) => {
+    products.forEach((p) => my_purchases.push(p));
+  });
+  res.json(my_purchases);
+};
+
 module.exports = {
   signUpUser,
   signInUser,
@@ -199,4 +233,5 @@ module.exports = {
   meUser,
   getPublicationsByUserId,
   putPublicationById,
+  getMyPurchases,
 };

@@ -32,6 +32,7 @@ import {
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
   ADD_ORDER,
+  MY_PURCHASES,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
   ADD_ANSWER,
 } from "./types";
@@ -214,15 +215,17 @@ export const addProductToCart = (productId, userId) => {
 };
 
 export const addOrder = (payload) => {
-  return function(dispatch){
-    return axios.post(`/api/mercadopago`, payload)
-      .then((resp)=>{
-        dispatch({type: ADD_ORDER});
-      }).catch((err)=>{
-        alert(err.response.data);
+  return function (dispatch) {
+    return axios
+      .post(`/api/mercadopago`, payload)
+      .then((resp) => {
+        dispatch({ type: ADD_ORDER });
       })
-  }
-}
+      .catch((err) => {
+        alert(err.response.data);
+      });
+  };
+};
 export const getCart = (userId) => {
   return function (dispatch) {
     return axios.get(`/api/cart?id=${userId}`).then((resp) => {
@@ -460,4 +463,15 @@ export const setRestorePasswordErrorMessage = (msg) => {
 
 export const setMercadoPago = (data) => {
   return { type: MERCADO_PAGO, payload: data };
+};
+
+export const getMyPurchases = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/users/${userId}`);
+      dispatch({ type: MY_PURCHASES, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };

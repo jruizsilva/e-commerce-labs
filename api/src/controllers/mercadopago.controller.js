@@ -19,8 +19,9 @@ mercadopago.configure({
 });
 
 const addOrder = async (req, res, next) => {
-  const preference = req.body;
-  console.log("------", preference);
+  const {preference, shipping} = req.body;
+  //console.log("------", req.body);
+  console.log(preference)
 
   try {
     const user = await User.findOne({
@@ -36,9 +37,14 @@ const addOrder = async (req, res, next) => {
     });
 
     const order = await Order.create({
-      price: user.cart.totalValue,
-      address: user.address,
       status: "created",
+      price: user.cart.totalValue,
+      street_name: shipping.street_name,
+		  street_number: shipping.street_number,
+		  zip_code: shipping.zip_code,
+		  phone: shipping.phone,
+		  country: shipping.country,
+		  city: shipping.city,
       userId: user.id,
     });
 
@@ -57,6 +63,7 @@ const addOrder = async (req, res, next) => {
       .create(preference)
       .then(function (response) {
         console.info("respondio");
+        console.log(response)
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
         // global.sandbox_init_point = response.body.sandbox_init_point;
         res.json({

@@ -104,7 +104,7 @@ export default function EditProductModal(props) {
   ];
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(`Name ${isRequired}`),
+    name: yup.string().required(`Name ${isRequired}`).max(254),
     price: yup.number().required(`Price ${isRequired}`),
     stock: yup.number().required(`Stock ${isRequired}`),
     state: yup.string().required(`State ${isRequired}`),

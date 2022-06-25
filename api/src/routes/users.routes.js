@@ -6,6 +6,7 @@ const {
   signUpUser,
   getPublicationsByUserId,
   putPublicationById,
+  getMyPurchases,
 } = require("../controllers/users.controller.js");
 const router = Router();
 router.post("/signup", signUpUser);
@@ -14,5 +15,6 @@ router.post("/googleAuth", googleAuth);
 router.post("/user", getUser);
 router.get("/:userId/publications", getPublicationsByUserId);
 router.put("/:userId/publication/:publicationId", putPublicationById);
+router.get("/:userId", getMyPurchases);
 
 module.exports = router;

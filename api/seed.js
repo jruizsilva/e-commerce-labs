@@ -25,43 +25,51 @@ conn
   })
   .then(() => {
     // Llenar db
-    console.log("Agregando celulares..");
-    celulares.forEach((celular) => {
-      Product.create(celular);
-    });
+    setTimeout(async () => {
+      console.log("Agregando celulares..");
+      const user = await User.findByPk("dffaaad9-c172-47fc-b3ac-b035d0d79bb1");
+      celulares.forEach(async (celular) => {
+        const productToAdd = await Product.create(celular);
+        await user.addProduct(productToAdd);
+      });
+    }, 2000);
   })
   .then(() => {
-    console.log("Asignando categoria celulares...");
     setTimeout(async () => {
+      console.log("Asignando categoria celulares...");
       const celulares_category = await Category.findOne({
         where: { id: "MLA1051" },
       });
       const products = await Product.findAll({
         where: { category_id: "MLA1051" },
       });
-      products.forEach((product) => {
-        product.addCategory(celulares_category);
+      products.forEach(async (product) => {
+        await product.addCategory(celulares_category);
       });
     }, 2000);
   })
   .then(() => {
     // Llenar db
-    console.log("Agregando productos de computación..");
-    computacion.forEach((product) => {
-      Product.create(product);
-    });
+    setTimeout(async () => {
+      console.log("Agregando productos de computación..");
+      const user = await User.findByPk("dffaaad9-c172-47fc-b3ac-b035d0d79bb1");
+      computacion.forEach(async (product) => {
+        const productToAdd = await Product.create(product);
+        await user.addProduct(productToAdd);
+      });
+    }, 2000);
   })
   .then(() => {
-    console.log("Asignando categoria computacion...");
     setTimeout(async () => {
+      console.log("Asignando categoria computacion...");
       const computacion_category = await Category.findOne({
         where: { id: "MLA1648" },
       });
       const products = await Product.findAll({
         where: { category_id: "MLA1648" },
       });
-      products.forEach((product) => {
-        product.addCategory(computacion_category);
+      products.forEach(async (product) => {
+        await product.addCategory(computacion_category);
       });
     }, 2000);
   });

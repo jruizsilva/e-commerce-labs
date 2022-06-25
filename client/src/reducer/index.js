@@ -30,6 +30,7 @@ import {
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
+  MY_PURCHASES,
   UPDATE_NOTIFICATIONS,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
 } from "../actions/types";
@@ -46,7 +47,7 @@ const initialState = {
   googleAuthErrorMessage: "",
   registerErrorMessage: "",
   loginErrorMessage: "",
-  order:{},
+  order: {},
   cart: {},
   cartSuccessMessage: "",
   cartErrorMessage: "",
@@ -62,6 +63,7 @@ const initialState = {
   restorePasswordSuccessMessage: "",
   restorePasswordErrorMessage: "",
   mercadopago: null,
+  myPurchases: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -294,6 +296,11 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         mercadopago: actions.payload,
+      };
+    case MY_PURCHASES:
+      return {
+        ...state,
+        myPurchases: actions.payload,
       };
     default:
       return state;

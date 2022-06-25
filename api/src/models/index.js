@@ -20,7 +20,7 @@ const modelNotification = require("./Notification.js");
 const modelQuestion = require("./Question.js");
 const modelAnswer = require("./Answer.js");
 const modelProductCart = require("./ProductCart.js");
-const modelOrderDetail = require("./OrderDetail.js")
+const modelOrderDetail = require("./OrderDetail.js");
 
 const sequelize =
   process.env.NODE_ENV === "production"
@@ -104,10 +104,8 @@ Product.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 //////
-Order.belongsToMany(Product, {through: OrderDetail});
-Product.belongsToMany(Order, {through: OrderDetail});
-
-
+Order.belongsToMany(Product, { through: OrderDetail });
+Product.belongsToMany(Order, { through: OrderDetail });
 
 module.exports = {
   conn: sequelize,
