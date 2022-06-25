@@ -15,6 +15,6 @@ router.post("/googleAuth", googleAuth);
 router.post("/user", getUser);
 router.get("/:userId/publications", getPublicationsByUserId);
 router.put("/:userId/publication/:publicationId", putPublicationById);
-router.get("/:userId", getMyPurchases);
+router.get("/:userId/my-purchases", getMyPurchases);
 
 module.exports = router;
