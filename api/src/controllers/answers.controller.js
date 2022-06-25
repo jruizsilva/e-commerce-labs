@@ -1,8 +1,9 @@
 const { Answer } = require('../models/index.js');
 
 const addAnswer = async (req, res, next) => {
-  const { questionId, answer } = req.body;
   try {
+  const { questionId, answer } = req.body;
+  console.log(req.body)
     await Answer.create({ questionId, answer });
     res.status(200).json('ok');
   } catch (error) {
@@ -18,6 +19,7 @@ const getAnswersByQuestionId = async (req, res, next) => {
       where: {
         id: questionId,
       },
+      order: [['createdAt', 'DESC']],
     });
     res.status(200).json(answers);
   } catch (error) {

@@ -38,8 +38,8 @@ const Notification = () => {
     setOpen(false);
     dispatch(updateNotificationsByUserId(user.id));
   };
-  const eliminateNotification = (product, user) => {
-    dispatch(updateNotificationsByProduct(product, user));
+  const eliminateNotification = (notification, user) => {
+    dispatch(updateNotificationsByProduct(notification, user));
   };
 
   return (
@@ -62,26 +62,27 @@ const Notification = () => {
           <hr></hr>
 
           {notifications.length ? (
-            <div>
-              {notifications?.map(n => {
-                let currentProduct = allProductsCopy?.find(
-                  el => el.id === n.productId
-                );
-                return (
-                  <div key={n.productId}>
-                    <Comment
-                      n={n}
-                      currentProduct={currentProduct}
-                      closeNotifications={closeNotifications}
-                      eliminateNotification={eliminateNotification}
-                    ></Comment>
-                  </div>
-                );
-              })}
+            <>
+              <div className={styles.fixedHeightContainer}>
+                {notifications?.map(n => {
+                  let currentProduct = allProductsCopy?.find(
+                    el => el.id === n.productId
+                  );
+                  return (
+                      <Comment
+                        key={n.id}
+                        n={n}
+                        currentProduct={currentProduct}
+                        closeNotifications={closeNotifications}
+                        eliminateNotification={eliminateNotification}
+                      ></Comment>  
+                  );
+                })}
+              </div>
               <button className={styles.nButton} onClick={handleRead}>
-                Mark as read
+                  Mark all as read
               </button>
-            </div>
+            </>
           ) : (
             <span>You don't have any notification.</span>
           )}

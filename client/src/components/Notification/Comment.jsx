@@ -13,7 +13,7 @@ const Comment = ({
 
   let { message, productId } = n;
   return (
-    <>
+    <div className={styles.content}>
       <Link
         to={`/details/${productId}`}
         className={styles.link}
@@ -27,15 +27,15 @@ const Comment = ({
             alt={`${currentProduct?.name}`}
           />
           </div>
-          <TextareaAutosize maxRows={4} className={styles.notification}>{message}</TextareaAutosize>
+          <TextareaAutosize className={styles.notification} value={message}/>
         </div>
       </Link>
       <div className={styles.container}>
-        <Link className={styles.eliminate} to={'#'} onClick={() => eliminateNotification(productId, user.id)}>
-          Eliminate
+        <Link className={styles.eliminate} to={'#'} onClick={() => eliminateNotification(n.id, user.id)}>
+          Delete
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

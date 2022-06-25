@@ -34,6 +34,7 @@ import {
   ADD_ORDER,
   MY_PURCHASES,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
+  ADD_ANSWER,
 } from "./types";
 import axios from "axios";
 
@@ -310,7 +311,6 @@ export const createProduct = (body) => {
       });
   };
 };
-
 export const addQuestion = (payload) => {
   return function (dispatch) {
     return axios
@@ -320,6 +320,21 @@ export const addQuestion = (payload) => {
         dispatch(getQuestionsWithAnswers(payload.productId));
         dispatch(addNotification(payload.sellerId, payload.productId, payload.productName, 'comment'))
 
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const addAnswer = ({answer, questionId, productId, productName ,customerId}) => {
+  console.log(answer, questionId, productId);
+  return function (dispatch) {
+    return axios
+      .post(`/api/answers/`, {answer,questionId})
+      .then((resp) => {
+        dispatch({ type: ADD_ANSWER });
+        dispatch(getQuestionsWithAnswers(productId));
+        dispatch(addNotification(customerId, productId, productName, 'answer'))
       })
       .catch((err) => {
         alert(err);
@@ -404,10 +419,10 @@ export const updateNotificationsByUserId = (userId) => {
       });
   };
 };
-export const updateNotificationsByProduct = (productId, userId) => {
+export const updateNotificationsByProduct = (notificationId, userId) => {
   return function (dispatch) {
     return axios
-      .put(`/api/notifications/${productId}`, {userId: userId})
+      .put(`/api/notifications/${notificationId}`, {userId: userId})
       .then((resp) => {
         dispatch({ type: UPDATE_NOTIFICATIONS_BY_PRODUCT, payload: resp.data });
         dispatch(getNotificationsByUserId(userId));
@@ -418,7 +433,13 @@ export const updateNotificationsByProduct = (productId, userId) => {
   };
 };
 export const addNotification = (userId, productId, productName, messageFrom) => {
-  let message = `You have a ${messageFrom} on your publication ${productName}.`
+  let message = '';
+  if( messageFrom === 'comment' ){
+    message = `You have a ${messageFrom} on your publication ${productName}.`;
+  }
+  if( messageFrom === 'answer' ){
+    message = `The seller ${messageFrom} you on the publication ${productName}.`;
+  }
   const payload ={userId,productId,message}
   return function (dispatch) {
     return axios

@@ -14,7 +14,7 @@ const addQuestion = async (req, res, next) => {
 
 const getQuestionsByProductId = async (req, res, next) => {
   const { productId } = req.params;
-  parseInt(productId);
+  // parseInt(productId);
 
   try {
     const questions = await Question.findAll({
@@ -26,7 +26,11 @@ const getQuestionsByProductId = async (req, res, next) => {
       where: {
         productId: productId,
       },
-      order: [['createdAt', 'DESC']],
+      order: [
+        [ 'createdAt', 'DESC'],
+        [ Answer, 'createdAt', 'DESC'],
+      ],
+
     });
 
     res.status(200).json(questions);
