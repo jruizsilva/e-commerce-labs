@@ -15,7 +15,10 @@ import {
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_QUESTION,
   ELIMINATE_FROM_CART,
+  UPDATE_NOTIFICATIONS,
   ADD_TO_CART,
+  GET_NOTIFICATIONS,
+  ADD_NOTIFICATIONS,
   UPDATE_CART_SUCCESS_MESSAGE,
   UPDATE_CART_ERROR_MESSAGE,
   GET_USER_PUBLICATIONS,
@@ -30,6 +33,7 @@ import {
   MERCADO_PAGO,
   ADD_ORDER,
   MY_PURCHASES,
+  UPDATE_NOTIFICATIONS_BY_PRODUCT,
 } from "./types";
 import axios from "axios";
 
@@ -91,6 +95,7 @@ export const loginAuth = (form) => {
       .then((resp) => {
         localStorage.setItem("token_id", resp.data.token);
         dispatch(getUser(resp.data.token));
+        dispatch(getNotificationsByUserId(resp.data.user.id));
         dispatch(updateLoginErrorMessage(""));
       })
       .catch((err) => {
@@ -313,6 +318,8 @@ export const addQuestion = (payload) => {
       .then((resp) => {
         dispatch({ type: ADD_QUESTION });
         dispatch(getQuestionsWithAnswers(payload.productId));
+        dispatch(addNotification(payload.sellerId, payload.productId, payload.productName, 'comment'))
+
       })
       .catch((err) => {
         alert(err);
@@ -370,6 +377,58 @@ export const updateProduct = (form, userId, publicationId) => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);
     }
+  };
+};
+export const getNotificationsByUserId = (userId) => {
+  return function (dispatch) {
+    return axios
+      .get(`/api/notifications/${userId}`)
+      .then((resp) => {
+        dispatch({ type: GET_NOTIFICATIONS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const updateNotificationsByUserId = (userId) => {
+  return function (dispatch) {
+    return axios
+      .put(`/api/notifications`,{userId: userId})
+      .then((resp) => {
+        dispatch({ type: UPDATE_NOTIFICATIONS, payload: resp.data });
+        dispatch(getNotificationsByUserId(userId));
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const updateNotificationsByProduct = (productId, userId) => {
+  return function (dispatch) {
+    return axios
+      .put(`/api/notifications/${productId}`, {userId: userId})
+      .then((resp) => {
+        dispatch({ type: UPDATE_NOTIFICATIONS_BY_PRODUCT, payload: resp.data });
+        dispatch(getNotificationsByUserId(userId));
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+};
+export const addNotification = (userId, productId, productName, messageFrom) => {
+  let message = `You have a ${messageFrom} on your publication ${productName}.`
+  const payload ={userId,productId,message}
+  return function (dispatch) {
+    return axios
+      .post(`/api/notifications/`, payload)
+      .then((resp) => {
+        dispatch({ type: ADD_NOTIFICATIONS, payload: resp.data });
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 };
 
