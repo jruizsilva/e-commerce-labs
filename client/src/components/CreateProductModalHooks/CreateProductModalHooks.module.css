@@ -63,6 +63,13 @@
 .create_product_container .button:enabled {
   cursor: pointer;
 }
+.create_product_container .error {
+  margin-top: 4px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
+}
+
 .create_product_container .link {
   font-size: 14px;
   color: #828282;
@@ -74,12 +81,6 @@
 .create_product_container .link:hover {
   text-decoration: underline;
   cursor: pointer;
-}
-.create_product_container .error {
-  margin-top: 4px;
-  color: var(--danger);
-  font-weight: 400;
-  font-size: 13px;
 }
 .create_product_container .textarea {
   min-height: 96px;

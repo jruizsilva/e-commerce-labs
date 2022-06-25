@@ -102,8 +102,6 @@ export default function Cart() {
       </div>
     );
   }
-
-  const handleClick = () => {};
   return (
     <>
       <div className={styles.container}>

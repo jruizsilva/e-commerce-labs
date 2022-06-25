@@ -9,24 +9,51 @@ const back_urls_deploy = {
   // pending: "https://e-commerce-labs.vercel.app",
 };
 
-const formatPayer = (payer) => {
+const formatPayer = (payer, formik) => {
+  const { street_name, street_number, zip_code, phone } = formik;
   const { email, name } = payer;
-
-  return { email, name };
+  const area_code = phone.substring(2, 4);
+  const number = parseInt(phone.substring(4));
+  return {
+    email,
+    name,
+    phone: {
+      area_code,
+      number,
+    },
+    address: {
+      street_name,
+      street_number: parseInt(street_number),
+      zip_code,
+    },
+  };
 };
 const formatCart = (cart) => {
-  const { productcarts, user } = cart;
+  const { productcarts } = cart;
   const items = productcarts.map((cart) => {
     const { product, quantity } = cart;
-    const { name: title, price: unit_price } = product;
-    return { title, quantity, unit_price };
+    const {
+      id,
+      name: title,
+      price: unit_price,
+      image: picture_url,
+      description,
+    } = product;
+    return {
+      id,
+      title,
+      quantity,
+      unit_price,
+      picture_url,
+      description: description ? description : "",
+    };
   });
   return items;
 };
 
-const createPreferenceObj = (cart, user) => {
+const createPreferenceObj = (cart, user, formik) => {
   const items = formatCart(cart);
-  const payer = formatPayer(user);
+  const payer = formatPayer(user, formik);
   const preference = {
     statement_descriptor: "Ecommerce App",
     binary_mode: true,
