@@ -34,14 +34,13 @@ const updateNotification = async (req, res, next) => {
 };
 const updateNotificationByProduct = async (req, res, next) => {
   const {userId} = req.body;
-  const { productId } = req.params;
-  console.log('user:  ',userId,'   product  :', productId)
+  const { notificationId } = req.params;
   try {
     await Notification.update({
       state: false},{
       where: {
         userId: userId,
-        productId:productId,
+        id:notificationId,
       },
     });
     return res.status(200).send('ok');

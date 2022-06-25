@@ -6,12 +6,24 @@ import Spinner from "../Spinner/Spinner";
 import styles from "./ProductDetails.module.css";
 import Question from "../Question/Question";
 import BtnAddCart from "../Cart/BtnAddCart/BtnAddCart";
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserPublications } from '../../actions';
 
 export default function ProductDetails() {
   let { productId } = useParams();
+  const dispatch = useDispatch();
+
+  const { userPublications, user } = useSelector(state => state);
+ 
+  const isUserPublication = userPublications?.filter(el=>el.userId===user?.id) 
 
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([]);
+  useEffect(() => { 
+    if(user){
+      dispatch(getUserPublications(user?.id,""))
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     axios.get(`/api/products/${productId}`).then((r) => {
@@ -135,10 +147,13 @@ export default function ProductDetails() {
               </p>
             </div>
           </div>
-          <div className={styles.questions}>
-            <p className={styles.title}>Ask the seller</p>
-            <Question productId={productId} productName={details?.name} sellerId={details.userId}/>
-          </div>
+            <div className={styles.questions}>
+          { !isUserPublication?.length ? (
+              <p className={styles.title}>Ask the seller</p>
+            ):(null)
+          }
+              <Question productId={productId} productName={details?.name} sellerId={details.userId}/>
+            </div>
         </div>
       </div>
     </div>

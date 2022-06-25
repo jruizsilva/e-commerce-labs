@@ -6,7 +6,7 @@ const router = Router()
 router.post('/', addNotification);
 router.get('/:userId', getNotificationsByUserId);
 router.put('/', updateNotification);
-router.put('/:productId', updateNotificationByProduct);
+router.put('/:notificationId', updateNotificationByProduct);
 
 
 module.exports = router;
