@@ -40,15 +40,14 @@ export default function Checkout() {
     onSubmit: async () => {
       const shipping = formik.values;
       const preference = createPreferenceObj(cart, user, shipping);
-      const body = JSON.stringify({ preference, shipping });
-      console.log(body);
+      const data = JSON.stringify({ preference, shipping });
+      console.log(data);
       try {
         const response = await axios({
           method: "post",
           url: "/api/mercadopago",
-          data: body,
-          headers: {
-            "Content-Type": "text/plain",
+          data: {
+            data,
           },
         });
         setPreferenceId(response.data.preferenceId);
