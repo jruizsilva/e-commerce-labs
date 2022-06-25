@@ -19,7 +19,7 @@ export default function Cart() {
       if (cart?.productcarts && cart.productcarts[0])
         localStorage.setItem("cart", JSON.stringify(cart));
       else localStorage.removeItem("cart");
-    }
+    
   }, [cart]);
 
   let cartList = null;
@@ -184,7 +184,6 @@ export default function Cart() {
             <div className={styles.checkout}>
                 {user ? (
                 <button onClick={() => {
-                  handleCheckoutClick();
                   navigate("/checkout");
                   }}>
                 {/* <Link to="/checkout" onClick={handleCheckoutClick}> */}
