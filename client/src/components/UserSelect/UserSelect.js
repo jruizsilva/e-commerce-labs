@@ -1,23 +1,35 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 const UserSelect = ({ user }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      setSelected(null);
+    }
+  }, [location]);
 
   const handleChange = ({ value }) => {
     switch (value) {
       case "publications": {
         navigate("/publications");
+        setSelected({ value: "publications", label: "Publications" });
         break;
       }
       case "my-purchases": {
         navigate("/my-purchases");
+        setSelected({ value: "my-purchases", label: "My purchases" });
         break;
       }
       case "logout": {
         localStorage.removeItem("token_id");
         window.location.reload();
         navigate("/signin");
+        setSelected({ value: "logout", label: "Log out" });
         break;
       }
       default:
@@ -69,6 +81,7 @@ const UserSelect = ({ user }) => {
       placeholder={user && user.name}
       onChange={handleChange}
       isSearchable={false}
+      value={selected}
     />
   );
 };
