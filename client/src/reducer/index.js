@@ -15,6 +15,8 @@ import {
   ADD_QUESTION,
   GET_QUESTIONS_WITH_ANSWERS,
   ADD_TO_CART,
+  ADD_NOTIFICATIONS,
+  GET_NOTIFICATIONS,
   ADD_ORDER,
   UPDATE_CART_SUCCESS_MESSAGE,
   UPDATE_CART_ERROR_MESSAGE,
@@ -28,15 +30,19 @@ import {
   RESTORE_PASSWORD_SUCCESS_MESSAGE,
   RESTORE_PASSWORD_ERROR_MESSAGE,
   MERCADO_PAGO,
+  UPDATE_NOTIFICATIONS,
+  UPDATE_NOTIFICATIONS_BY_PRODUCT,
 } from "../actions/types";
 
 const initialState = {
   allProducts: [],
+  allProductsCopy:[],
   categories: [],
   user: null,
   searchUser: true,
   loadingProducts: false,
   questionsWithAnswers: [],
+  notifications:[],
   googleAuthErrorMessage: "",
   registerErrorMessage: "",
   loginErrorMessage: "",
@@ -60,10 +66,12 @@ const initialState = {
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
-    case GET_ALL_PRODUCTS:
+    case GET_ALL_PRODUCTS:  
+      let products= state.allProductsCopy.length ? state.allProductsCopy : actions.payload;
       return {
         ...state,
         allProducts: actions.payload,
+        allProductsCopy: products,
       };
     case GET_USER:
       return {
@@ -82,6 +90,23 @@ export default function reducer(state = initialState, actions) {
     case ADD_QUESTION:
       return {
         ...state,
+      };
+    case ADD_NOTIFICATIONS:
+      return {
+        ...state,
+      };
+    case UPDATE_NOTIFICATIONS:
+      return {
+        ...state,
+      };
+    case UPDATE_NOTIFICATIONS_BY_PRODUCT:
+      return {
+        ...state,
+      };
+    case GET_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications : actions.payload,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;

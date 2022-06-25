@@ -20,7 +20,7 @@ export default function ProductDetails() {
       setDetails(response[0]); // [0] así me ahorro aclarar que es la posición 0 (ya que es el único dato) en futuras ocaciones
       setLoading(false);
     });
-  }, []);
+  }, [productId]);
 
   const onClickBuyProduct = (e) => {
     e.preventDefault();
@@ -142,7 +142,7 @@ export default function ProductDetails() {
           </div>
           <div className={styles.questions}>
             <p className={styles.title}>Ask the seller</p>
-            <Question productId={productId} />
+            <Question productId={productId} productName={details?.name} sellerId={details.userId}/>
           </div>
         </div>
       </div>
