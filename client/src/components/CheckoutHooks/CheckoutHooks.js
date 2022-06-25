@@ -42,12 +42,16 @@ export default function Checkout() {
       const preference = createPreferenceObj(cart, user, shipping);
       const body = { preference, shipping };
       console.log(body);
-      const response = await axios({
-        method: "post",
-        url: "/api/mercadopago",
-        data: body,
-      });
-      setPreferenceId(response.data.preferenceId);
+      try {
+        const response = await axios({
+          method: "post",
+          url: "/api/mercadopago",
+          data: body,
+        });
+        setPreferenceId(response.data.preferenceId);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
