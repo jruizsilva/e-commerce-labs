@@ -2,12 +2,13 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product, Category, Order } = require("../models/index.js");
+const { User, Product, Category, Order, OrderDetail } = require("../models/index.js");
 const { Op } = require("sequelize");
 const {
   uploadImage,
   deleteImage,
 } = require("../utils/cloudinary/cloudinary.js");
+//const OrderDetail = require("../models/OrderDetail");
 
 const client = new OAuth2Client(config.googleId);
 
@@ -226,6 +227,29 @@ const getMyPurchases = async (req, res, next) => {
   res.json(my_purchases);
 };
 
+const addReview = async(req, res, next) => {
+  console.log(req.body)
+  console.log(req.params)
+  const {userId, productId} = req.params
+  const review = req.body
+  console.log('USUARIO ID :', userId)
+  console.log('PRODUCTO ID :', productId)
+  console.log('REVIEW :', review)
+  const order = await Order.findOne({
+    where: {
+      userId,
+    }
+  })
+  await OrderDetail.update(review, {
+    where: {
+      productId,
+      orderId: order.id
+    }
+  })
+  //console.log(order.toJSON())
+  res.json({message: "Campos actualizados"})
+}
+
 module.exports = {
   signUpUser,
   signInUser,
@@ -235,4 +259,5 @@ module.exports = {
   getPublicationsByUserId,
   putPublicationById,
   getMyPurchases,
+  addReview
 };
