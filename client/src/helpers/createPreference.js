@@ -1,11 +1,11 @@
 const back_urls_local = {
   success: "http://localhost:3001/api/mercadopago/payment",
-  failure: "http://localhost:3000/home",
+  failure: "http://localhost:3001/api/mercadopago/failure",
   // pending: "http://localhost:3000",
 };
 const back_urls_deploy = {
   success: "https://e-commerce-labs.herokuapp.com/api/mercadopago/payment",
-  failure: "https://e-commerce-labs.vercel.app/home",
+  failure: "https://e-commerce-labs.herokuapp.com/api/mercadopago/failure",
   // pending: "https://e-commerce-labs.herokuapp.com/",
 };
 

@@ -35,6 +35,7 @@ import {
   MY_PURCHASES,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
   ADD_ANSWER,
+  SET_REGISTER_SUCCESS_MESSAGE,
 } from "./types";
 import axios from "axios";
 
@@ -159,10 +160,13 @@ export const createUser = (form) => {
     return axios
       .post(`/api/users/signup`, form)
       .then((resp) => {
-        alert(resp.data.message);
         localStorage.setItem("token_id", resp.data.token);
+        dispatch({ type: RESET_MESSAGES });
+        dispatch(setRegisterSuccessMessage(resp.data.message));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
         dispatch(getUser(resp.data.token));
-        dispatch(setRegisterErrorMessage(""));
       })
       .catch((err) => {
         dispatch(setRegisterErrorMessage(err.response.data.message));
@@ -491,4 +495,7 @@ export const getMyPurchases = (userId) => {
       console.log(error);
     }
   };
+};
+export const setRegisterSuccessMessage = (msg) => {
+  return { type: SET_REGISTER_SUCCESS_MESSAGE, payload: msg };
 };

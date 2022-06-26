@@ -11,6 +11,7 @@ const Header = () => {
     successCreationMessage,
     successEditMessage,
     registerErrorMessage,
+    registerSuccessMessage,
     cartSuccessMessage,
     cartErrorMessage,
     restorePasswordSuccessMessage,
@@ -29,6 +30,7 @@ const Header = () => {
       )}
       {successEditMessage && <MessageSuccess msg={successEditMessage} />}
       {registerErrorMessage && <MessageError msg={registerErrorMessage} />}
+      {registerSuccessMessage && <MessageSuccess msg={registerSuccessMessage} />}
       {cartSuccessMessage && <MessageSuccess msg={cartSuccessMessage} />}
       {cartErrorMessage && <MessageError msg={cartErrorMessage} />}
       {restorePasswordSuccessMessage && (
