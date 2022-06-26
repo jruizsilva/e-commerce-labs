@@ -49,12 +49,16 @@ const addOrder = async (req, res, next) => {
     });
 
     user.cart.productcarts.map(async function (el) {
-      await OrderDetail.create({
+      OrderDetail.create({
         state: "pending",
         quantity: el.quantity,
         totalprice: el.totalValue,
         orderId: order.id,
         productId: el.productId,
+      }).then((orderCreated) => {
+        const cant = orderCreated.dataValues.quantity;
+        const prodId = orderCreated.dataValues.productId;
+        Product.decrement({ stock: cant }, { where: { id: prodId } });
       });
     });
     console.log("******************", order.id);
