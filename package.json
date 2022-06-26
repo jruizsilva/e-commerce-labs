@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-phone-input-2": "^2.15.0"
+    "react-phone-input-2": "^2.15.0",
+    "react-simple-star-rating": "^4.0.5"
   }
 }
