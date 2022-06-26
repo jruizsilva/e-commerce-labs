@@ -9,6 +9,7 @@ import {
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
   SET_REGISTER_ERROR_MESSAGE,
+  SET_REGISTER_SUCCESS_MESSAGE,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
@@ -37,15 +38,16 @@ import {
 
 const initialState = {
   allProducts: [],
-  allProductsCopy:[],
+  allProductsCopy: [],
   categories: [],
   user: null,
   searchUser: true,
   loadingProducts: false,
   questionsWithAnswers: [],
-  notifications:[],
+  notifications: [],
   googleAuthErrorMessage: "",
   registerErrorMessage: "",
+  registerSuccessMessage: "",
   loginErrorMessage: "",
   order: {},
   cart: {},
@@ -68,8 +70,10 @@ const initialState = {
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
-    case GET_ALL_PRODUCTS:  
-      let products= state.allProductsCopy.length ? state.allProductsCopy : actions.payload;
+    case GET_ALL_PRODUCTS:
+      let products = state.allProductsCopy.length
+        ? state.allProductsCopy
+        : actions.payload;
       return {
         ...state,
         allProducts: actions.payload,
@@ -108,7 +112,7 @@ export default function reducer(state = initialState, actions) {
     case GET_NOTIFICATIONS:
       return {
         ...state,
-        notifications : actions.payload,
+        notifications: actions.payload,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;
@@ -176,6 +180,9 @@ export default function reducer(state = initialState, actions) {
     case SET_REGISTER_ERROR_MESSAGE:
       return { ...state, registerErrorMessage: actions.payload };
 
+    case SET_REGISTER_SUCCESS_MESSAGE:
+      return { ...state, registerSuccessMessage: actions.payload };
+
     case CREATE_PRODUCT_REQUEST:
       return { ...state, loadingProductCreation: true };
     case CREATE_PRODUCT_SUCCESS:
@@ -199,6 +206,7 @@ export default function reducer(state = initialState, actions) {
         errorEditMessage: "",
         googleAuthErrorMessage: "",
         registerErrorMessage: "",
+        registerSuccessMessage: "",
         loginErrorMessage: "",
         cartSuccessMessage: "",
         cartErrorMessage: "",

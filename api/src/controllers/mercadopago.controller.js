@@ -125,16 +125,22 @@ const payment = async (req, res, next) => {
 
       order
         .save()
-        .then(() => {
-          console.log("Order ", order);
+        .then(async () => {
+          // Vacia el carrito
+          const userId = order.userId;
+          const cart = await Cart.findOne({
+            include: [{ model: User, where: { id: userId } }],
+          });
+          await ProductCart.destroy({ where: { cartId: cart.id } });
+          await cart.destroy();
         })
         .then((_) => {
           console.info("redirect success");
 
           return res.redirect(
             process.env.NODE_ENV === "production"
-              ? "https://e-commerce-labs.vercel.app"
-              : "http://localhost:3000"
+              ? "https://e-commerce-labs.vercel.app/home"
+              : "http://localhost:3000/home"
           );
         })
         .catch((err) => {
