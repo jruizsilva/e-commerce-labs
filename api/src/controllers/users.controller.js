@@ -2,7 +2,17 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product, Category, Order, OrderDetail } = require("../models/index.js");
+
+const {
+  User,
+  Product,
+  Category,
+  Order,
+  ProductCart,
+  Cart,
+  OrderDetail,
+} = require("../models/index.js");
+
 const { Op } = require("sequelize");
 const {
   uploadImage,
