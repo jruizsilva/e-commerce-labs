@@ -247,7 +247,7 @@ const addReview = async(req, res, next) => {
     }
   })
   //console.log(order.toJSON())
-  res.json({message: "Campos actualizados"})
+  res.json({message: "Review added successfully"})
 }
 
 module.exports = {
