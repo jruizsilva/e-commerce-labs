@@ -512,13 +512,19 @@ export const fetchAddReview = (userId, productId, body) => {
         body
       );
       console.log(response);
-      dispatch({ type: ADD_REVIEW_SUCCESS, payload: "Success" });
+      dispatch({
+        type: ADD_REVIEW_SUCCESS,
+        payload: response.data.message || "Success",
+      });
       setTimeout(() => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);
     } catch (error) {
       console.log(error);
-      dispatch({ type: ADD_REVIEW_ERROR, payload: "Error" });
+      dispatch({
+        type: ADD_REVIEW_ERROR,
+        payload: error.data.message || "Error",
+      });
       setTimeout(() => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);
