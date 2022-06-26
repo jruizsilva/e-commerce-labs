@@ -21,6 +21,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.3.2",
+    "react-simple-star-rating": "^4.0.5",
     "react-textarea-autosize": "^8.3.4",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",

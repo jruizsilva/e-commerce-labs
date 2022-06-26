@@ -34,6 +34,9 @@ import {
   MY_PURCHASES,
   UPDATE_NOTIFICATIONS,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
+  FETCH_ADD_REVIEW,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_ERROR,
 } from "../actions/types";
 
 const initialState = {
@@ -66,6 +69,9 @@ const initialState = {
   restorePasswordErrorMessage: "",
   mercadopago: null,
   myPurchases: [],
+  addReviewLoading: false,
+  addReviewSuccessMessage: "",
+  addReviewErrorMessage: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -212,6 +218,8 @@ export default function reducer(state = initialState, actions) {
         cartErrorMessage: "",
         restorePasswordErrorMessage: "",
         restorePasswordSuccessMessage: "",
+        addReviewSuccessMessage: "",
+        addReviewErrorMessage: "",
       };
     }
     case ADD_TO_CART:
@@ -310,6 +318,24 @@ export default function reducer(state = initialState, actions) {
         ...state,
         myPurchases: actions.payload,
       };
+    case FETCH_ADD_REVIEW: {
+      return {
+        ...state,
+        addReviewLoading: true,
+      };
+    }
+    case ADD_REVIEW_SUCCESS: {
+      return {
+        ...state,
+        addReviewSuccessMessage: actions.payload,
+      };
+    }
+    case ADD_REVIEW_ERROR: {
+      return {
+        ...state,
+        addReviewErrorMessage: actions.payload,
+      };
+    }
     default:
       return state;
   }

@@ -9,6 +9,7 @@ const {
   Order,
   ProductCart,
   Cart,
+  OrderDetail,
 } = require("../models/index.js");
 const { Op } = require("sequelize");
 const {
@@ -206,7 +207,6 @@ const putPublicationById = async (req, res, next) => {
 
 const getMyPurchases = async (req, res, next) => {
   const { userId } = req.params;
-  // const id = "b95ebb9e-6ad5-47c1-b68f-449bff3b058c";
   const orders = await Order.findAll({
     where: {
       status: "completed",
@@ -230,6 +230,7 @@ const getMyPurchases = async (req, res, next) => {
   orders.forEach(({ products }) => {
     products.forEach((p) => my_purchases.push(p));
   });
+
   res.json(my_purchases);
 };
 

@@ -36,6 +36,9 @@ import {
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
   ADD_ANSWER,
   SET_REGISTER_SUCCESS_MESSAGE,
+  FETCH_ADD_REVIEW,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_ERROR,
 } from "./types";
 import axios from "axios";
 
@@ -498,4 +501,27 @@ export const getMyPurchases = (userId) => {
 };
 export const setRegisterSuccessMessage = (msg) => {
   return { type: SET_REGISTER_SUCCESS_MESSAGE, payload: msg };
+};
+
+export const fetchAddReview = (userId, productId, body) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_ADD_REVIEW });
+    try {
+      const response = await axios.put(
+        `/api/users/${userId}/review/${productId}`,
+        body
+      );
+      console.log(response);
+      dispatch({ type: ADD_REVIEW_SUCCESS, payload: "Success" });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: ADD_REVIEW_ERROR, payload: "Error" });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    }
+  };
 };

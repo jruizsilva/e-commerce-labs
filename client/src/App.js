@@ -21,6 +21,7 @@ import RestorePassword from "./components/RestorePassword/RestorePassword.jsx";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx";
 import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
+import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -76,6 +77,11 @@ function App() {
           exact
           path="/my-purchases"
           element={user ? <MyPurchasesPage /> : <Navigate to="/home" />}
+        />
+        <Route
+          exact
+          path="/review/:productId"
+          element={user ? <ReviewPage /> : <Navigate to="/home" />}
         />
       </Routes>
     </>

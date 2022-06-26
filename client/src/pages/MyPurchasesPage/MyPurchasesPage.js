@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Select from "react-select";
 import { getMyPurchases } from "../../actions";
 import style from "./MyPurchasesPage.module.css";
@@ -40,6 +41,7 @@ export default function MyPurchasesPage() {
                       <th>Image</th>
                       <th>Product</th>
                       <th>Seller</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody className={style.tbody}>
@@ -55,6 +57,9 @@ export default function MyPurchasesPage() {
                           </span>
                         </td>
                         <td>{p.users[0].name}</td>
+                        <td>
+                          <Link to={`/review/${p.id}`}>Agregar reseña</Link>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

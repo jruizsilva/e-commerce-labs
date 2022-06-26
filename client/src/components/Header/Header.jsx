@@ -16,6 +16,8 @@ const Header = () => {
     cartErrorMessage,
     restorePasswordSuccessMessage,
     restorePasswordErrorMessage,
+    addReviewSuccessMessage,
+    addReviewErrorMessage,
   } = useSelector((state) => state);
   return (
     <>
@@ -38,6 +40,12 @@ const Header = () => {
       )}
       {restorePasswordErrorMessage && (
         <MessageError msg={restorePasswordErrorMessage} />
+      )}
+      {addReviewSuccessMessage && (
+        <MessageSuccess msg={addReviewSuccessMessage} />
+      )}
+      {addReviewErrorMessage && (
+        <MessageError msg={addReviewErrorMessage} />
       )}
     </>
   );
