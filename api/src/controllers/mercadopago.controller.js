@@ -83,6 +83,8 @@ const addOrder = async (req, res, next) => {
 };
 
 const payment = async (req, res, next) => {
+  console.log('----QUERY---: ',req.query)
+  console.log('----BODY---: ',req.body)
   console.info("*******EN LA RUTA PAGOS *******");
   const payment_id = req.query.payment_id;
   const payment_status = req.query.status;
@@ -175,6 +177,7 @@ const payment = async (req, res, next) => {
       );
     });
 };
+
 
 const cancelPayment = async (req, res, next) => {
   console.log("**** Failure route ****");
