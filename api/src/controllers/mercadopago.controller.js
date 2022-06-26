@@ -21,8 +21,6 @@ mercadopago.configure({
 const addOrder = async (req, res, next) => {
   const { preference, shipping } = req.body;
 
-  console.log(preference);
-
   try {
     const user = await User.findOne({
       include: [
@@ -56,9 +54,10 @@ const addOrder = async (req, res, next) => {
         orderId: order.id,
         productId: el.productId,
       }).then((orderCreated) => {
+        console.log(orderCreated);
         const cant = orderCreated.dataValues.quantity;
         const prodId = orderCreated.dataValues.productId;
-        Product.decrement({ stock: cant }, { where: { id: prodId } });
+        // Product.decrement({ stock: cant }, { where: { id: prodId } });
       });
     });
     console.log("******************", order.id);
@@ -67,7 +66,6 @@ const addOrder = async (req, res, next) => {
       .create(preference)
       .then(function (response) {
         console.info("respondio");
-        console.log(response);
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
         // global.sandbox_init_point = response.body.sandbox_init_point;
         res.json({
@@ -138,6 +136,18 @@ const payment = async (req, res, next) => {
           await ProductCart.destroy({ where: { cartId: cart.id } });
           await cart.destroy();
         })
+        .then(async () => {
+          // Restar stock
+          const orderProductDetails = await OrderDetail.findAll({
+            where: { orderId: order.id },
+          });
+          console.log(orderProductDetails);
+          orderProductDetails.forEach((p) => {
+            const cant = p.dataValues.quantity;
+            const prodId = p.dataValues.productId;
+            Product.decrement({ stock: cant }, { where: { id: prodId } });
+          });
+        })
         .then((_) => {
           console.info("redirect success");
 
@@ -166,7 +176,19 @@ const payment = async (req, res, next) => {
     });
 };
 
+const cancelPayment = async (req, res, next) => {
+  console.log("**** Failure route ****");
+  console.log(req.query);
+
+  return res.redirect(
+    process.env.NODE_ENV === "production"
+      ? "https://e-commerce-labs.vercel.app/home"
+      : "http://localhost:3000/home"
+  );
+};
+
 module.exports = {
   addOrder,
   payment,
+  cancelPayment,
 };
