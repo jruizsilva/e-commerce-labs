@@ -43,11 +43,14 @@ import {
 } from "./types";
 import axios from "axios";
 
-export const getAllProducts = (search) => {
+export const getAllProducts = (search, userId) => {
+  const URL = userId
+    ? `/api/products/${userId}${search}`
+    : `/api/products${search}`;
   return function (dispatch) {
     dispatch(loadingProducts(true));
     return axios
-      .get(`/api/products${search}`)
+      .get(URL)
       .then((resp) => {
         dispatch({ type: GET_ALL_PRODUCTS, payload: resp.data });
         dispatch(loadingProducts(false));
@@ -62,7 +65,7 @@ export function getNameProduct(name) {
   return async function (dispatch) {
     dispatch(loadingProducts(true));
     try {
-      const json = await axios.get("/api/products/search?name=" + name);
+      const json = await axios.get("/api/products/product/search?name=" + name);
       dispatch(loadingProducts(false));
       return dispatch({
         type: GET_NAME_PRODUCT,
