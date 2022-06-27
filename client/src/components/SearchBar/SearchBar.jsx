@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { getNameProduct } from "../../actions/index";
+import { getAllProducts, getNameProduct } from "../../actions/index";
 import s from "../SearchBar/SearchBar.module.css";
 
 const SearchBar = () => {
@@ -12,6 +13,11 @@ const SearchBar = () => {
   const [input, setInput] = useState({
     name: "",
   });
+  const { user } = useSelector((state) => state);
+  useEffect(() => {
+    dispatch(getAllProducts(window.location.search, user?.id));
+  }, [params, user]);
+
   const handleChange = (e) => {
     e.preventDefault(e);
     setInput({
@@ -21,15 +27,13 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault(e);
     if (input.name.trim() === "") return;
-    dispatch(getNameProduct(input.name));
 
     params.set("name", input.name);
     setParams(params);
-
     setInput({
       name: "",
     });
-    navigate(`/home${window.location.search}`);
+    // navigate(`/home${window.location.search}`);
   };
   return (
     <form onSubmit={handleSubmit} className={s.container}>

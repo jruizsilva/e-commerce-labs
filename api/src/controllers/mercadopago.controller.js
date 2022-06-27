@@ -23,8 +23,6 @@ mercadopago.configure({
 const addOrder = async (req, res, next) => {
   const { preference, shipping } = req.body;
 
-  console.log(preference);
-
   try {
     const user = await User.findOne({
       include: [
@@ -51,12 +49,17 @@ const addOrder = async (req, res, next) => {
     });
 
     user.cart.productcarts.map(async function (el) {
-      await OrderDetail.create({
+      OrderDetail.create({
         state: "pending",
         quantity: el.quantity,
         totalprice: el.totalValue,
         orderId: order.id,
         productId: el.productId,
+      }).then((orderCreated) => {
+        console.log(orderCreated);
+        const cant = orderCreated.dataValues.quantity;
+        const prodId = orderCreated.dataValues.productId;
+        // Product.decrement({ stock: cant }, { where: { id: prodId } });
       });
     });
     console.log("******************", order.id);
@@ -65,7 +68,6 @@ const addOrder = async (req, res, next) => {
       .create(preference)
       .then(function (response) {
         console.info("respondio");
-        console.log(response);
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
         // global.sandbox_init_point = response.body.sandbox_init_point;
         res.json({
@@ -83,6 +85,8 @@ const addOrder = async (req, res, next) => {
 };
 
 const payment = async (req, res, next) => {
+  console.log('----QUERY---: ',req.query)
+  console.log('----BODY---: ',req.body)
   console.info("*******EN LA RUTA PAGOS *******");
   const payment_id = req.query.payment_id;
   const payment_status = req.query.status;
@@ -128,8 +132,26 @@ const payment = async (req, res, next) => {
 
       order
         .save()
-        .then(() => {
-          console.log("Order ", order.payment_id);
+        .then(async () => {
+          // Vacia el carrito
+          const userId = order.userId;
+          const cart = await Cart.findOne({
+            include: [{ model: User, where: { id: userId } }],
+          });
+          await ProductCart.destroy({ where: { cartId: cart.id } });
+          await cart.destroy();
+        })
+        .then(async () => {
+          // Restar stock
+          const orderProductDetails = await OrderDetail.findAll({
+            where: { orderId: order.id },
+          });
+          console.log(orderProductDetails);
+          orderProductDetails.forEach((p) => {
+            const cant = p.dataValues.quantity;
+            const prodId = p.dataValues.productId;
+            Product.decrement({ stock: cant }, { where: { id: prodId } });
+          });
         })
         .then((_) => {
           console.info("redirect success");
@@ -141,8 +163,8 @@ const payment = async (req, res, next) => {
 
           return res.redirect(
             process.env.NODE_ENV === "production"
-              ? "https://e-commerce-labs.vercel.app"
-              : "http://localhost:3000"
+              ? "https://e-commerce-labs.vercel.app/home"
+              : "http://localhost:3000/home"
           );
         })
         .catch((err) => {
@@ -164,7 +186,20 @@ const payment = async (req, res, next) => {
     });
 };
 
+
+const cancelPayment = async (req, res, next) => {
+  console.log("**** Failure route ****");
+  console.log(req.query);
+
+  return res.redirect(
+    process.env.NODE_ENV === "production"
+      ? "https://e-commerce-labs.vercel.app/home"
+      : "http://localhost:3000/home"
+  );
+};
+
 module.exports = {
   addOrder,
   payment,
+  cancelPayment,
 };

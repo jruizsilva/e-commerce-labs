@@ -9,6 +9,7 @@ import {
   UPDATE_GOOGLE_AUTH_ERROR_MESSAGE,
   LOGIN_ERROR_MESSAGE,
   SET_REGISTER_ERROR_MESSAGE,
+  SET_REGISTER_SUCCESS_MESSAGE,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
@@ -33,19 +34,24 @@ import {
   MY_PURCHASES,
   UPDATE_NOTIFICATIONS,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
+  FETCH_ADD_REVIEW,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_ERROR,
+  GET_PRODUCT_REVIEWS,
 } from "../actions/types";
 
 const initialState = {
   allProducts: [],
-  allProductsCopy:[],
+  allProductsCopy: [],
   categories: [],
   user: null,
   searchUser: true,
   loadingProducts: false,
   questionsWithAnswers: [],
-  notifications:[],
+  notifications: [],
   googleAuthErrorMessage: "",
   registerErrorMessage: "",
+  registerSuccessMessage: "",
   loginErrorMessage: "",
   order: {},
   cart: {},
@@ -64,12 +70,18 @@ const initialState = {
   restorePasswordErrorMessage: "",
   mercadopago: null,
   myPurchases: [],
+  addReviewLoading: false,
+  addReviewSuccessMessage: "",
+  addReviewErrorMessage: "",
+  productReviews: [],
 };
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
-    case GET_ALL_PRODUCTS:  
-      let products= state.allProductsCopy.length ? state.allProductsCopy : actions.payload;
+    case GET_ALL_PRODUCTS:
+      let products = state.allProductsCopy.length
+        ? state.allProductsCopy
+        : actions.payload;
       return {
         ...state,
         allProducts: actions.payload,
@@ -108,7 +120,7 @@ export default function reducer(state = initialState, actions) {
     case GET_NOTIFICATIONS:
       return {
         ...state,
-        notifications : actions.payload,
+        notifications: actions.payload,
       };
     case SORT_BY_VALUE:
       const info = state.allProducts;
@@ -176,6 +188,9 @@ export default function reducer(state = initialState, actions) {
     case SET_REGISTER_ERROR_MESSAGE:
       return { ...state, registerErrorMessage: actions.payload };
 
+    case SET_REGISTER_SUCCESS_MESSAGE:
+      return { ...state, registerSuccessMessage: actions.payload };
+
     case CREATE_PRODUCT_REQUEST:
       return { ...state, loadingProductCreation: true };
     case CREATE_PRODUCT_SUCCESS:
@@ -199,11 +214,14 @@ export default function reducer(state = initialState, actions) {
         errorEditMessage: "",
         googleAuthErrorMessage: "",
         registerErrorMessage: "",
+        registerSuccessMessage: "",
         loginErrorMessage: "",
         cartSuccessMessage: "",
         cartErrorMessage: "",
         restorePasswordErrorMessage: "",
         restorePasswordSuccessMessage: "",
+        addReviewSuccessMessage: "",
+        addReviewErrorMessage: "",
       };
     }
     case ADD_TO_CART:
@@ -302,6 +320,30 @@ export default function reducer(state = initialState, actions) {
         ...state,
         myPurchases: actions.payload,
       };
+    case FETCH_ADD_REVIEW: {
+      return {
+        ...state,
+        addReviewLoading: true,
+      };
+    }
+    case ADD_REVIEW_SUCCESS: {
+      return {
+        ...state,
+        addReviewSuccessMessage: actions.payload,
+      };
+    }
+    case ADD_REVIEW_ERROR: {
+      return {
+        ...state,
+        addReviewErrorMessage: actions.payload,
+      };
+    }
+    case GET_PRODUCT_REVIEWS: {
+      return {
+        ...state,
+        productReviews: actions.payload,
+      };
+    }
     default:
       return state;
   }

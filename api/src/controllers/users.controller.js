@@ -2,12 +2,23 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
-const { User, Product, Category, Order } = require("../models/index.js");
+
+const {
+  User,
+  Product,
+  Category,
+  Order,
+  ProductCart,
+  Cart,
+  OrderDetail,
+} = require("../models/index.js");
+
 const { Op } = require("sequelize");
 const {
   uploadImage,
   deleteImage,
 } = require("../utils/cloudinary/cloudinary.js");
+//const OrderDetail = require("../models/OrderDetail");
 
 const client = new OAuth2Client(config.googleId);
 
@@ -199,7 +210,6 @@ const putPublicationById = async (req, res, next) => {
 
 const getMyPurchases = async (req, res, next) => {
   const { userId } = req.params;
-  // const id = "b95ebb9e-6ad5-47c1-b68f-449bff3b058c";
   const orders = await Order.findAll({
     where: {
       status: "completed",
@@ -223,7 +233,42 @@ const getMyPurchases = async (req, res, next) => {
   orders.forEach(({ products }) => {
     products.forEach((p) => my_purchases.push(p));
   });
+
   res.json(my_purchases);
+};
+
+const addReview = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params);
+  const { userId, productId } = req.params;
+  const review = req.body;
+  console.log("USUARIO ID :", userId);
+  console.log("PRODUCTO ID :", productId);
+  console.log("REVIEW :", review);
+  const order = await Order.findOne({
+    where: {
+      userId,
+    },
+  });
+  await OrderDetail.update(review, {
+    where: {
+      productId,
+      orderId: order.id,
+    },
+  });
+  //console.log(order.toJSON())
+  res.json({ message: "Review added successfully" });
+};
+
+const getMySales = async (req, res, next) => {
+  const { userId } = req.params;
+
+  const orders = await Order.findAll({
+    where: { status: "completed" },
+    include: { model: User, where: { id: userId } },
+  });
+
+  res.json(orders);
 };
 
 module.exports = {
@@ -235,4 +280,6 @@ module.exports = {
   getPublicationsByUserId,
   putPublicationById,
   getMyPurchases,
+  addReview,
+  getMySales,
 };

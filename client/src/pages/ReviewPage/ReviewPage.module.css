@@ -1,0 +1,103 @@
+.container {
+  padding-top: 32px;
+  margin-bottom: 32px;
+}
+.form{
+  background-color: #fafafb;
+  min-width: 320px;
+  max-width: 620px;
+  min-height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 12%);
+}
+.review_container{
+  padding: 24px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  display: flex;
+  justify-content: space-between;
+}
+.review_description{
+
+}
+.review_title{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.review_product_name{
+  color: #828282;
+  font-weight: 300;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.product_image_container{
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image{
+  border-radius: 50%;
+}
+.comment_container{
+  padding: 24px;
+}
+.comment_form{
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+}
+.comment_title{
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.field_container{
+  max-width: 440px;
+}
+.form_textarea{
+  min-height: 100px;
+  padding: 16px;
+  color: rgba(0,0,0,.9);
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid hsl(0, 0%, 80%);
+  resize: none;
+  width: 100%;
+  resize: vertical;
+  
+}
+.form_textarea::placeholder{
+  color: #BFBFBF;
+}
+.form_textarea:focus{
+  outline-color: #828282;
+  outline-width: 1px;
+}
+
+.form_submit {
+  text-decoration: none;
+  height: 32px;
+  color: var(--white);
+  background-color: var(--primary);
+  border: none;
+  border-radius: 5px;
+  width: 110px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+.form_submit:hover {
+  cursor: pointer;
+}
+.error {
+  margin-top: 4px;
+  color: var(--danger);
+  font-weight: 400;
+  font-size: 13px;
+}

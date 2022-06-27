@@ -10,7 +10,7 @@ import Spinner from "../Spinner/Spinner";
 const Products = () => {
   const [params, setParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { allProducts, loadingProducts } = useSelector((state) => state);
+  const { allProducts, loadingProducts, user } = useSelector((state) => state);
 
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,13 +31,9 @@ const Products = () => {
   }, [allProducts]);
 
   useEffect(() => {
-    dispatch(getAllProducts(window.location.search));
+    dispatch(getAllProducts(window.location.search, user?.id));
     dispatch(getCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getAllProducts(window.location.search));
-  }, [params]);
+  }, [dispatch, user]);
 
   return (
     <div className={style.container}>

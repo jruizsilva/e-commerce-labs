@@ -4,9 +4,11 @@ const {
   Question,
   Answer,
   User,
+  Order,
+  OrderDetail,
 } = require("../models/index.js");
 // Me traigo el operador de sequelize
-const { Op } = require("sequelize");
+const { Op, or } = require("sequelize");
 const fs = require("fs-extra");
 const {
   uploadImage,
@@ -46,8 +48,20 @@ const getProductsByName = async (req, res, next) => {
 const getProducts = async (req, res, next) => {
   const { condition, sort, min_price, max_price, state, name, categoryId } =
     req.query;
+
+  const { userId } = req.params;
+  console.log(userId);
   try {
-    let where = { state: "active" };
+    let where = {
+      state: "active",
+      stock: {
+        [Op.gte]: 1,
+      },
+    };
+    if (userId)
+      where.userId = {
+        [Op.ne]: userId,
+      };
     let order;
     if (condition) where.condition = condition;
     if (state) where.state = state;
@@ -197,6 +211,47 @@ const updateProduct = async (req, res, next) => {
   return res.json({ message: "Product Updated", productUpdate });
 };
 
+const getReviewsByProductId = async (req, res, next) => {
+  const { productId } = req.params;
+
+  const orders = await Order.findAll({
+    where: { status: "completed" },
+    include: [{ model: Product, where: { id: productId } }],
+  });
+  const ordersWithReviews = orders.filter((order) => {
+    const currentOrderDetails = order.products[0].orderdetail;
+    const { score, comment } = currentOrderDetails;
+    if (score && comment) return true;
+    else return false;
+  });
+  const reviewsFormated = ordersWithReviews.map((order) => {
+    const currentOrderDetails = order.products[0].orderdetail;
+    const { id, score, comment } = currentOrderDetails;
+    let title;
+    switch (score) {
+      case 20:
+        title = "Terrible";
+        break;
+      case 40:
+        title = "Bad";
+        break;
+      case 60:
+        title = "Average";
+        break;
+      case 80:
+        title = "Great";
+        break;
+      case 100:
+        title = "Perfect";
+        break;
+    }
+    if (score && comment)
+      return { id, score, title, comment, userId: order.userId };
+  });
+
+  res.json(reviewsFormated);
+};
+
 module.exports = {
   getProducts,
   getProductsById,
@@ -204,4 +259,5 @@ module.exports = {
   createProducts,
   deleteProduct,
   updateProduct,
+  getReviewsByProductId,
 };

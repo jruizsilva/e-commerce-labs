@@ -35,14 +35,22 @@ import {
   MY_PURCHASES,
   UPDATE_NOTIFICATIONS_BY_PRODUCT,
   ADD_ANSWER,
+  SET_REGISTER_SUCCESS_MESSAGE,
+  FETCH_ADD_REVIEW,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_ERROR,
+  GET_PRODUCT_REVIEWS,
 } from "./types";
 import axios from "axios";
 
-export const getAllProducts = (search) => {
+export const getAllProducts = (search, userId) => {
+  const URL = userId
+    ? `/api/products/${userId}${search}`
+    : `/api/products${search}`;
   return function (dispatch) {
     dispatch(loadingProducts(true));
     return axios
-      .get(`/api/products${search}`)
+      .get(URL)
       .then((resp) => {
         dispatch({ type: GET_ALL_PRODUCTS, payload: resp.data });
         dispatch(loadingProducts(false));
@@ -57,7 +65,7 @@ export function getNameProduct(name) {
   return async function (dispatch) {
     dispatch(loadingProducts(true));
     try {
-      const json = await axios.get("/api/products/search?name=" + name);
+      const json = await axios.get("/api/products/product/search?name=" + name);
       dispatch(loadingProducts(false));
       return dispatch({
         type: GET_NAME_PRODUCT,
@@ -159,10 +167,13 @@ export const createUser = (form) => {
     return axios
       .post(`/api/users/signup`, form)
       .then((resp) => {
-        alert(resp.data.message);
         localStorage.setItem("token_id", resp.data.token);
+        dispatch({ type: RESET_MESSAGES });
+        dispatch(setRegisterSuccessMessage(resp.data.message));
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
         dispatch(getUser(resp.data.token));
-        dispatch(setRegisterErrorMessage(""));
       })
       .catch((err) => {
         dispatch(setRegisterErrorMessage(err.response.data.message));
@@ -487,6 +498,53 @@ export const getMyPurchases = (userId) => {
     try {
       const response = await axios.get(`/api/users/${userId}/my-purchases`);
       dispatch({ type: MY_PURCHASES, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const setRegisterSuccessMessage = (msg) => {
+  return { type: SET_REGISTER_SUCCESS_MESSAGE, payload: msg };
+};
+
+export const fetchAddReview = (userId, productId, body) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_ADD_REVIEW });
+    try {
+      const response = await axios.put(
+        `/api/users/${userId}/review/${productId}`,
+        body
+      );
+      console.log(response);
+      dispatch({
+        type: ADD_REVIEW_SUCCESS,
+        payload: response.data.message || "Success",
+      });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ADD_REVIEW_ERROR,
+        payload: error.data.message || "Error",
+      });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    }
+  };
+};
+
+export const getProductReviews = (productId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/products/${productId}/reviews`);
+      console.log(response);
+      dispatch({
+        type: GET_PRODUCT_REVIEWS,
+        payload: response.data,
+      });
     } catch (error) {
       console.log(error);
     }

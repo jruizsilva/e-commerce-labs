@@ -6,7 +6,7 @@ import { getUser, loadingUser } from "./actions/index.js";
 // importo los componentes que vamos a renderizar
 import Home from "./components/Home/Home.jsx";
 import Err404 from "./components/Err404/Err404.jsx";
-import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.js";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
 import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";
@@ -21,6 +21,9 @@ import RestorePassword from "./components/RestorePassword/RestorePassword.jsx";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx";
 import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
+import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
+import Chat from "./components/Chat/Chat.jsx";
+import MySales from "./pages/MySales/MySales.js";
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -66,7 +69,6 @@ function App() {
           path="/restore-password/:userId/:token"
           element={<RestorePassword />}
         />
-        <Route path="*" element={<Navigate to="/err404" replace />} />
         <Route
           exact
           path="/checkout"
@@ -77,6 +79,22 @@ function App() {
           path="/my-purchases"
           element={user ? <MyPurchasesPage /> : <Navigate to="/home" />}
         />
+        <Route
+          exact
+          path="/review/:productId"
+          element={user ? <ReviewPage /> : <Navigate to="/home" />}
+        />
+        <Route
+          exact
+          path="/chat/:orderId"
+          element={user ? <Chat /> : <Navigate to="/home" />}
+        />
+        <Route
+          exact
+          path="/my-sales"
+          element={user ? <MySales /> : <Navigate to="/home" />}
+        />
+        <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>
   );

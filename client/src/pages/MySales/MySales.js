@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import { getMyPurchases } from "../../actions";
-import style from "./MyPurchasesPage.module.css";
+import style from "./MySales.module.css";
 
 const { format } = new Intl.NumberFormat("es-ES");
 
-export default function MyPurchasesPage() {
+export default function MySales() {
   const { user, myPurchases } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -21,17 +21,17 @@ export default function MyPurchasesPage() {
     <>
       <div className={style.container}>
         <div className={style.header_container}>
-          <h2 className={style.title}>My purchases</h2>
-          <p className={style.subtitle}>See the products you have purchased</p>
+          <h2 className={style.title}>My sales</h2>
+          <p className={style.subtitle}>See the products you have sold</p>
           <p className={style.quantity_publications}>
-            {myPurchases.length || 0} purchases
+            {myPurchases.length || 0} sold
           </p>
         </div>
         <div className={style.publicationsContainer}>
           <div>
             {myPurchases.length === 0 ? (
               <p className={style.not_publications_message}>
-                No tienes compras
+                You haven't sold yet
               </p>
             ) : (
               <div className={style.table_wrap}>
@@ -40,7 +40,7 @@ export default function MyPurchasesPage() {
                     <tr>
                       <th>Image</th>
                       <th>Product</th>
-                      <th>Seller</th>
+                      <th>Buyer</th>
                       <th></th>
                     </tr>
                   </thead>
