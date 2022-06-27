@@ -9,7 +9,7 @@ import style from "./NavbarMenu.module.css";
 
 export default function NavbarMenu() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state);   
+  const { user, cart } = useSelector((state) => state);   
 
    useEffect(() => {
     if(user){
@@ -51,6 +51,9 @@ export default function NavbarMenu() {
             style={{ fontSize: "16px", color: "#000" }}
           >
             shopping_cart
+          </span>
+          <span style={{ color: "red"}}>
+            {cart?.productcarts ? cart.productcarts.length : 0}
           </span>
         </Link>
       </li>
