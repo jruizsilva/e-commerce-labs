@@ -16,7 +16,7 @@ const initialValues = {
   comment: "",
 };
 const validationSchema = yup.object().shape({
-  score: yup.number().required(`Score ${isRequired}`).max(254),
+  score: yup.number().required(`Score ${isRequired}`),
   comment: yup.string().required(`Comment ${isRequired}`).max(254),
 });
 
@@ -56,6 +56,7 @@ export default function ReviewPage() {
                 <Rating
                   transition
                   onClick={(value) => {
+                    console.log(value);
                     if (value) formik.setFieldValue("score", value);
                     else formik.setFieldValue("score", null);
                   }}
