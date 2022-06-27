@@ -42,7 +42,7 @@ const forgotPassword = async (req, res) => {
         pass: process.env.EMAIL_PASSWORD_SENDER,
       },
     });
-    const order = null;
+    let order;
     if (purchased) {
       order = await Order.findOne({
         where: { payment_id: purchased },
@@ -73,7 +73,8 @@ const forgotPassword = async (req, res) => {
         to: email,
         subject: 'Your purchase was completed',
         html:
-          `   
+          `     <html>
+              <body>
                 <div style="display: block; margin-left: auto; margin-right: auto; width: 80%; align-items: center;">
                   <div style="background-color: #6ca4ed">
                     <img
@@ -83,10 +84,10 @@ const forgotPassword = async (req, res) => {
                       style="display: block; margin-left: auto; margin-right: auto"
                     />
                   </div>
-                  <p style="font-weight: bold">${user.name} your purchase was complete succesfully.</p>
+                  <p style="font-weight: bold">${user.name.charAt(0).toUpperCase() + user.name.slice(1)} your purchase was complete succesfully.</p>
                   <div>
                     <p style="background-color: #6ca4ed; padding: 8px">
-                      Order Nº: ${order.payment_id}
+                      Order Nº: <span style="font-weight: bold;">${order.payment_id}</span>
                     </p>
                     <div style="border: 1px solid; padding: 10px">` +
           items +
@@ -97,25 +98,29 @@ const forgotPassword = async (req, res) => {
                         float: right;
                         border: 1px solid;
                         padding: 10px;
-                        margin-bottom: 20px;
                       "
                     >
                       Total = $ ${order.price}
                     </p>
                     <br />
+                    <br />  
+                    <br />
                     <br />
                   </div>
                   <hr />
 
-                  <p style="text-align: center; font-weight: bold; font-size: 14px">
-                    Enjoy your purchase, we hope to see you very soon at
-                    <a href="e-commerce-labs.vercel.app">e-commerce-labs.vercel.app</a>
+                  <p style="text-align: center; font-weight: bold; font-size: 14px">Enjoy your purchase, we hope to see you very soon at:</p>
+                  <p style="text-align: center; font-weight: bold; font-size: 14px">  
+                    <a href="https://e-commerce-labs.vercel.app">e-commerce-labs.vercel.app</a>
                   </p>
+                  
                   <hr />
                   <div style=" background-color: #191d23; text-align: center; padding: 20px; color:white"> 
-                      <span>Contact us: </span><a href="e-commerce-labs.vercel.app" style="text-decoration: none; color:white;">e-commerce-labs.vercel.app</a>
+                      <span>Contact us: </span><a href="https://e-commerce-labs.vercel.app" style="text-decoration: none; color:white;">e-commerce-labs.vercel.app</a>
                   </div>
                 </div>
+              </body>
+              </html>
             `,
       };
     } else {
@@ -123,7 +128,9 @@ const forgotPassword = async (req, res) => {
         from: '"Ecommerce App" <creadordecaminos@gmail.com>',
         to: email,
         subject: 'Forgot password',
-        html: `
+        html: `   
+
+               
                 <div style="display: block; margin-left: auto; margin-right: auto; width: 80%; align-items: center;">
                   <div style="background-color: #6ca4ed">
                     <img
@@ -136,13 +143,14 @@ const forgotPassword = async (req, res) => {
                   <h1 style="font-sixe: 18px; color:#2f80ed;"> This mail was sent because you want to restore your password.</h1>
                   To change your password, please clic the following link:
                   <br>
-                  <b>${verificationMail}</b> 
+                  <b><a href="${verificationMail}">${verificationMail}</a></b> 
                   </br>
                   <p>...or copy it instead and paste it on your browser.</p>
                   <div style=" margin-top: 20px; background-color: #191d23; text-align: center; padding: 20px; color:white"> 
-                      <span>Contact us: </span><a href="e-commerce-labs.vercel.app" style="text-decoration: none; color:white;">e-commerce-labs.vercel.app</a>
+                      <span>Contact us: </span><a href="https://e-commerce-labs.vercel.app" style="text-decoration: none; color:white;">e-commerce-labs.vercel.app</a>
                   </div>
               </div>
+            
             `,
       };
     }
