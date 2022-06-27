@@ -9,6 +9,8 @@ const {
 } = require("../models");
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
+const axios = require("axios")
+
 const { Op } = require("sequelize");
 
 const { ACCESS_TOKEN } = process.env;
@@ -122,14 +124,20 @@ const payment = async (req, res, next) => {
         });
       }
       addNotification();
+      
 
       order
         .save()
         .then(() => {
-          console.log("Order ", order);
+          console.log("Order ", order.payment_id);
         })
         .then((_) => {
           console.info("redirect success");
+          
+           axios.post(`http://localhost:3001/api/forgotpassword/`, {email: order.user.email, purchased:payment_id }).then((r) => {
+              const response = r.data;
+
+           });
 
           return res.redirect(
             process.env.NODE_ENV === "production"
