@@ -132,6 +132,38 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  const id = req.params.userId
+  //console.log(req.body)
+  //console.log(id)
+  try {
+    if(!req.body.password){
+      const user = await User.update(req.body, {
+        where: {
+          id,
+        }
+      })
+      return res.json({message: "Updated successfully!"})
+    }else{
+      //console.log(req.body.password)
+      req.body.password = await bcryptjs.hash(req.body.password, 8);
+      //console.log(req.body.password)
+       const user = await User.update(req.body, {
+        where: {
+          id,
+        }
+      })
+      return res.json({message: "Updated successfully!"}) 
+    }
+  } catch (error) {
+    next(error)
+  }
+  
+  
+  
+}
+
+
 const getPublicationsByUserId = async (req, res, next) => {
   const { userId } = req.params;
   const { state } = req.query;
@@ -281,5 +313,7 @@ module.exports = {
   putPublicationById,
   getMyPurchases,
   addReview,
+  updateUser,
   getMySales,
+
 };
