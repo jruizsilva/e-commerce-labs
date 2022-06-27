@@ -6,7 +6,7 @@ import { getUser, loadingUser } from "./actions/index.js";
 // importo los componentes que vamos a renderizar
 import Home from "./components/Home/Home.jsx";
 import Err404 from "./components/Err404/Err404.jsx";
-import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.js";
 import FormRegisterFormik from "./components/FormRegisterFormik/FormRegisterFormik.jsx";
 import Header from "./components/Header/Header.jsx";
 import LoginFormik from "./components/LoginFormik/LoginFormik.js";

@@ -39,6 +39,7 @@ import {
   FETCH_ADD_REVIEW,
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_ERROR,
+  GET_PRODUCT_REVIEWS,
 } from "./types";
 import axios from "axios";
 
@@ -528,6 +529,21 @@ export const fetchAddReview = (userId, productId, body) => {
       setTimeout(() => {
         dispatch({ type: RESET_MESSAGES });
       }, 2000);
+    }
+  };
+};
+
+export const getProductReviews = (productId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/products/${productId}/reviews`);
+      console.log(response);
+      dispatch({
+        type: GET_PRODUCT_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 };
