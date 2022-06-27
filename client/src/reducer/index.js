@@ -37,6 +37,7 @@ import {
   FETCH_ADD_REVIEW,
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_ERROR,
+  GET_PRODUCT_REVIEWS,
 } from "../actions/types";
 
 const initialState = {
@@ -72,6 +73,7 @@ const initialState = {
   addReviewLoading: false,
   addReviewSuccessMessage: "",
   addReviewErrorMessage: "",
+  productReviews: [],
 };
 
 export default function reducer(state = initialState, actions) {
@@ -334,6 +336,12 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         addReviewErrorMessage: actions.payload,
+      };
+    }
+    case GET_PRODUCT_REVIEWS: {
+      return {
+        ...state,
+        productReviews: actions.payload,
       };
     }
     default:
