@@ -269,28 +269,39 @@ const getMyPurchases = async (req, res, next) => {
   res.json(my_purchases);
 };
 
-const addReview = async(req, res, next) => {
-  console.log(req.body)
-  console.log(req.params)
-  const {userId, productId} = req.params
-  const review = req.body
-  console.log('USUARIO ID :', userId)
-  console.log('PRODUCTO ID :', productId)
-  console.log('REVIEW :', review)
+const addReview = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params);
+  const { userId, productId } = req.params;
+  const review = req.body;
+  console.log("USUARIO ID :", userId);
+  console.log("PRODUCTO ID :", productId);
+  console.log("REVIEW :", review);
   const order = await Order.findOne({
     where: {
       userId,
-    }
-  })
+    },
+  });
   await OrderDetail.update(review, {
     where: {
       productId,
-      orderId: order.id
-    }
-  })
+      orderId: order.id,
+    },
+  });
   //console.log(order.toJSON())
-  res.json({message: "Review added successfully"})
-}
+  res.json({ message: "Review added successfully" });
+};
+
+const getMySales = async (req, res, next) => {
+  const { userId } = req.params;
+
+  const orders = await Order.findAll({
+    where: { status: "completed" },
+    include: { model: User, where: { id: userId } },
+  });
+
+  res.json(orders);
+};
 
 module.exports = {
   signUpUser,
@@ -303,4 +314,6 @@ module.exports = {
   getMyPurchases,
   addReview,
   updateUser,
+  getMySales,
+
 };

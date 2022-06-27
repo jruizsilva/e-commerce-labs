@@ -23,6 +23,7 @@ import Checkout from "./components/Checkout/Checkout.jsx";
 import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
 import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
 import Chat from "./components/Chat/Chat.jsx";
+import MySales from "./pages/MySales/MySales.js";
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -87,6 +88,11 @@ function App() {
           exact
           path="/chat/:orderId"
           element={user ? <Chat /> : <Navigate to="/home" />}
+        />
+        <Route
+          exact
+          path="/my-sales"
+          element={user ? <MySales /> : <Navigate to="/home" />}
         />
         <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
