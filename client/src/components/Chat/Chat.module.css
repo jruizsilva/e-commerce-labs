@@ -1,0 +1,110 @@
+.chatContainer{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5%;
+    margin-top: 2%;
+    height: 70vh;
+}
+
+.chatContainer > section{
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    /* border: 1px solid black; */
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #a7a7a7;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.chatContainer > section > h2{
+    height: 10%;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 12px;
+    font-family: Proxima Nova;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+.chatContainer > section > ul{
+    height: 75%;
+    width: 100%;
+}
+.chatContainer > section > form{
+    position: relative;
+    height: 15%;
+    width: 100%;
+    border-top: 1px solid #a7a7a7;
+}
+.frmSendMessage{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.frmSendMessage > textarea{
+    padding: 7px;
+    resize: none;
+    border: none;
+    width: 90%;
+    min-height: 20px; 
+    max-height: 100px; 
+    overflow-x: hidden; 
+    overflow-y: auto;
+    border-radius: 15px;
+    margin-left: 10px;
+    border: 1px solid #a7a7a7;
+}
+.frmSendMessage > button{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #2f80ed;
+    color: white;
+    margin: auto;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.frmSendMessage > button:hover{
+    background-color: #015dd5;
+    color: white;
+}
+
+
+.chatContainer > aside{
+    width: 30%;
+    /* border: 1px solid black; */
+}
+
+.txtContain{
+    overflow-x: hidden;
+}
+.txtContain > li{
+    margin: 5px;
+    margin-right: 25px;
+    font-family: Georgia, Cambria, Times, "Times New Roman";
+}
+.txtContain > li > span{
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.userSend{
+    display: flex;
+    justify-content: flex-end;
+}
+.get{
+    display: flex;
+}
+.userSend > span{
+    background-color: #2f80ed;
+    color: white;
+    text-align: right;
+}
+.get > span{
+    position: relative;
+    background-color: #2fed62;
+    color: white;
+}

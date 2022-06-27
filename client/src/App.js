@@ -22,6 +22,7 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx";
 import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
 import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
+import Chat from "./components/Chat/Chat.jsx";
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -67,7 +68,6 @@ function App() {
           path="/restore-password/:userId/:token"
           element={<RestorePassword />}
         />
-        <Route path="*" element={<Navigate to="/err404" replace />} />
         <Route
           exact
           path="/checkout"
@@ -83,6 +83,12 @@ function App() {
           path="/review/:productId"
           element={user ? <ReviewPage /> : <Navigate to="/home" />}
         />
+        <Route
+          exact
+          path="/chat/:orderId"
+          element={user ? <Chat /> : <Navigate to="/home" />}
+        />
+        <Route path="*" element={<Navigate to="/err404" replace />} />
       </Routes>
     </>
   );
