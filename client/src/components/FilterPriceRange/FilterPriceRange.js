@@ -1,7 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { getAllProducts } from "../../actions";
 import { validatePriceRangeForm } from "../../helpers/form-validations";
 
 import style from "./FilterPriceRange.module.css";
@@ -11,6 +13,8 @@ const initialFormValues = { min: "", max: "" };
 
 export default function FilterPriceRange() {
   const [params, setParams] = useSearchParams();
+  const { user } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialFormValues);
   const [validation, setValidation] = useState(initialValidationValues);
 
@@ -51,6 +55,8 @@ export default function FilterPriceRange() {
     if (params.toString().includes("reset=true")) {
       setForm(initialFormValues);
       setParams({});
+    } else {
+      dispatch(getAllProducts(window.location.search, user?.id));
     }
   }, [params]);
 
