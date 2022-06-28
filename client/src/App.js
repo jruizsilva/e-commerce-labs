@@ -24,6 +24,7 @@ import CheckoutHooks from "./components/CheckoutHooks/CheckoutHooks.js";
 import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
 import Chat from "./components/Chat/Chat.jsx";
 import MySales from "./pages/MySales/MySales.js";
+import EditUserInfo from "./components/EditUserInfo/EditUserInfo.jsx";
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -44,46 +45,78 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route exact path="/" element={<LandingPage />} />
+
+        <Route 
+        exact path="/" 
+        element={<LandingPage />} 
+        />
+
         <Route
           exact
           path="/signin"
           element={!user ? <LoginFormik /> : <Navigate to="/home" />}
         />
+
         <Route
           exact
           path="/signup"
           element={!user ? <FormRegisterFormik /> : <Navigate to="/home" />}
         />
-        <Route exact path="/details/:productId" element={<ProductDetails />} />
-        <Route exact path="/home" element={<Home />} />
+
+        <Route 
+        exact path="/details/:productId" 
+        element={<ProductDetails />} 
+        />
+
+        <Route 
+        exact path="/home" 
+        element={<Home />} 
+        />
+
         <Route
           exact
           path="/publications"
           element={user ? <PublicacionPage /> : <Navigate to="/signin" />}
         />
-        <Route path="/cart" element={<Cart />} />
-        <Route exact path="/err404" element={<Err404 />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route 
+        path="/cart" 
+        element={<Cart />} 
+        />
+
+        <Route 
+        exact path="/err404" 
+        element={<Err404 />} 
+        />
+
+        <Route 
+        path="/forgot-password"
+        element={<ForgotPassword />}
+        />
+
         <Route
           path="/restore-password/:userId/:token"
           element={<RestorePassword />}
         />
+
         <Route
           exact
           path="/checkout"
           element={user && cart ? <CheckoutHooks /> : <Navigate to="/home" />}
         />
+
         <Route
           exact
           path="/my-purchases"
           element={user ? <MyPurchasesPage /> : <Navigate to="/home" />}
         />
+
         <Route
           exact
           path="/review/:productId"
           element={user ? <ReviewPage /> : <Navigate to="/home" />}
         />
+
         <Route
           exact
           path="/chat/:orderId"
@@ -95,6 +128,17 @@ function App() {
           element={user ? <MySales /> : <Navigate to="/home" />}
         />
         <Route path="*" element={<Navigate to="/err404" replace />} />
+
+        <Route 
+        path="/user/:userId"
+        element={user ? <EditUserInfo /> : <Navigate to="/home" />}
+        />
+
+        <Route 
+        path="*" 
+        element={<Navigate to="/err404" replace />} 
+        />
+        
       </Routes>
     </>
   );
