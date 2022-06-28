@@ -32,10 +32,11 @@ const SearchBar = () => {
 
     params.set("name", input.name);
     setParams(params);
+    dispatch(getAllProducts(window.location.search, user?.id));
+    navigate(`/home${window.location.search}`);
     setInput({
       name: "",
     });
-    navigate(`/home${window.location.search}`);
   };
   return (
     <form onSubmit={handleSubmit} className={s.container}>

@@ -134,8 +134,6 @@ const getUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   const id = req.params.userId;
-  //console.log(req.body)
-  //console.log(id)
   try {
     if (!req.body.password) {
       const user = await User.update(req.body, {
@@ -143,17 +141,30 @@ const updateUser = async (req, res, next) => {
           id,
         },
       });
-      return res.json({ message: "Updated successfully!" });
-    } else {
+      // console.log("🚀 ~ file: users.controller.js ~ line 146 ~ updateUser ~ user", user)
+      if(!user[0]){
+        console.log("No se encontró ningún usuario con ese ID");
+        return res.send({message: "No user found. Nothing was updated. Also, no password was recived"})
+      } else if(user[0] > 0){
+        console.log("Se actualizó " + user[0] + " usuario");
+      }
+      return res.json({message: "Updated successfully!"})
+    }else{
       //console.log(req.body.password)
       req.body.password = await bcryptjs.hash(req.body.password, 8);
       //console.log(req.body.password)
       const user = await User.update(req.body, {
         where: {
           id,
-        },
-      });
-      return res.json({ message: "Updated successfully!" });
+        }
+      })
+      if(!user[0]){
+        console.log("No se encontró ningún usuario con ese ID");
+        return res.send({message: "No user found. Nothing was updated."})
+      } else if(user[0] > 0){
+        console.log("Se actualizó " + user[0] + " usuario");
+      }
+      return res.json({message: "Updated successfully!"}) 
     }
   } catch (error) {
     next(error);
