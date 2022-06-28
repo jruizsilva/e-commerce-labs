@@ -12,7 +12,10 @@ const isRequired = "is a required field";
 const validationSchema = yup.object().shape({
   name: yup.string().required(`Name ${isRequired}`),
   email: yup.string().email().required(`Email ${isRequired}`),
-  password: yup.string().required(`Password ${isRequired}`),
+  password: yup.string().required(`Password ${isRequired}`).matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g,
+      "Password must be longer than 8, it must have at least one number and one capital letter."
+    ),
   phone: yup.string().length(12),
   repeatPass: yup.string().required(`Password confirmation ${isRequired}`).oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
