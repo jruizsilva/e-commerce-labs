@@ -33,6 +33,7 @@ const signUpUser = async (req, res, next) => {
     state = "active",
   } = req.body;
   try {
+    if(!name|| !email||!password) return res.json({ message: "Name, email and password are required" });
     const validateEmail = await User.findOne({ where: { email } });
     if (validateEmail)
       return res.status(401).json({ message: "Email already exists" });
