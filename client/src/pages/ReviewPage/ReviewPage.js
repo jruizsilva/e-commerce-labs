@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -25,6 +25,7 @@ export default function ReviewPage() {
   const [product, setProduct] = useState(null);
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -39,6 +40,10 @@ export default function ReviewPage() {
       setProduct(res.data[0]);
     });
   }, [productId]);
+
+  const handleImageClick = () => {
+    navigate(`/details/${productId}`);
+  };
 
   return (
     <>
@@ -72,6 +77,7 @@ export default function ReviewPage() {
                   src={product.image}
                   alt={product.name}
                   className={style.image}
+                  onClick={handleImageClick}
                 />
               </div>
             </section>

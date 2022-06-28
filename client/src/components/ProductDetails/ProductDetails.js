@@ -122,11 +122,11 @@ export default function ProductDetails() {
               </div>
             </div>
             <div className={styles.buttons}>
-              <div className={styles.buyNowBtn}>
+              {/* <div className={styles.buyNowBtn}>
                 <button onClick={onClickBuyProduct} className={styles.btnBuy}>
                   Buy now
                 </button>
-              </div>
+              </div> */}
               <div className={styles.addToCartBtn}>
                 {/* <button
                   onClick={onClickAddToCart}
