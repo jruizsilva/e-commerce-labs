@@ -2,77 +2,78 @@
   padding-top: 32px;
   margin-bottom: 32px;
 }
-.form{
+.form {
   background-color: #fafafb;
   min-width: 320px;
   max-width: 620px;
   min-height: 400px;
   margin-left: auto;
   margin-right: auto;
-  
+
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 12%);
 }
-.review_container{
+.review_container {
   padding: 24px;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
 }
-.review_description{
-
+.review_description {
 }
-.review_title{
+.review_title {
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 16px;
 }
-.review_product_name{
+.review_product_name {
   color: #828282;
   font-weight: 300;
   font-size: 14px;
   margin-bottom: 16px;
 }
-.product_image_container{
+.product_image_container {
   width: 130px;
   height: 130px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.image{
+.image {
   border-radius: 50%;
 }
-.comment_container{
+.image:hover {
+  cursor: pointer;
+}
+.comment_container {
   padding: 24px;
 }
-.comment_form{
+.comment_form {
   display: flex;
   flex-direction: column;
   max-width: 440px;
 }
-.comment_title{
+.comment_title {
   font-weight: 500;
   margin-bottom: 16px;
 }
-.field_container{
+.field_container {
   max-width: 440px;
 }
-.form_textarea{
+.form_textarea {
   min-height: 100px;
   padding: 16px;
-  color: rgba(0,0,0,.9);
+  color: rgba(0, 0, 0, 0.9);
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid hsl(0, 0%, 80%);
   resize: none;
   width: 100%;
   resize: vertical;
-  
 }
-.form_textarea::placeholder{
-  color: #BFBFBF;
+.form_textarea::placeholder {
+  color: #bfbfbf;
 }
-.form_textarea:focus{
+.form_textarea:focus {
   outline-color: #828282;
   outline-width: 1px;
 }

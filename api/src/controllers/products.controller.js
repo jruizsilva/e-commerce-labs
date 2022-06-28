@@ -139,9 +139,6 @@ const getProductsById = async (req, res, next) => {
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
   // name price image description condition brand model stock score state
-  console.log("llege");
-  console.log(req.files)
-  console.log(req.body.image)
   const {
     name,
     price,
@@ -159,7 +156,6 @@ const createProducts = async (req, res, next) => {
 
   try {
     const user = await User.findByPk(userId);
-    console.log(user.__proto__);
     const uploadResponse = await uploadImage(image);
     const product = await Product.create({
       name,

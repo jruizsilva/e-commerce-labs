@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 import styles from "./ProductDetails.module.css";
 import Question from "../Question/Question";
@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductReviews, getUserPublications } from "../../actions";
 import { Rating } from "react-simple-star-rating";
 import { getRatingPromedio } from "../../helpers/getRatingPromedio";
+
+const uuid_regex = new RegExp(
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+);
 
 export default function ProductDetails() {
   let { productId } = useParams();
@@ -25,16 +29,16 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([]);
   useEffect(() => {
+    if (!uuid_regex.test(productId)) return;
     if (user) {
       dispatch(getUserPublications(user?.id, ""));
       dispatch(getProductReviews(productId));
     }
   }, [dispatch, user]);
   // console.log("🚀 ~ file: ProductDetails.jsx ~ line 15 ~ ProductDetails ~ details", details)
-  console.log(productReviews);
-  console.log(getRatingPromedio(productReviews));
 
   useEffect(() => {
+    if (!uuid_regex.test(productId)) return;
     axios.get(`/api/products/product/${productId}`).then((r) => {
       const response = r.data;
       setDetails(response[0]); // [0] así me ahorro aclarar que es la posición 0 (ya que es el único dato) en futuras ocaciones
@@ -46,6 +50,16 @@ export default function ProductDetails() {
     e.preventDefault();
     console.log("Comprar producto");
   };
+
+  if (!uuid_regex.test(productId))
+    return (
+      <div className={styles.not_found}>
+        <p className={styles.not_found_p}>Product with that id not found</p>
+        <Link to="/home" className={styles.not_found_link}>
+          Go home
+        </Link>
+      </div>
+    );
 
   if (loading) {
     return (
@@ -108,11 +122,11 @@ export default function ProductDetails() {
               </div>
             </div>
             <div className={styles.buttons}>
-              <div className={styles.buyNowBtn}>
+              {/* <div className={styles.buyNowBtn}>
                 <button onClick={onClickBuyProduct} className={styles.btnBuy}>
                   Buy now
                 </button>
-              </div>
+              </div> */}
               <div className={styles.addToCartBtn}>
                 {/* <button
                   onClick={onClickAddToCart}
