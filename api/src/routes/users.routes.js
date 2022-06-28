@@ -8,7 +8,7 @@ const {
   putPublicationById,
   getMyPurchases,
   addReview,
-  updateUser
+  updateUser,
   getMySales,
 } = require("../controllers/users.controller.js");
 const router = Router();
