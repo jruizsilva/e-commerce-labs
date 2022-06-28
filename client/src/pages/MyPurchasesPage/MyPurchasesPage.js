@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { getMyPurchases } from "../../actions";
 import style from "./MyPurchasesPage.module.css";
@@ -10,12 +10,17 @@ const { format } = new Intl.NumberFormat("es-ES");
 export default function MyPurchasesPage() {
   const { user, myPurchases } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   console.log(myPurchases);
 
   useEffect(() => {
     dispatch(getMyPurchases(user?.id));
   }, [user, dispatch, getMyPurchases]);
+
+  const handleImageClick = (productId) => {
+    navigate(`/details/${productId}`);
+  };
 
   return (
     <>
@@ -41,6 +46,7 @@ export default function MyPurchasesPage() {
                       <th>Image</th>
                       <th>Product</th>
                       <th>Seller</th>
+                      <th>State</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -48,7 +54,12 @@ export default function MyPurchasesPage() {
                     {myPurchases.map((p, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={p.image} alt="product" className="img" />
+                          <img
+                            src={p.image}
+                            alt="product"
+                            className={style.image}
+                            onClick={() => handleImageClick(p.id)}
+                          />
                         </td>
                         <td>
                           <span>{p.name}</span>
@@ -57,8 +68,11 @@ export default function MyPurchasesPage() {
                           </span>
                         </td>
                         <td>{p.users[0].name}</td>
+                        <td>{p.orderdetail.state}</td>
                         <td>
-                          <Link to={`/review/${p.id}`}>Agregar reseña</Link>
+                          {p.orderdetail.state === "completed" && (
+                            <Link to={`/review/${p.id}`}>Agregar reseña</Link>
+                          )}
                         </td>
                       </tr>
                     ))}

@@ -35,7 +35,7 @@ export default function ReviewPage() {
   });
 
   useEffect(() => {
-    axios.get(`/api/products/${productId}`).then((res) => {
+    axios.get(`/api/products/product/${productId}`).then((res) => {
       setProduct(res.data[0]);
     });
   }, [productId]);

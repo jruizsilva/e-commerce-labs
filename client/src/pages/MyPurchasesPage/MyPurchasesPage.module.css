@@ -169,3 +169,7 @@
   font-size: 13px;
   color: #828282;
 }
+
+.image:hover {
+  cursor: pointer;
+}
