@@ -52,9 +52,9 @@ export default function NavbarMenu() {
           >
             shopping_cart
           </span>
-          <span style={{ color: "red"}}>
-            {cart?.productcarts ? cart.productcarts.length : 0}
-          </span>
+          {cart?.productcarts?.length > 0 && (
+            <div className={style.counter}>{cart.productcarts.length}</div>
+          )}
         </Link>
       </li>
     </ul>
