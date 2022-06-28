@@ -275,3 +275,24 @@
 .reviews_comment {
   font-weight: 300;
 }
+.not_found {
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 24px;
+  font-weight: 300;
+}
+.not_found_p {
+  margin-bottom: 8px;
+}
+.not_found_link {
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 20px;
+}
+.not_found_link:hover {
+  text-decoration: underline;
+}
