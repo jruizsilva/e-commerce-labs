@@ -1,57 +1,50 @@
-import React from "react";
+import React, {useState} from "react";
 import style from "./FormRegisterFormik.module.css";
 import { useNavigate } from "react-router-dom";
-import { Formik } from "formik";
-
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
+import PhoneInput from "react-phone-input-2";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../actions/index.js";
+
+const isRequired = "is a required field";
+
+const validationSchema = yup.object().shape({
+  name: yup.string().required(`Name ${isRequired}`),
+  email: yup.string().email().required(`Email ${isRequired}`),
+  password: yup.string().required(`Password ${isRequired}`),
+  phone: yup.string().length(12),
+  repeatPass: yup.string().required(`Password confirmation ${isRequired}`).oneOf([yup.ref('password'), null], 'Passwords must match'),
+});
+
+const initialValues={
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  password: "",
+  repeatPass: "",
+}
 
 const FormRegisterFormik = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { registerErrorMessage } = useSelector((state) => state);
+ 
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async () => {
+            const values = formik.values;
+            console.log(values);
+            dispatch(createUser(values));
+          }
+  });
 
   return (
     <>
       <div className={style.container}>
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            phone: "",
-            address: "",
-            password: "",
-            repeatPass: "",
-          }}
-          validate={(form) => {
-            let err = {};
-            if (!form.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
-              err.email = "You have to enter a valid email";
-            if (form.password !== form.repeatPass)
-              err.repeatPass = "Password does not match";
-            // if (isNaN(form.phone)) err.phone = "El telefono debe ser un número";
-            if (!form.name) err.name = "You have to enter a name";
-            if (!form.email) err.email = "You have to enter an email";
-            if (!form.password || !form.repeatPass)
-              err.password = "You have to enter a password";
-            return err;
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(false);
-            console.log(values);
-            dispatch(createUser(values));
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
-            <form className={style.formContainer} onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit} className={style.formContainer}>
               <h3 className={style.title}>Sign up</h3>
               <div className={style.fieldContainer}>
                 <input
@@ -59,12 +52,12 @@ const FormRegisterFormik = () => {
                   name="name"
                   className={style.input}
                   placeholder="Name (*)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
                 />
-                {errors.name && touched.name && (
-                  <p className={style.error}>{errors.name}</p>
+                {formik.errors.name && formik.touched.name && (
+                  <p className={style.error}>{formik.errors.name}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
@@ -73,26 +66,28 @@ const FormRegisterFormik = () => {
                   name="address"
                   className={style.input}
                   placeholder="Address"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.address}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.address}
                 />
-                {errors.address && touched.address && (
-                  <p className={style.error}>{errors.address}</p>
+                {formik.errors.address && formik.touched.address && (
+                  <p className={style.error}>{formik.errors.address}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
-                <input
-                  type="text"
+                <PhoneInput
                   name="phone"
-                  className={style.input}
-                  placeholder="Phone number"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.phone}
+                  country={"ar"}
+                  value={formik.values.phone}
+                  placeholder="+54"
+                  onChange={(value) => {
+                     console.log(value);
+                    if (value) formik.setFieldValue("phone", value);
+                    else formik.setFieldValue("phone", "");
+                  }}
                 />
-                {errors.phone && touched.phone && (
-                  <p className={style.error}>{errors.phone}</p>
+                {formik.errors.phone && formik.touched.phone && (
+                  <p className={style.error}>{formik.errors.phone}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
@@ -101,12 +96,12 @@ const FormRegisterFormik = () => {
                   name="email"
                   className={style.input}
                   placeholder="E-Mail (*)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
                 />
-                {errors.email && touched.email && (
-                  <p className={style.error}>{errors.email}</p>
+                {formik.errors.email && formik.touched.email && (
+                  <p className={style.error}>{formik.errors.email}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
@@ -115,12 +110,12 @@ const FormRegisterFormik = () => {
                   name="password"
                   className={style.input}
                   placeholder="Password (*)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
                 />
-                {errors.password && touched.password && (
-                  <p className={style.error}>{errors.password}</p>
+                {formik.errors.password && formik.touched.password && (
+                  <p className={style.error}>{formik.errors.password}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
@@ -129,19 +124,18 @@ const FormRegisterFormik = () => {
                   name="repeatPass"
                   className={style.input}
                   placeholder="Repeat password (*)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.repeatPass}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.repeatPass}
                 />
-                {errors.repeatPass && touched.repeatPass && (
-                  <p className={style.error}>{errors.repeatPass}</p>
+                {formik.errors.repeatPass && formik.touched.repeatPass && (
+                  <p className={style.error}>{formik.errors.repeatPass}</p>
                 )}
               </div>
               <div className={style.fieldContainer}>
                 <button
                   type="submit"
                   className={style.button}
-                  disabled={isSubmitting}
                 >
                   Sign up
                 </button>
@@ -152,9 +146,7 @@ const FormRegisterFormik = () => {
               <a className={style.link} onClick={() => navigate("/signin")}>
                 You already have an account? Sign in
               </a>
-            </form>
-          )}
-        </Formik>
+        </form>
       </div>
     </>
   );
