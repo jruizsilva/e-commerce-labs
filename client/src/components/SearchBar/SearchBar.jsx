@@ -15,7 +15,9 @@ const SearchBar = () => {
   });
   const { user } = useSelector((state) => state);
   useEffect(() => {
-    dispatch(getAllProducts(window.location.search, user?.id));
+    if (params.has("name")) {
+      dispatch(getAllProducts(window.location.search, user?.id));
+    }
   }, [params, user]);
 
   const handleChange = (e) => {
@@ -33,7 +35,7 @@ const SearchBar = () => {
     setInput({
       name: "",
     });
-    // navigate(`/home${window.location.search}`);
+    navigate(`/home${window.location.search}`);
   };
   return (
     <form onSubmit={handleSubmit} className={s.container}>

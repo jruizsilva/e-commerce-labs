@@ -1,21 +1,113 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { getMyPurchases } from "../../actions";
+import {
+  getMyPurchases,
+  getMySales,
+  setSaleInitialValue,
+  setSaleToEdit,
+} from "../../actions";
+import { formatSaleUpdateInitialValue } from "../../helpers/formatSaleUpdateInitialValue";
+import useModal from "../../hooks/useModal";
+import EditSaleModal from "./EditSaleModal/EditSaleModal";
 import style from "./MySales.module.css";
 
 const { format } = new Intl.NumberFormat("es-ES");
+const customStyles = {
+  container: (provided, state) => ({
+    ...provided,
+    width: "150px",
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: "none",
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    Width: "150px",
+  }),
+  placeholder: (provided, state) => ({
+    ...provided,
+    fontSize: "14px",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    fontSize: "14px",
+  }),
+  valueContainer: (provided, state) => ({
+    ...provided,
+    fontSize: "14px",
+  }),
+};
+const mySalesOptions = [
+  {
+    value: "completed",
+    label: "Completed",
+  },
+  {
+    value: "pending",
+    label: "Pending",
+  },
+  {
+    value: "canceled",
+    label: "Canceled",
+  },
+];
 
 export default function MySales() {
-  const { user, myPurchases } = useSelector((state) => state);
+  const {
+    user,
+    mySales,
+    editSaleInitialValue,
+    successSaleEdit,
+    errorSaleEdit,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
-
-  console.log(myPurchases);
+  const [filterState, setFilterState] = useState(null);
+  const [params, setParams] = useSearchParams();
+  const location = useLocation();
+  const [isOpenEditSaleModal, openEditSaleModal, closeEditSaleModal] =
+    useModal();
 
   useEffect(() => {
-    dispatch(getMyPurchases(user?.id));
-  }, [user, dispatch, getMyPurchases]);
+    dispatch(getMySales(user?.id, location.search));
+  }, [
+    user,
+    dispatch,
+    getMyPurchases,
+    filterState,
+    successSaleEdit,
+    errorSaleEdit,
+  ]);
+
+  useEffect(() => {
+    if (params.has("reset")) {
+      setFilterState(null);
+      setParams({});
+    }
+  }, [params]);
+
+  const handleFilterChange = (target) => {
+    setFilterState(target);
+    if (!target) {
+      params.delete("state");
+    } else {
+      params.set("state", target.value);
+    }
+    setParams(params);
+  };
+  const handleResetButton = (e) => {
+    e.preventDefault();
+    setParams({ reset: true });
+    dispatch(getMySales(user?.id, location.search));
+  };
+  const handleEditButton = (e, product) => {
+    e.preventDefault();
+    dispatch(setSaleToEdit(product));
+    dispatch(setSaleInitialValue(formatSaleUpdateInitialValue(product)));
+    openEditSaleModal();
+  };
 
   return (
     <>
@@ -24,12 +116,35 @@ export default function MySales() {
           <h2 className={style.title}>My sales</h2>
           <p className={style.subtitle}>See the products you have sold</p>
           <p className={style.quantity_publications}>
-            {myPurchases.length || 0} sold
+            {mySales.length || 0} sold
           </p>
         </div>
         <div className={style.publicationsContainer}>
+          <div className={style.publications_head}>
+            <button
+              type="reset"
+              className={style.button}
+              onClick={handleResetButton}
+            >
+              <span
+                className="material-symbols-rounded"
+                style={{ fontSize: "18px" }}
+              >
+                restart_alt
+              </span>
+            </button>
+            <Select
+              styles={customStyles}
+              options={mySalesOptions}
+              placeholder="Filter by"
+              isClearable
+              onChange={handleFilterChange}
+              isSearchable={false}
+              value={filterState}
+            />
+          </div>
           <div>
-            {myPurchases.length === 0 ? (
+            {mySales.length === 0 ? (
               <p className={style.not_publications_message}>
                 You haven't sold yet
               </p>
@@ -41,24 +156,46 @@ export default function MySales() {
                       <th>Image</th>
                       <th>Product</th>
                       <th>Buyer</th>
+                      <th>State</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody className={style.tbody}>
-                    {myPurchases.map((p, index) => (
+                    {mySales.map(({ product, buyer }, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={p.image} alt="product" className="img" />
+                          <img
+                            src={product.image}
+                            alt="product"
+                            className="img"
+                          />
                         </td>
                         <td>
-                          <span>{p.name}</span>
+                          <span>{product.name}</span>
                           <span>
-                            {format(p.orderdetail.quantity)} items purchased
+                            {format(product.orderdetail.quantity)} items
+                            purchased
                           </span>
                         </td>
-                        <td>{p.users[0].name}</td>
+                        <td>{buyer.name}</td>
+                        <td>{product.orderdetail.state}</td>
                         <td>
-                          <Link to={`/review/${p.id}`}>Agregar reseña</Link>
+                          <button
+                            type="button"
+                            className={style.button}
+                            onClick={(e) => handleEditButton(e, product)}
+                          >
+                            <span
+                              className="material-symbols-rounded"
+                              style={{
+                                fontSize: "18px",
+                                color: "#fff",
+                                margin: "0",
+                              }}
+                            >
+                              edit_note
+                            </span>
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -69,6 +206,13 @@ export default function MySales() {
           </div>
         </div>
       </div>
+      {editSaleInitialValue && (
+        <EditSaleModal
+          isOpen={isOpenEditSaleModal}
+          openModal={openEditSaleModal}
+          closeModal={closeEditSaleModal}
+        />
+      )}
     </>
   );
 }

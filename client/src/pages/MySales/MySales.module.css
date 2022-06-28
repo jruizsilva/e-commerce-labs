@@ -169,3 +169,11 @@
   font-size: 13px;
   color: #828282;
 }
+
+.publications_head {
+  background-color: #fafafb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 8px;
+}
