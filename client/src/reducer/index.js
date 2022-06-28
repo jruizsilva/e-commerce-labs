@@ -38,6 +38,12 @@ import {
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_ERROR,
   GET_PRODUCT_REVIEWS,
+  GET_MY_SALES,
+  SET_SALE_TO_EDIT,
+  SET_SALE_INITIAL_VALUE,
+  UPDATE_SALE_REQUEST,
+  UPDATE_SALE_SUCCESS,
+  UPDATE_SALE_ERROR,
 } from "../actions/types";
 
 const initialState = {
@@ -74,6 +80,11 @@ const initialState = {
   addReviewSuccessMessage: "",
   addReviewErrorMessage: "",
   productReviews: [],
+  mySales: [],
+  saleToEdit: null,
+  editSaleInitialValue: null,
+  successSaleEdit: "",
+  errorSaleEdit: "",
 };
 
 export default function reducer(state = initialState, actions) {
@@ -222,6 +233,8 @@ export default function reducer(state = initialState, actions) {
         restorePasswordSuccessMessage: "",
         addReviewSuccessMessage: "",
         addReviewErrorMessage: "",
+        successSaleEdit: "",
+        errorSaleEdit: "",
       };
     }
     case ADD_TO_CART:
@@ -342,6 +355,44 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         productReviews: actions.payload,
+      };
+    }
+    case GET_MY_SALES: {
+      return {
+        ...state,
+        mySales: actions.payload,
+      };
+    }
+    case SET_SALE_TO_EDIT: {
+      return {
+        ...state,
+        saleToEdit: actions.payload,
+      };
+    }
+    case SET_SALE_INITIAL_VALUE: {
+      return {
+        ...state,
+        editSaleInitialValue: actions.payload,
+      };
+    }
+    case UPDATE_SALE_REQUEST: {
+      return {
+        ...state,
+        loadingUpdateSale: true,
+      };
+    }
+    case UPDATE_SALE_SUCCESS: {
+      return {
+        ...state,
+        loadingUpdateSale: false,
+        successSaleEdit: actions.payload,
+      };
+    }
+    case UPDATE_SALE_ERROR: {
+      return {
+        ...state,
+        loadingUpdateSale: false,
+        errorSaleEdit: actions.payload,
       };
     }
     default:

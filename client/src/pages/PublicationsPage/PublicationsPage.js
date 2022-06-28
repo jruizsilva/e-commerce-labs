@@ -98,16 +98,16 @@ export default function PublicationsPage() {
     }
     setParams(params);
   };
+  const handleResetButton = (e) => {
+    e.preventDefault();
+    setParams({ reset: true });
+    dispatch(getUserPublications(user.id, window.location.search));
+  };
   const handleEditButton = (e, product) => {
     e.preventDefault();
     dispatch(setProductToEdit(product));
     dispatch(setEditInitialValues(formatUpdateInitialValues(product)));
     openEditProductModal();
-  };
-  const handleResetButton = (e) => {
-    e.preventDefault();
-    setParams({ reset: true });
-    dispatch(getUserPublications(user.id, window.location.search));
   };
 
   return (
@@ -175,7 +175,7 @@ export default function PublicationsPage() {
                         <td>{p.state}</td>
                         <td>
                           <button
-                            type="reset"
+                            type="button"
                             className={style.button}
                             onClick={(e) => handleEditButton(e, p)}
                           >

@@ -134,16 +134,14 @@ const getUser = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
-  const id = req.params.userId
-  console.log(req.body)
-  //console.log(id)
+  const id = req.params.userId;
   try {
-    if(!req.body.password){
+    if (!req.body.password) {
       const user = await User.update(req.body, {
         where: {
           id,
-        }
-      })
+        },
+      });
       // console.log("🚀 ~ file: users.controller.js ~ line 146 ~ updateUser ~ user", user)
       if(!user[0]){
         console.log("No se encontró ningún usuario con ese ID");
@@ -156,7 +154,7 @@ const updateUser = async (req, res, next) => {
       //console.log(req.body.password)
       req.body.password = await bcryptjs.hash(req.body.password, 8);
       //console.log(req.body.password)
-       const user = await User.update(req.body, {
+      const user = await User.update(req.body, {
         where: {
           id,
         }
@@ -170,13 +168,9 @@ const updateUser = async (req, res, next) => {
       return res.json({message: "Updated successfully!"}) 
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-  
-  
-  
-}
-
+};
 
 const getPublicationsByUserId = async (req, res, next) => {
   const { userId } = req.params;
@@ -308,13 +302,47 @@ const addReview = async (req, res, next) => {
 
 const getMySales = async (req, res, next) => {
   const { userId } = req.params;
+  const { state } = req.query;
 
   const orders = await Order.findAll({
     where: { status: "completed" },
-    include: { model: User, where: { id: userId } },
+    include: [{ model: Product, where: { userId } }, { model: User }],
   });
+  let mySales = [];
+  if (state) {
+    orders.forEach((order) => {
+      const { products, user } = order;
+      products.forEach((product) => {
+        if (product.orderdetail.state === state) {
+          mySales.push({ order, product, buyer: user });
+        }
+      });
+    });
+  } else {
+    orders.forEach((order) => {
+      const { products, user } = order;
+      products.forEach((product) => {
+        mySales.push({ order, product, buyer: user });
+      });
+    });
+  }
 
-  res.json(orders);
+  res.json(mySales);
+};
+
+const updateOrderdetailsState = async (req, res, next) => {
+  const { id } = req.params;
+  const { state } = req.body;
+
+  await OrderDetail.update(
+    { state },
+    {
+      where: {
+        id,
+      },
+    }
+  );
+  res.json({ message: "State changed successfully" });
 };
 
 module.exports = {
@@ -329,5 +357,5 @@ module.exports = {
   addReview,
   updateUser,
   getMySales,
-
+  updateOrderdetailsState,
 };
