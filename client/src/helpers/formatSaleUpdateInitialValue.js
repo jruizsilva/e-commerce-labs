@@ -5,8 +5,8 @@ function capitalizeFirstLetter(string) {
 const formatSaleUpdateInitialValue = (productToEdit) => {
   return {
     state: {
-      value: productToEdit.state,
-      label: capitalizeFirstLetter(productToEdit.state),
+      value: productToEdit.orderdetail.state,
+      label: capitalizeFirstLetter(productToEdit.orderdetail.state),
     },
   };
 };

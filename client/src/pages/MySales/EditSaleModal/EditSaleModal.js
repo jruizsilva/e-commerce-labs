@@ -5,7 +5,7 @@ import style from "./EditSaleModal.module.css";
 import * as yup from "yup";
 import Modal from "../../../components/Modal/Modal";
 import {
-  setEditInitialValues,
+  setSaleInitialValue,
   setSaleToEdit,
   updateSale,
 } from "../../../actions";
@@ -37,6 +37,7 @@ export default function EditSaleModal(props) {
   const dispatch = useDispatch();
   const { user, loadingUpdateProduct, editSaleInitialValue, saleToEdit } =
     useSelector((state) => state);
+
   const formik = useFormik({
     initialValues: editSaleInitialValue,
     validationSchema,
@@ -52,7 +53,7 @@ export default function EditSaleModal(props) {
   const handleCloseButton = () => {
     formik.resetForm();
     dispatch(setSaleToEdit(null));
-    dispatch(setEditInitialValues(null));
+    dispatch(setSaleInitialValue(null));
     props.closeModal();
   };
 
