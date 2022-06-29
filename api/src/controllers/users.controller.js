@@ -2,6 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
+const axios = require("axios");
 
 const {
   User,
@@ -348,10 +349,17 @@ const updateOrderdetailsState = async (req, res, next) => {
       },
     }
   );
-  // if (state === "sended") {
-  //   const userData = await User.findByPk(buyerId);
-  //   console.log(userData);
-  // }
+  if (state === "sended") {
+    axios
+      .post(`/api/forgotpassword/`, {
+        email: buyerEmail,
+        orderdetailsId: id,
+      })
+      .then((r) => {
+        const response = r.data;
+        console.log(response);
+      });
+  }
   res.json({ message: "State changed successfully" });
 };
 
