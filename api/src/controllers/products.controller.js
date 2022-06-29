@@ -46,18 +46,30 @@ const getProductsByName = async (req, res, next) => {
 };
 
 const getProducts = async (req, res, next) => {
-  const { condition, sort, min_price, max_price, state, name, categoryId } =
-    req.query;
+  const {
+    condition,
+    sort,
+    min_price,
+    max_price,
+    state,
+    name,
+    categoryId,
+    all,
+  } = req.query;
 
   const { userId } = req.params;
   console.log(userId);
   try {
-    let where = {
-      state: "active",
-      stock: {
-        [Op.gte]: 1,
-      },
-    };
+    let where;
+    if (!all) {
+      where = {
+        state: "active",
+        stock: {
+          [Op.gte]: 1,
+        },
+      };
+    }
+
     if (userId)
       where.userId = {
         [Op.ne]: userId,

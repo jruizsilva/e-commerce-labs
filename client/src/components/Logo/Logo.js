@@ -17,12 +17,9 @@ export default function Logo() {
   };
   return (
     <div className={style.container}>
-      <button
-        style={{ display: "block", background: "none", border: "none" }}
-        onClick={handleClick}
-      >
+      <button className={style.button} onClick={handleClick}>
         <img
-          src="https://i.ibb.co/RPVvPKV/logo.png"
+          src="https://i.ibb.co/8dGTfyy/logoapp.png"
           alt="logo"
           className={style.logo}
         />

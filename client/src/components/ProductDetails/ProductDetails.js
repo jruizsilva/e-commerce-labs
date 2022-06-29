@@ -135,7 +135,11 @@ export default function ProductDetails() {
                   Add to cart
                 </button> */}
                 <div className={styles.btnAddToCart}>
-                  <BtnAddCart data={details} />
+                  {details.state === "paused" ? (
+                    <p>Publicacion pausada</p>
+                  ) : (
+                    <BtnAddCart data={details} />
+                  )}
                 </div>
               </div>
             </div>

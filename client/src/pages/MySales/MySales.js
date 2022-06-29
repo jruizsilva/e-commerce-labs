@@ -42,12 +42,16 @@ const customStyles = {
 };
 const mySalesOptions = [
   {
-    value: "completed",
-    label: "Completed",
-  },
-  {
     value: "pending",
     label: "Pending",
+  },
+  {
+    value: "sended",
+    label: "Sended",
+  },
+  {
+    value: "completed",
+    label: "Completed",
   },
   {
     value: "canceled",
@@ -102,9 +106,9 @@ export default function MySales() {
     setParams({ reset: true });
     dispatch(getMySales(user?.id, location.search));
   };
-  const handleEditButton = (e, product) => {
+  const handleEditButton = (e, product, buyerEmail) => {
     e.preventDefault();
-    dispatch(setSaleToEdit(product));
+    dispatch(setSaleToEdit({ ...product, buyerEmail }));
     dispatch(setSaleInitialValue(formatSaleUpdateInitialValue(product)));
     openEditSaleModal();
   };
@@ -176,6 +180,9 @@ export default function MySales() {
                             {format(product.orderdetail.quantity)} items
                             purchased
                           </span>
+                          <span style={{ fontWeight: "600" }}>
+                            ${format(product.orderdetail.totalprice)} price
+                          </span>
                         </td>
                         <td>{buyer.name}</td>
                         <td>{product.orderdetail.state}</td>
@@ -183,7 +190,9 @@ export default function MySales() {
                           <button
                             type="button"
                             className={style.button}
-                            onClick={(e) => handleEditButton(e, product)}
+                            onClick={(e) =>
+                              handleEditButton(e, product, buyer.email)
+                            }
                           >
                             <span
                               className="material-symbols-rounded"

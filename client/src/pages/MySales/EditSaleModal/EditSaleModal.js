@@ -16,12 +16,16 @@ const isRequired = "is a required field";
 
 const stateOptions = [
   {
-    value: "completed",
-    label: "Completed",
-  },
-  {
     value: "pending",
     label: "Pending",
+  },
+  {
+    value: "sended",
+    label: "Sended",
+  },
+  {
+    value: "completed",
+    label: "Completed",
   },
   {
     value: "canceled",
@@ -38,6 +42,8 @@ export default function EditSaleModal(props) {
   const { user, loadingUpdateProduct, editSaleInitialValue, saleToEdit } =
     useSelector((state) => state);
 
+  console.log(saleToEdit);
+
   const formik = useFormik({
     initialValues: editSaleInitialValue,
     validationSchema,
@@ -45,6 +51,7 @@ export default function EditSaleModal(props) {
       const { state } = formik.values;
       const body = {
         state: state.value,
+        buyerEmail: saleToEdit.buyerEmail,
       };
       dispatch(updateSale(user.id, saleToEdit.orderdetail.id, body));
     },

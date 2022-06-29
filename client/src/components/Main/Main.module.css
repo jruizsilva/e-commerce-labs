@@ -1,7 +1,13 @@
 .main_container {
-  padding: 30px 5%;
+  padding: 30px 2%;
 }
 .container {
   display: flex;
   justify-content: space-between;
+}
+@media (max-width: 900px) {
+  .container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

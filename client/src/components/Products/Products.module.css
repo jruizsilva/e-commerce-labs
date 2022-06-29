@@ -1,14 +1,13 @@
+.container {
+  flex-basis: calc(100% - 260px);
+}
 .ul {
   display: grid;
-  grid-gap: 0 24px;
-  justify-content: space-evenly;
-  margin-left: 0px;
-  grid-template-columns: repeat(3, 285px);
-  margin-top: 2em;
+  gap: 30px;
+  justify-content: space-between;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 245px));
 }
-.container {
-  width: 100%;
-}
+
 .p {
   text-align: center;
 }
