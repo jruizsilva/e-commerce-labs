@@ -135,6 +135,7 @@ const getUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   const id = req.params.userId;
+  console.log(id);
   try {
     if (!req.body.password) {
       const user = await User.update(req.body, {
@@ -345,6 +346,18 @@ const updateOrderdetailsState = async (req, res, next) => {
   res.json({ message: "State changed successfully" });
 };
 
+const getAllUsers = async (req, res, next) =>{
+  try {
+    let users = await User.findAll({
+      include: {model: Product}
+    });
+    
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   signUpUser,
   signInUser,
@@ -358,4 +371,5 @@ module.exports = {
   updateUser,
   getMySales,
   updateOrderdetailsState,
+  getAllUsers
 };
