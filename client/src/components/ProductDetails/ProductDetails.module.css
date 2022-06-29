@@ -17,11 +17,13 @@
   align-items: center;
   justify-content: center;
   width: 65%;
-  min-height: 500px;
+  min-height: 450px;
   background-color: white;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow: hidden;
+  max-height: 450px;
 }
 
 .productImg {
@@ -274,4 +276,25 @@
 }
 .reviews_comment {
   font-weight: 300;
+}
+.not_found {
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 24px;
+  font-weight: 300;
+}
+.not_found_p {
+  margin-bottom: 8px;
+}
+.not_found_link {
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 20px;
+}
+.not_found_link:hover {
+  text-decoration: underline;
 }

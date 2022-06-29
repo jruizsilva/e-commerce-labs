@@ -170,6 +170,10 @@
   color: #828282;
 }
 
-.image:hover {
-  cursor: pointer;
+.publications_head {
+  background-color: #fafafb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 8px;
 }

@@ -48,6 +48,9 @@ const getProductsByName = async (req, res, next) => {
 const getProducts = async (req, res, next) => {
   const { condition, sort, min_price, max_price, state, name, categoryId } =
     req.query;
+
+  const { userId } = req.params;
+  console.log(userId);
   try {
     let where = {
       state: "active",
@@ -55,6 +58,10 @@ const getProducts = async (req, res, next) => {
         [Op.gte]: 1,
       },
     };
+    if (userId)
+      where.userId = {
+        [Op.ne]: userId,
+      };
     let order;
     if (condition) where.condition = condition;
     if (state) where.state = state;
@@ -132,7 +139,6 @@ const getProductsById = async (req, res, next) => {
 // -- Creacion de Producto --
 const createProducts = async (req, res, next) => {
   // name price image description condition brand model stock score state
-  console.log("llege");
   const {
     name,
     price,
@@ -150,7 +156,6 @@ const createProducts = async (req, res, next) => {
 
   try {
     const user = await User.findByPk(userId);
-    console.log(user.__proto__);
     const uploadResponse = await uploadImage(image);
     const product = await Product.create({
       name,

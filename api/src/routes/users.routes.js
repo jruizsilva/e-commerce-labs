@@ -7,7 +7,10 @@ const {
   getPublicationsByUserId,
   putPublicationById,
   getMyPurchases,
-  addReview
+  addReview,
+  updateUser,
+  getMySales,
+  updateOrderdetailsState,
 } = require("../controllers/users.controller.js");
 const router = Router();
 router.post("/signup", signUpUser);
@@ -17,6 +20,9 @@ router.post("/user", getUser);
 router.get("/:userId/publications", getPublicationsByUserId);
 router.put("/:userId/publication/:publicationId", putPublicationById);
 router.get("/:userId/my-purchases", getMyPurchases);
-router.put("/:userId/review/:productId", addReview)
+router.put("/:userId/update", updateUser);
+router.put("/:userId/review/:productId", addReview);
+router.get("/:userId/my-sales", getMySales);
+router.patch("/:userId/my-sales/orderdetails/:id", updateOrderdetailsState);
 
 module.exports = router;

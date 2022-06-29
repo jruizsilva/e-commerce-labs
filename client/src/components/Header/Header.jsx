@@ -18,6 +18,8 @@ const Header = () => {
     restorePasswordErrorMessage,
     addReviewSuccessMessage,
     addReviewErrorMessage,
+    successSaleEdit,
+    errorSaleEdit,
   } = useSelector((state) => state);
   return (
     <>
@@ -32,7 +34,9 @@ const Header = () => {
       )}
       {successEditMessage && <MessageSuccess msg={successEditMessage} />}
       {registerErrorMessage && <MessageError msg={registerErrorMessage} />}
-      {registerSuccessMessage && <MessageSuccess msg={registerSuccessMessage} />}
+      {registerSuccessMessage && (
+        <MessageSuccess msg={registerSuccessMessage} />
+      )}
       {cartSuccessMessage && <MessageSuccess msg={cartSuccessMessage} />}
       {cartErrorMessage && <MessageError msg={cartErrorMessage} />}
       {restorePasswordSuccessMessage && (
@@ -44,9 +48,9 @@ const Header = () => {
       {addReviewSuccessMessage && (
         <MessageSuccess msg={addReviewSuccessMessage} />
       )}
-      {addReviewErrorMessage && (
-        <MessageError msg={addReviewErrorMessage} />
-      )}
+      {addReviewErrorMessage && <MessageError msg={addReviewErrorMessage} />}
+      {successSaleEdit && <MessageSuccess msg={successSaleEdit} />}
+      {errorSaleEdit && <MessageError msg={errorSaleEdit} />}
     </>
   );
 };

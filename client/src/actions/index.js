@@ -40,14 +40,23 @@ import {
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_ERROR,
   GET_PRODUCT_REVIEWS,
+  GET_MY_SALES,
+  SET_SALE_TO_EDIT,
+  SET_SALE_INITIAL_VALUE,
+  UPDATE_SALE_REQUEST,
+  UPDATE_SALE_SUCCESS,
+  UPDATE_SALE_ERROR,
 } from "./types";
 import axios from "axios";
 
-export const getAllProducts = (search) => {
+export const getAllProducts = (search, userId) => {
+  const URL = userId
+    ? `/api/products/${userId}${search}`
+    : `/api/products${search}`;
   return function (dispatch) {
     dispatch(loadingProducts(true));
     return axios
-      .get(`/api/products${search}`)
+      .get(URL)
       .then((resp) => {
         dispatch({ type: GET_ALL_PRODUCTS, payload: resp.data });
         dispatch(loadingProducts(false));
@@ -62,7 +71,7 @@ export function getNameProduct(name) {
   return async function (dispatch) {
     dispatch(loadingProducts(true));
     try {
-      const json = await axios.get("/api/products/search?name=" + name);
+      const json = await axios.get("/api/products/product/search?name=" + name);
       dispatch(loadingProducts(false));
       return dispatch({
         type: GET_NAME_PRODUCT,
@@ -544,6 +553,50 @@ export const getProductReviews = (productId) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+export const getMySales = (userId, search) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `/api/users/${userId}/my-sales${search}`
+      );
+      dispatch({
+        type: GET_MY_SALES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const setSaleToEdit = (saleToEdit) => {
+  return { type: SET_SALE_TO_EDIT, payload: saleToEdit };
+};
+export const setSaleInitialValue = (saleInitialValue) => {
+  return { type: SET_SALE_INITIAL_VALUE, payload: saleInitialValue };
+};
+
+export const updateSale = (userId, id, body) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_SALE_REQUEST });
+      const res = await axios.patch(
+        `/api/users/${userId}/my-sales/orderdetails/${id}`,
+        body
+      );
+      dispatch({ type: UPDATE_SALE_SUCCESS, payload: res.data.message });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: UPDATE_SALE_ERROR, payload: error });
+      setTimeout(() => {
+        dispatch({ type: RESET_MESSAGES });
+      }, 2000);
     }
   };
 };
