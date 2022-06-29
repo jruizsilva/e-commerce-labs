@@ -11,6 +11,7 @@ const {
   updateUser,
   getMySales,
   updateOrderdetailsState,
+  getAllUsers
 } = require("../controllers/users.controller.js");
 const router = Router();
 router.post("/signup", signUpUser);
@@ -24,5 +25,6 @@ router.put("/:userId/update", updateUser);
 router.put("/:userId/review/:productId", addReview);
 router.get("/:userId/my-sales", getMySales);
 router.patch("/:userId/my-sales/orderdetails/:id", updateOrderdetailsState);
+router.get("/", getAllUsers);
 
 module.exports = router;
