@@ -36,13 +36,14 @@ const rolOptions = [
 
 export default function ModalEditFormik({ show, onClose, user }) {
   const dispatch = useDispatch();
+  console.log(user);
 
   const formik = useFormik({
     initialValues: formatEditUserInitialValues(user),
     validationSchema,
     onSubmit: () => {
       console.log(formik.values);
-      // dispatch(updateUser(formik.values));
+      dispatch(updateUser(formik.values));
     },
   });
 
