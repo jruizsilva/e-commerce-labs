@@ -164,7 +164,8 @@
   text-align: left;
   margin-bottom: 4px;
 }
-.tbody td span:last-child {
+.tbody td span:last-child,
+.tbody td span:nth-child(2) {
   display: block;
   font-size: 13px;
   color: #828282;

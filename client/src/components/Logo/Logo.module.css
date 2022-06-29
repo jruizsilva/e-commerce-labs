@@ -1,8 +1,18 @@
 .container {
-  height: 150px;
+  max-height: 120px;
   flex-basis: 150px;
   margin-right: 64px;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  background: none;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  height: 120px;
 }
 .logo {
   height: 100%;

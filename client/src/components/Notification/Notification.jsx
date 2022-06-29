@@ -1,31 +1,35 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getNotificationsByUserId,
   updateNotificationsByUserId,
   getAllProducts,
   updateNotificationsByProduct,
-} from '../../actions';
-import Comment from './Comment';
-import styles from './Notification.module.css';
+} from "../../actions";
+import Comment from "./Comment";
+import styles from "./Notification.module.css";
 
 const Notification = () => {
   const [open, setOpen] = useState(false);
-  const { user, notifications, allProductsCopy } = useSelector(state => state);
+  const { user, notifications, allProductsCopy } = useSelector(
+    (state) => state
+  );
 
   const dispatch = useDispatch();
 
-  const activeNotifications = notifications?.filter(el => el.state === 'true');
+  const activeNotifications = notifications?.filter(
+    (el) => el.state === "true"
+  );
 
-  document.addEventListener('click', function handleClickOutsideBox(event) {
-    const box = document.getElementById('notifications');
+  document.addEventListener("click", function handleClickOutsideBox(event) {
+    const box = document.getElementById("notifications");
     if (!box.contains(event.target)) {
       closeNotifications();
     }
   });
 
   useEffect(() => {
-    dispatch(getAllProducts(window.location.search));
+    dispatch(getAllProducts("?all=true"));
     if (user) {
       dispatch(getNotificationsByUserId(user.id));
     }
@@ -47,7 +51,7 @@ const Notification = () => {
       <div className={styles.icon} onClick={() => setOpen(!open)}>
         <span
           className="material-symbols-rounded"
-          style={{ fontSize: '16px', color: '#000' }}
+          style={{ fontSize: "16px", color: "#000" }}
         >
           notifications
         </span>
@@ -64,23 +68,23 @@ const Notification = () => {
           {notifications.length ? (
             <>
               <div className={styles.fixedHeightContainer}>
-                {notifications?.map(n => {
+                {notifications?.map((n) => {
                   let currentProduct = allProductsCopy?.find(
-                    el => el.id === n.productId
+                    (el) => el.id === n.productId
                   );
                   return (
-                      <Comment
-                        key={n.id}
-                        n={n}
-                        currentProduct={currentProduct}
-                        closeNotifications={closeNotifications}
-                        eliminateNotification={eliminateNotification}
-                      ></Comment>  
+                    <Comment
+                      key={n.id}
+                      n={n}
+                      currentProduct={currentProduct}
+                      closeNotifications={closeNotifications}
+                      eliminateNotification={eliminateNotification}
+                    ></Comment>
                   );
                 })}
               </div>
               <button className={styles.nButton} onClick={handleRead}>
-                  Mark all as read
+                Mark all as read
               </button>
             </>
           ) : (

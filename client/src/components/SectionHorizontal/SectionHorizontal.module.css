@@ -7,3 +7,11 @@
   flex-shrink: 0;
   margin-right: 30px;
 }
+@media (max-width: 900px) {
+  .space {
+    display: none;
+  }
+  .container {
+    justify-content: center;
+  }
+}
