@@ -1,9 +1,7 @@
 .productItem {
   display: flex;
   flex-wrap: wrap;
-  width: 245px;
   height: 380px;
-  margin-bottom: 15px;
   border: solid 1px var(--border-color2);
   background-color: var(--white);
   border-radius: 6px;

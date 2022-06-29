@@ -9,7 +9,7 @@ const {
 } = require("../models");
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
-const axios = require("axios")
+const axios = require("axios");
 
 const { Op } = require("sequelize");
 
@@ -85,8 +85,8 @@ const addOrder = async (req, res, next) => {
 };
 
 const payment = async (req, res, next) => {
-  console.log('----QUERY---: ',req.query)
-  console.log('----BODY---: ',req.body)
+  console.log("----QUERY---: ", req.query);
+  console.log("----BODY---: ", req.body);
   console.info("*******EN LA RUTA PAGOS *******");
   const payment_id = req.query.payment_id;
   const payment_status = req.query.status;
@@ -125,10 +125,16 @@ const payment = async (req, res, next) => {
             userId: el.userId,
             productId: el.id,
           });
+          let messageBuyer = `You buy ${el.name}.`;
+          await Notification.create({
+            message: messageBuyer,
+            state: "true",
+            userId: order.userId,
+            productId: el.id,
+          });
         });
       }
       addNotification();
-      
 
       order
         .save()
@@ -147,19 +153,32 @@ const payment = async (req, res, next) => {
             where: { orderId: order.id },
           });
           console.log(orderProductDetails);
-          orderProductDetails.forEach((p) => {
+          orderProductDetails.forEach(async (p) => {
             const cant = p.dataValues.quantity;
             const prodId = p.dataValues.productId;
-            Product.decrement({ stock: cant }, { where: { id: prodId } });
+            await Product.decrement({ stock: cant }, { where: { id: prodId } });
+            const productToEdit = await Product.findOne({
+              where: { id: prodId },
+            });
+            if (productToEdit.dataValues.stock === 0) {
+              await Product.update(
+                { state: "paused" },
+                { where: { id: prodId } }
+              );
+            }
           });
         })
         .then((_) => {
           console.info("redirect success");
-          
-           axios.post(`http://localhost:3001/api/forgotpassword/`, {email: order.user.email, purchased:payment_id }).then((r) => {
-              const response = r.data;
 
-           });
+          axios
+            .post(`/api/forgotpassword/`, {
+              email: order.user.email,
+              purchased: payment_id,
+            })
+            .then((r) => {
+              const response = r.data;
+            });
 
           return res.redirect(
             process.env.NODE_ENV === "production"
@@ -185,7 +204,6 @@ const payment = async (req, res, next) => {
       );
     });
 };
-
 
 const cancelPayment = async (req, res, next) => {
   console.log("**** Failure route ****");

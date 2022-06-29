@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const axios = require("axios");
 const routes = require("./src/routes/index");
 const errorHandler = require("./src/utils/middlewares/errorHandler");
 const setHeaders = require("./src/utils/middlewares/setHeaders");
@@ -17,6 +18,8 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 app.use(setHeaders);
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 //aca vamos a setear todas nuestras rutas
 app.use("/api", routes);

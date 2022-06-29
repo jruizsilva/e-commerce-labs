@@ -2,6 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
+const axios = require("axios");
 
 const {
   User,
@@ -33,7 +34,8 @@ const signUpUser = async (req, res, next) => {
     state = "active",
   } = req.body;
   try {
-    if(!name|| !email||!password) return res.json({ message: "Name, email and password are required" });
+    if (!name || !email || !password)
+      return res.json({ message: "Name, email and password are required" });
     const validateEmail = await User.findOne({ where: { email } });
     if (validateEmail)
       return res.status(401).json({ message: "Email already exists" });
@@ -144,29 +146,32 @@ const updateUser = async (req, res, next) => {
         },
       });
       // console.log("🚀 ~ file: users.controller.js ~ line 146 ~ updateUser ~ user", user)
-      if(!user[0]){
+      if (!user[0]) {
         console.log("No se encontró ningún usuario con ese ID");
-        return res.send({message: "No user found. Nothing was updated. Also, no password was recived"})
-      } else if(user[0] > 0){
+        return res.send({
+          message:
+            "No user found. Nothing was updated. Also, no password was recived",
+        });
+      } else if (user[0] > 0) {
         console.log("Se actualizó " + user[0] + " usuario");
       }
-      return res.json({message: "Updated successfully!"})
-    }else{
+      return res.json({ message: "Updated successfully!" });
+    } else {
       //console.log(req.body.password)
       req.body.password = await bcryptjs.hash(req.body.password, 8);
       //console.log(req.body.password)
       const user = await User.update(req.body, {
         where: {
           id,
-        }
-      })
-      if(!user[0]){
+        },
+      });
+      if (!user[0]) {
         console.log("No se encontró ningún usuario con ese ID");
-        return res.send({message: "No user found. Nothing was updated."})
-      } else if(user[0] > 0){
+        return res.send({ message: "No user found. Nothing was updated." });
+      } else if (user[0] > 0) {
         console.log("Se actualizó " + user[0] + " usuario");
       }
-      return res.json({message: "Updated successfully!"}) 
+      return res.json({ message: "Updated successfully!" });
     }
   } catch (error) {
     next(error);
@@ -333,7 +338,9 @@ const getMySales = async (req, res, next) => {
 
 const updateOrderdetailsState = async (req, res, next) => {
   const { id } = req.params;
-  const { state } = req.body;
+  const { state, buyerEmail } = req.body;
+
+  console.log(buyerEmail);
 
   await OrderDetail.update(
     { state },
@@ -343,6 +350,17 @@ const updateOrderdetailsState = async (req, res, next) => {
       },
     }
   );
+  if (state === "sended") {
+    axios
+      .post(`/api/forgotpassword/`, {
+        email: buyerEmail,
+        orderdetailsId: id,
+      })
+      .then((r) => {
+        const response = r.data;
+        console.log(response);
+      });
+  }
   res.json({ message: "State changed successfully" });
 };
 
