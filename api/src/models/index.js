@@ -22,49 +22,49 @@ const modelAnswer = require("./Answer.js");
 const modelProductCart = require("./ProductCart.js");
 const modelOrderDetail = require("./OrderDetail.js");
 
-const sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-        host: DB_HOST,
-        dialect: "postgres",
-        logging: false,
-        pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
-        },
-        dialectOptions: {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-          keepAlive: true,
-        },
-        ssl: true,
-      })
-    : new Sequelize(
-        `postgres://${LOCAL_DB_USER}:${LOCAL_DB_PASSWORD}@${LOCAL_DB_HOST}/${LOCAL_DB_NAME}`,
-        { logging: false, native: false }
-      );
+// const sequelize =
+//   process.env.NODE_ENV === "production"
+//     ? new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+//         host: DB_HOST,
+//         dialect: "postgres",
+//         logging: false,
+//         pool: {
+//           max: 3,
+//           min: 1,
+//           idle: 10000,
+//         },
+//         dialectOptions: {
+//           ssl: {
+//             require: true,
+//             rejectUnauthorized: false,
+//           },
+//           keepAlive: true,
+//         },
+//         ssl: true,
+//       })
+//     : new Sequelize(
+//         `postgres://${LOCAL_DB_USER}:${LOCAL_DB_PASSWORD}@${LOCAL_DB_HOST}/${LOCAL_DB_NAME}`,
+//         { logging: false, native: false }
+//       );
 
-// const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-//   host: DB_HOST,
-//   dialect: "postgres",
-//   logging: false,
-//   pool: {
-//     max: 3,
-//     min: 1,
-//     idle: 10000,
-//   },
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false,
-//     },
-//     keepAlive: true,
-//   },
-//   ssl: true,
-// });
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: "postgres",
+  logging: false,
+  pool: {
+    max: 3,
+    min: 1,
+    idle: 10000,
+  },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    keepAlive: true,
+  },
+  ssl: true,
+});
 
 const Product = modelProduct(sequelize);
 const Category = modelCategory(sequelize);
