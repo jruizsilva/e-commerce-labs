@@ -18,10 +18,8 @@ const validationSchema = yup.object().shape({
     .max(254),
   address: yup.string().max(254),
   phone: yup.number(),
-  bank_account: yup.number().max(254),
   password: yup
     .string()
-    .required(`Password ${isRequired}`)
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g,
       "Password must be longer than 8, it must have at least one number and one capital letter."
@@ -42,14 +40,15 @@ const rolOptions = [
 
 export default function ModalEditFormik({ show, onClose, user }) {
   const dispatch = useDispatch();
-  console.log(user);
+  console.log("user", user);
 
   const formik = useFormik({
     initialValues: formatEditUserInitialValues(user),
     validationSchema,
     onSubmit: () => {
+      let body = {...formik.values, role: formik.values.role.value }
       console.log(formik.values);
-      dispatch(updateUser(formik.values));
+      dispatch(updateUser(body));
     },
   });
 

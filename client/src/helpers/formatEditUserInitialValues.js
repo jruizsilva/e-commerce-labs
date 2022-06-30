@@ -4,6 +4,7 @@ function capitalizeFirstLetter(string) {
 
 const formatEditUserInitialValues = (user) => {
   let {
+    id = user.id,
     name = "",
     email = "",
     address = "",
@@ -13,6 +14,7 @@ const formatEditUserInitialValues = (user) => {
   } = user;
 
   return {
+    id,
     name,
     email,
     address,

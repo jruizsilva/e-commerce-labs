@@ -50,7 +50,7 @@ import ModalEditFormik from "../ModalEditFormik/ModalEditFormik.js";
         <div>Email</div>
         <div>Role</div>
         <div>State</div>
-        <div>Opcions</div>
+        <div>Options</div>
       </section>
       {allUsers &&
         allUsers.map((val) => {
@@ -75,12 +75,14 @@ import ModalEditFormik from "../ModalEditFormik/ModalEditFormik.js";
             </div>
           );
         })}
+      {showP && productsG && (
+        <ModalPayment show={showP} onClose={showModalP} products={productsG} />
+      )}
       {show && userModal && (
         // <ModalEdit show={show} onClose={showModal} user={userModal} />
         <>
         <ModalEditFormik show={show} onClose={showModal} user={userModal} />
-        <ModalPayment show={showP} onClose={showModalP} products={productsG} />
-        {registerSuccessMessage && <MessageSuccess msg={registerSuccessMessage}/>}
+        {/* {registerSuccessMessage && <MessageSuccess msg={registerSuccessMessage}/>} */}
         </>
       )}
     </main>
