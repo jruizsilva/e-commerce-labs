@@ -129,10 +129,15 @@ export const getUser = (token) => {
     return axios
       .post(`/api/users/user`, token && { token })
       .then((resp) => {
+        if(resp?.data?.state === "confirmation") {
+          dispatch({type: LOGIN_ERROR_MESSAGE, payload: resp.data})
+          dispatch(loadingUser(false));
+          return;
+        }
         dispatch({ type: GET_USER, payload: resp.data });
-        dispatch(loadingUser(false));
         dispatch(getCart(resp?.data?.id));
         dispatch(validateCartStorage(resp?.data?.id));
+        dispatch(loadingUser(false));
       })
       .catch((err) => {
         console.log("Error:", err);
@@ -173,7 +178,7 @@ export const createUser = (form) => {
     return axios
       .post(`/api/users/signup`, form)
       .then((resp) => {
-        localStorage.setItem("token_id", resp.data.token);
+        //localStorage.setItem("token_id", resp.data.token);
         dispatch({ type: RESET_MESSAGES });
         dispatch(setRegisterSuccessMessage(resp.data.message));
         setTimeout(() => {

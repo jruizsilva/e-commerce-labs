@@ -31,7 +31,7 @@ const signUpUser = async (req, res, next) => {
     address,
     password,
     role,
-    state = "active",
+    state = "confirmation",
   } = req.body;
   try {
     if (!name || !email || !password)
@@ -50,11 +50,20 @@ const signUpUser = async (req, res, next) => {
       role,
       state,
     });
-    console.log(user);
+    
     const token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: "365d",
     });
-    res.json({ message: "User created successfully", token, user });
+      axios
+      .post(`/api/forgotpassword/`, {
+        email: email,
+        confirmation: true,
+      })
+      .then((r) => {
+        const response = r.data;
+        console.log(response);
+      });
+        res.json({ message: "User created successfully, an Email was send to confirm your account", token, user });
   } catch (error) {
     next(error);
   }
@@ -77,7 +86,8 @@ const signInUser = async (req, res, next) => {
       return res.status(401).json({ message: "The email doesn't exists" });
     } else {
       const validate = await bcryptjs.compare(password, user.password);
-      if (!validate) {
+      if(user.state === "confirmation") return res.status(401).json({ message: "You must confirm your email" });
+      if (!validate ) {
         return res.status(401).json({ message: "Incorrect password" });
       }
       const token = jwt.sign({ id: user.id }, config.secret, {
