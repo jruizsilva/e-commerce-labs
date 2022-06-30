@@ -268,7 +268,7 @@ export default function reducer(state = initialState, actions) {
                 totalValue,
                 productcarts: [...state.cart.productcarts, productCart],
               },
-              cartSuccessMessage: "Added to cart."
+              // cartSuccessMessage: "Added to cart."
             };
           }
         } else {
