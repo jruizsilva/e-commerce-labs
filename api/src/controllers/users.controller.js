@@ -30,7 +30,7 @@ const signUpUser = async (req, res, next) => {
     phone,
     address,
     password,
-    role,
+    role = "user",
     state = "confirmation",
   } = req.body;
   try {
@@ -374,17 +374,20 @@ const updateOrderdetailsState = async (req, res, next) => {
   res.json({ message: "State changed successfully" });
 };
 
-const getAllUsers = async (req, res, next) =>{
+const getAllUsers = async (req, res, next) => {
   try {
     let users = await User.findAll({
-      include: {model: Product}
+      include: { model: Product },
+      attributes: {
+        exclude: ["password"],
+      },
     });
-    
+
     res.status(200).json(users);
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = {
   signUpUser,
@@ -399,5 +402,5 @@ module.exports = {
   updateUser,
   getMySales,
   updateOrderdetailsState,
-  getAllUsers
+  getAllUsers,
 };
