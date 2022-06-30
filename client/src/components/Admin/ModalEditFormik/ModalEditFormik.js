@@ -19,7 +19,13 @@ const validationSchema = yup.object().shape({
   address: yup.string().max(254),
   phone: yup.number(),
   bank_account: yup.number().max(254),
-  password: yup.string().required(`Password ${isRequired}`),
+  password: yup
+    .string()
+    .required(`Password ${isRequired}`)
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g,
+      "Password must be longer than 8, it must have at least one number and one capital letter."
+    ),
   role: yup.object().required(`Role ${isRequired}`),
 });
 
