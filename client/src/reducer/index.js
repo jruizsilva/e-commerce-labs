@@ -251,27 +251,33 @@ export default function reducer(state = initialState, actions) {
         let findPr = state.cart.productcarts.find(
           (val) => val.productId === productCart.productId
         );
-        if (findPr) alert("the product already exists");
-        else {
-          let totalValue = state.cart.productcarts
-            .map((val) => val.totalValue)
-            .reduce((a, b) => a + b, 0);
-          totalValue += productCart.totalValue;
+        if (findPr) {
+          // alert("Already on cart");
           return {
             ...state,
-            cart: {
-              totalValue,
-              productcarts: [...state.cart.productcarts, productCart],
-            },
+            // cartErrorMessage: "Already on cart",
           };
+        } else {
+            let totalValue = state.cart.productcarts
+              .map((val) => val.totalValue)
+              .reduce((a, b) => a + b, 0);
+            totalValue += productCart.totalValue;
+            return {
+              ...state,
+              cart: {
+                totalValue,
+                productcarts: [...state.cart.productcarts, productCart],
+              },
+              cartSuccessMessage: "Added to cart."
+            };
+          }
+        } else {
+          let cart = {
+            totalValue: productCart.totalValue,
+            productcarts: [productCart],
+          };
+          return { ...state, cart };
         }
-      } else {
-        let cart = {
-          totalValue: productCart.totalValue,
-          productcarts: [productCart],
-        };
-        return { ...state, cart };
-      }
       break;
     case "UPDATE_PRODUCT_STORAGE":
       const { idProduct, price, cant } = actions.payload;

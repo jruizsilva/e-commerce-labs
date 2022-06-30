@@ -33,7 +33,7 @@ const addProduct = async (req, res, next) => {
     let findPr = null;
     findPr = cart.productcarts?.find((val) => val.productId == productId);
     if (findPr) {
-      return res.status(401).send("Ya se agrego este producto");
+      return res.status(401).send("Already on cart");
     } else {
       //Se crea la relación del carrito recien creado o encontrado con el producto ingresado,
       //Se crea la relacion producto carrito con los datos ingresados
@@ -46,7 +46,7 @@ const addProduct = async (req, res, next) => {
       });
       updateTotalValueCart(cart);
 
-      res.send("registro exitoso");
+      res.send("Successfull registration");
     }
   } catch (error) {
     next();
