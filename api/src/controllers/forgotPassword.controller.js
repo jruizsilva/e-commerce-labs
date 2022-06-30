@@ -4,16 +4,17 @@ const jwt = require("jsonwebtoken");
 const config = require("../utils/auth/index");
 require("dotenv").config();
 
-let verificationMail = "";
-
-if (process.env.NODE_ENV === "production")
-  verificationMail += "https://e-commerce-labs.vercel.app";
-else verificationMail += "http://localhost:3000";
 
 const forgotPassword = async (req, res) => {
-  const { email } = req.body;
-  const { purchased = null, orderdetailsId = null } = req.body;
+let verificationMail = "";
 
+if (process.env.NODE_ENV === "production"){
+  verificationMail += "https://e-commerce-labs.vercel.app";
+}
+else{ verificationMail += "http://localhost:3000";}
+  const { email } = req.body;
+  const { purchased = null, orderdetailsId = null , confirmation = null} = req.body;
+  
   // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 10 ~ forgotPassword ~ email", email);
 
   const user = await User.findOne({
@@ -30,8 +31,13 @@ const forgotPassword = async (req, res) => {
     const token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: "10m",
     });
-
-    verificationMail += `/restore-password/${user.id}/${token}`;
+    if(!confirmation){
+      console.log('entra en restore');
+      verificationMail += `/restore-password/${user.id}/${token}`;
+    } else{
+      console.log('entra a verification email',user.id,'  ',token);
+      verificationMail += `/confirmation/${user.id}/${token}`;
+    }
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -49,7 +55,6 @@ const forgotPassword = async (req, res) => {
         include: [{ model: Product }],
       });
     }
-
     const emailContent = { content: {} };
     if (purchased) {
       let items = order?.products
@@ -203,7 +208,39 @@ const forgotPassword = async (req, res) => {
               </html>
             `,
       };
-    } else {
+    } else if(confirmation){
+       emailContent.content = {
+        from: '"Marketplace App" <creadordecaminos@gmail.com>',
+        to: email,
+        subject: "Email Confirmation",
+        html: `   
+
+               
+                <div style="display: block; margin-left: auto; margin-right: auto; width: 80%; align-items: center;">
+                  <div style="background-color: #6ca4ed">
+                    <img
+                      src="https://i.ibb.co/8dGTfyy/logoapp.png"
+                      alt="logo"
+                      width="120px"
+                      style="display: block; margin-left: auto; margin-right: auto"
+                    />
+                  </div>
+                  <h1 style="font-sixe: 18px; color:#2f80ed;"> WELLCOME!!! This mail was sent to confirm your Email.</h1>
+                  To confirm your Email, please clic the following link:
+                  <br>
+                  <b><a href="${verificationMail}">${verificationMail}</a></b> 
+                  </br>
+                  <p>...or copy it instead and paste it on your browser.</p>
+                  <div style=" margin-top: 20px; background-color: #191d23; text-align: center; padding: 20px; color:white"> 
+                      <span>Contact us: </span><a href="https://e-commerce-labs.vercel.app" style="text-decoration: none; color:white;">e-commerce-labs.vercel.app</a>
+                  </div>
+              </div>
+            
+            `,
+      };
+    
+    }else {
+      console.log('entra a email');
       emailContent.content = {
         from: '"Marketplace App" <creadordecaminos@gmail.com>',
         to: email,
