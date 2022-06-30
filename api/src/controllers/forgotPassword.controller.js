@@ -225,7 +225,7 @@ else{ verificationMail += "http://localhost:3000";}
                       style="display: block; margin-left: auto; margin-right: auto"
                     />
                   </div>
-                  <h1 style="font-sixe: 18px; color:#2f80ed;"> WELLCOME!!! This mail was sent to confirm your Email.</h1>
+                  <h1 style="font-sixe: 18px; color:#2f80ed;"> WELCOME!!! This mail was sent to confirm your Email.</h1>
                   To confirm your Email, please clic the following link:
                   <br>
                   <b><a href="${verificationMail}">${verificationMail}</a></b> 
