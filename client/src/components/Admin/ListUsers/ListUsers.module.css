@@ -1,0 +1,45 @@
+.main{
+    margin: 25px 50px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 25px;
+}
+.section, .sectionOne{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: 0px;
+    height: 15vh;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgba(114, 114, 114, 0.423);
+    text-align: center;
+}
+
+.section > div, .sectionOne > div{
+    width: 14%;
+    overflow: hidden;
+    padding: 5px;
+    margin: auto;
+    margin-left: 5px;
+}
+
+.contButtons{
+    display: flex;
+    flex-wrap: wrap;
+}
+.contButtons > button{
+    margin: 5px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.contButtons > button:hover{
+    background-color: black;
+    color: white;
+}
+
+.sectionOne{
+    font-weight: bold;
+    height: 50px;
+}
+

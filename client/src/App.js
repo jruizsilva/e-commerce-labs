@@ -25,7 +25,11 @@ import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
 import Chat from "./components/Chat/Chat.jsx";
 import MySales from "./pages/MySales/MySales.js";
 import EditUserInfo from "./components/EditUserInfo/EditUserInfo.jsx";
+<<<<<<< HEAD
 import Confirmation from "./components/ConfirmationEmail/ConfirmationEmail.jsx";
+=======
+import ListUsers from "./components/Admin/ListUsers/ListUsers.jsx";
+>>>>>>> main
 
 function App() {
   const { user, searchUser, cart } = useSelector((state) => state);
@@ -141,6 +145,11 @@ function App() {
         element={user ? <EditUserInfo /> : <Navigate to="/home" />}
         />
 
+        <Route 
+        path="/admin/users"
+        element={user && user.role == "admin" ? <ListUsers /> : <Navigate to="/home" />}
+        />
+        
         <Route 
         path="*" 
         element={<Navigate to="/err404" replace />} 

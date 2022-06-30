@@ -46,6 +46,8 @@ import {
   UPDATE_SALE_REQUEST,
   UPDATE_SALE_SUCCESS,
   UPDATE_SALE_ERROR,
+  GET_ORDER_DETAIL,
+  GET_ALL_USERS
 } from "./types";
 import axios from "axios";
 
@@ -605,3 +607,37 @@ export const updateSale = (userId, id, body) => {
     }
   };
 };
+
+export const getOrderDetail = (orderDetailId) => {
+  return function (dispatch){
+    return axios.get(`/api/orders?orderdetailId=${orderDetailId}`)
+      .then((resp)=>{
+        dispatch({type: GET_ORDER_DETAIL, payload: resp.data})
+      }).catch((err)=>{
+        console.log(err);
+        dispatch({type: GET_ORDER_DETAIL, payload: null})
+      });
+  }
+}
+
+export const getAllUsers = () => {
+  return function (dispatch){
+    return axios.get(`/api/users`)
+      .then((resp)=>{
+        dispatch({type: GET_ALL_USERS, payload: resp.data})
+      }).catch((err)=>{
+        console.log(err);
+      });
+  }
+}
+
+export const updateUser = (data) => {
+  return function (dispatch){
+    return axios.put(`/api/users/${data.id}/update`, data)
+      .then((resp)=>{
+        console.log(resp);
+      }).catch((err)=>{
+        console.log(err);
+      });
+  }
+}

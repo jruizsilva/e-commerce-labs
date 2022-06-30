@@ -44,6 +44,8 @@ import {
   UPDATE_SALE_REQUEST,
   UPDATE_SALE_SUCCESS,
   UPDATE_SALE_ERROR,
+  GET_ORDER_DETAIL,
+  GET_ALL_USERS
 } from "../actions/types";
 
 const initialState = {
@@ -85,6 +87,8 @@ const initialState = {
   editSaleInitialValue: null,
   successSaleEdit: "",
   errorSaleEdit: "",
+  orderDetail: {},
+  allUsers: []
 };
 
 export default function reducer(state = initialState, actions) {
@@ -394,6 +398,16 @@ export default function reducer(state = initialState, actions) {
         loadingUpdateSale: false,
         errorSaleEdit: actions.payload,
       };
+    }
+    case GET_ORDER_DETAIL: 
+    return {
+      ...state, 
+      orderDetail: actions.payload
+    }
+    case GET_ALL_USERS: 
+    return {
+      ...state, 
+      allUsers: actions.payload
     }
     default:
       return state;
