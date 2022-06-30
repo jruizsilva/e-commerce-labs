@@ -46,7 +46,7 @@ export default function ModalEditFormik({ show, onClose, user }) {
     initialValues: formatEditUserInitialValues(user),
     validationSchema,
     onSubmit: () => {
-      let body = {...formik.values, role: formik.values.role.value }
+      let body = { ...formik.values, role: formik.values.role.value };
       console.log(formik.values);
       dispatch(updateUser(body));
     },
@@ -134,12 +134,12 @@ export default function ModalEditFormik({ show, onClose, user }) {
             )}
             <CustomSelect
               onChange={(value) => {
-                if (value) formik.setFieldValue("rol", value);
-                else formik.setFieldValue("rol", "");
+                if (value) formik.setFieldValue("role", value);
+                else formik.setFieldValue("role", "");
               }}
               value={formik.values.role}
               options={rolOptions}
-              placeholder="Rol (*)"
+              placeholder="Role (*)"
             />
             {formik.errors.role && formik.touched.role && (
               <p className={style.error}>{formik.errors.role}</p>

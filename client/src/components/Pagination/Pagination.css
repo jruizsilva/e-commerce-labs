@@ -44,11 +44,6 @@ ul {
   justify-content: center;
   align-content: center;
 }
-@media only screen and (max-width: 600px) {
-  .items-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
 .item {
   width: 10rem;

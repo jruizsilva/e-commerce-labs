@@ -6,6 +6,7 @@ import Product from "../Product/Product.jsx";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
 import Spinner from "../Spinner/Spinner";
+import SectionHorizontal from "../SectionHorizontal/SectionHorizontal";
 
 const Products = () => {
   const [params, setParams] = useSearchParams();
@@ -37,6 +38,7 @@ const Products = () => {
 
   return (
     <div className={style.container}>
+      <SectionHorizontal />
       {loadingProducts ? (
         <Spinner />
       ) : allProducts && allProducts.length > 0 ? (

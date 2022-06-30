@@ -1,11 +1,23 @@
 .container {
   flex-basis: calc(100% - 260px);
+  max-width: 1000px;
 }
 .ul {
   display: grid;
   gap: 30px;
   justify-content: space-between;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 245px));
+  grid-template-columns: repeat(3, 245px);
+}
+@media (max-width: 1140px) {
+  .ul {
+    grid-template-columns: repeat(2, 245px);
+    justify-content: center;
+  }
+}
+@media (max-width: 840px) {
+  .ul {
+    grid-template-columns: repeat(1, 245px);
+  }
 }
 
 .p {
