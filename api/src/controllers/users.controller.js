@@ -1,4 +1,5 @@
 const { OAuth2Client } = require("google-auth-library");
+const { conn } = require("../models/index.js");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const config = require("../utils/auth/index");
@@ -389,6 +390,23 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const changeUserState = async (req, res, next) =>{
+  const { userId } = req.params;
+  let { state } = req.body;
+  if (state == "active") state = "inactive"
+  else state = "active"
+  try {
+    await User.update(
+      {state},
+      {where: {id: userId} }
+    )
+    res.json({ message: "State changed successfully" });
+  } catch (error) {
+    next(error);
+    res.send({message: "Error changing state"})
+  }
+}
+
 module.exports = {
   signUpUser,
   signInUser,
@@ -403,4 +421,5 @@ module.exports = {
   getMySales,
   updateOrderdetailsState,
   getAllUsers,
+  changeUserState
 };

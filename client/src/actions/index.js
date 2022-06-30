@@ -47,7 +47,8 @@ import {
   UPDATE_SALE_SUCCESS,
   UPDATE_SALE_ERROR,
   GET_ORDER_DETAIL,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  GET_SALES_PAYABLE
 } from "./types";
 import axios from "axios";
 
@@ -635,7 +636,38 @@ export const updateUser = (data) => {
   return function (dispatch){
     return axios.put(`/api/users/${data.id}/update`, data)
       .then((resp)=>{
-        console.log(resp);
+        dispatch(setRegisterSuccessMessage(resp.data.message));
+        dispatch(getAllUsers());
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
+      }).catch((err)=>{
+        console.log(err);
+      });
+  }
+}
+
+export const changeStateUser = (id, state) => {
+  return function (dispatch){
+    return axios.put(`/api/users/${id}/changeState`, {state})
+      .then((resp)=>{
+        console.log(resp)
+        dispatch(setRegisterSuccessMessage(resp.data.message));
+        dispatch(getAllUsers());
+        setTimeout(() => {
+          dispatch({ type: RESET_MESSAGES });
+        }, 2000);
+      }).catch((err)=>{
+        console.log(err);
+      });
+  }
+}
+
+export const getSalesPayable = (products) => {
+  return function (dispatch){
+    return axios.post(`/api/orders/salespayable`, {products})
+      .then((resp)=>{
+        dispatch({type: GET_SALES_PAYABLE, payload: resp.data})
       }).catch((err)=>{
         console.log(err);
       });

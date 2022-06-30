@@ -19,7 +19,21 @@ const getOrders = async (req, res, next) => {
     next(error);
   }
 };
+const getSalesPayable = async (req, res, next) => {
+  try {
+    let { products } = req.body;
+
+    let orderDetails = await OrderDetail.findAll({
+      where: {productId: products, state: "completed"}
+    });
+
+    res.status(200).json(orderDetails);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-  getOrders
+  getOrders,
+  getSalesPayable
 }

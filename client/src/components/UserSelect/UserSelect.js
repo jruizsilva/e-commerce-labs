@@ -43,6 +43,11 @@ const UserSelect = ({ user }) => {
         setSelected({ value: "logout", label: "Log out" });
         break;
       }
+      case "admin": {
+        navigate("/admin/users");
+        setSelected({ value: "admin", label: "Admin" });
+        break;
+      }
       default:
         break;
     }
@@ -86,10 +91,19 @@ const UserSelect = ({ user }) => {
     { value: "logout", label: "Log out" },
   ];
 
+  const adminOptions = [
+    { value: "my-profile", label: "My profile" },
+    { value: "publications", label: "Publications" },
+    { value: "my-purchases", label: "My purchases" },
+    { value: "my-sales", label: "My sales" },
+    { value: "admin", label: "Admin" },
+    { value: "logout", label: "Log out" },
+  ];
+
   return (
     <Select
       styles={customStyles}
-      options={categoriesOptions}
+      options={user && user.role == "admin" ? adminOptions : categoriesOptions}
       placeholder={user && user.name}
       onChange={handleChange}
       isSearchable={false}

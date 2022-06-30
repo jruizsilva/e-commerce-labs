@@ -45,7 +45,8 @@ import {
   UPDATE_SALE_SUCCESS,
   UPDATE_SALE_ERROR,
   GET_ORDER_DETAIL,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  GET_SALES_PAYABLE
 } from "../actions/types";
 
 const initialState = {
@@ -88,7 +89,8 @@ const initialState = {
   successSaleEdit: "",
   errorSaleEdit: "",
   orderDetail: {},
-  allUsers: []
+  allUsers: [],
+  salesPayable: []
 };
 
 export default function reducer(state = initialState, actions) {
@@ -408,6 +410,11 @@ export default function reducer(state = initialState, actions) {
     return {
       ...state, 
       allUsers: actions.payload
+    }
+    case GET_SALES_PAYABLE: 
+    return {
+      ...state, 
+      salesPayable: actions.payload
     }
     default:
       return state;
