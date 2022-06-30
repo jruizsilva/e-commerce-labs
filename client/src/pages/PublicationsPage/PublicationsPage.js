@@ -114,10 +114,10 @@ export default function PublicationsPage() {
     <>
       <div className={style.container}>
         <div className={style.header_container}>
-          <h2 className={style.title}>Tus publicaciones</h2>
-          <p className={style.subtitle}>Ve el estado de tus publicaciones</p>
+          <h2 className={style.title}>Your publications</h2>
+          <p className={style.subtitle}>Check your publication's status</p>
           <p className={style.quantity_publications}>
-            Tienes {userPublications.length || 0} publicaciones
+            You have {userPublications.length || 0} publications.
           </p>
         </div>
         <div className={style.publicationsContainer}>
@@ -147,7 +147,7 @@ export default function PublicationsPage() {
           <div>
             {userPublications && userPublications.length === 0 ? (
               <p className={style.not_publications_message}>
-                No tienes publicaciones
+                You don't have any publications yet.
               </p>
             ) : (
               <div className={style.table_wrap}>
