@@ -14,7 +14,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      {console.log("pull request not working")}
       <App />
     </Provider>
   </BrowserRouter>
