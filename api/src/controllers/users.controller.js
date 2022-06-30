@@ -111,6 +111,8 @@ const googleAuth = async (req, res, next) => {
 
     const { email } = ticket.getPayload();
     const user = await User.findOne({ where: { email: email } });
+    if(user.state === "confirmation") return res.status(401).json({ message: "You must confirm your email" });
+
     if (user && user.id) {
       const token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: "365d",
