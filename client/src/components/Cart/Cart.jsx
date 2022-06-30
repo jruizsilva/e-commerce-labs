@@ -76,8 +76,8 @@ export default function Cart() {
             type: "UPDATE_PRODUCT_STORAGE",
             payload: { idProduct, price, cant: 1 },
           });
-        else
         // "La cantidad de productos a comprar no puede ser superior a la cantidad de stock disponible"
+        else
           alert(
             "The number of products to buy cannot be more than the available stock"
           );
@@ -153,6 +153,8 @@ export default function Cart() {
                             name="quantity"
                             value={p.quantity}
                             readOnly
+                            max={5}
+                            min={1}
                           />
                           <button
                             onClick={(e) =>
@@ -180,17 +182,15 @@ export default function Cart() {
               <h1> Total Value: ${cart && cart.totalValue} </h1>
             </div>
             <div className={styles.checkout}>
-                {user ? (
-                <button onClick={() => navigate("/checkout")}>
-                      Checkout
-                </button>
-                ) : (
+              {user ? (
+                <button onClick={() => navigate("/checkout")}>Checkout</button>
+              ) : (
                 <button onClick={() => navigate("/signin")}>
                   {/* <Link to="/signin"> */}
-                    Checkout
-                    {/* </Link> */}
+                  Checkout
+                  {/* </Link> */}
                 </button>
-                  )}
+              )}
             </div>
           </ul>
         </div>

@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styles from './Notification.module.css';
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styles from "./Notification.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 
 const Comment = ({
@@ -9,7 +9,8 @@ const Comment = ({
   closeNotifications,
   eliminateNotification,
 }) => {
-  const { user } = useSelector(state => state);
+  const { user } = useSelector((state) => state);
+  console.log("holaaa", currentProduct);
 
   let { message, productId } = n;
   return (
@@ -21,17 +22,21 @@ const Comment = ({
       >
         <div className={styles.notificationContainer}>
           <div>
-          <img
-            src={currentProduct?.image}
-            className={styles.image}
-            alt={`${currentProduct?.name}`}
-          />
+            <img
+              src={currentProduct?.image}
+              className={styles.image}
+              alt={`${currentProduct?.name}`}
+            />
           </div>
-          <TextareaAutosize className={styles.notification} value={message}/>
+          <TextareaAutosize className={styles.notification} value={message} />
         </div>
       </Link>
       <div className={styles.container}>
-        <Link className={styles.eliminate} to={'#'} onClick={() => eliminateNotification(n.id, user.id)}>
+        <Link
+          className={styles.eliminate}
+          to={"#"}
+          onClick={() => eliminateNotification(n.id, user.id)}
+        >
           Delete
         </Link>
       </div>
