@@ -25,6 +25,7 @@ import ReviewPage from "./pages/ReviewPage/ReviewPage.js";
 import Chat from "./components/Chat/Chat.jsx";
 import MySales from "./pages/MySales/MySales.js";
 import EditUserInfo from "./components/EditUserInfo/EditUserInfo.jsx";
+import Confirmation from "./components/ConfirmationEmail/ConfirmationEmail.jsx";
 import ListUsers from "./components/Admin/ListUsers/ListUsers.jsx";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     let token = localStorage.getItem("token_id");
+    console.log(token);
     if (token && !user) dispatch(getUser(token));
     else dispatch(loadingUser(false));
 
@@ -98,6 +100,11 @@ function App() {
         <Route
           path="/restore-password/:userId/:token"
           element={<RestorePassword />}
+        />
+
+        <Route
+          path="/confirmation/:userId/:token"
+          element={<Confirmation />}
         />
 
         <Route
