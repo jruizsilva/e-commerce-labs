@@ -1,17 +1,11 @@
 .container {
-  margin-bottom: 30px;
   display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
-.space {
-  flex-basis: 260px;
-  flex-shrink: 0;
-  margin-right: 30px;
-}
-@media (max-width: 900px) {
-  .space {
-    display: none;
-  }
+@media (max-width: 840px) {
   .container {
-    justify-content: center;
+    max-width: 520px;
+    margin: auto;
   }
 }
