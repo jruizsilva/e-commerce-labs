@@ -11,6 +11,7 @@ export default function MyPurchasesPage() {
   const { user, myPurchases } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(myPurchases);
 
   console.log(myPurchases);
 
@@ -47,6 +48,8 @@ export default function MyPurchasesPage() {
                       <th>Product</th>
                       <th>Seller</th>
                       <th>State</th>
+                      <th>Feedback</th>
+                      <th>Chat</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -73,6 +76,11 @@ export default function MyPurchasesPage() {
                           {p.orderdetail.state === "completed" && (
                             <Link to={`/review/${p.id}`}>Agregar reseña</Link>
                           )}
+                        </td>
+                        <td>
+                          <Link to={`/chat/${p.orderdetail.id}`}>
+                            <button className={style.btnChat}><i className="fa-brands fa-rocketchat"></i></button>
+                          </Link>
                         </td>
                       </tr>
                     ))}

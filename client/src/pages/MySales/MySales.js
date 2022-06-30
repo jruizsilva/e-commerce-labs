@@ -113,6 +113,8 @@ export default function MySales() {
     openEditSaleModal();
   };
 
+  console.log(mySales)
+
   return (
     <>
       <div className={style.container}>
@@ -161,6 +163,8 @@ export default function MySales() {
                       <th>Product</th>
                       <th>Buyer</th>
                       <th>State</th>
+                      <th>Edit</th>
+                      <th>Chat</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -205,6 +209,11 @@ export default function MySales() {
                               edit_note
                             </span>
                           </button>
+                        </td>
+                        <td>
+                          <Link to={`/chat/${product.orderdetail.id}`}>
+                            <button className={style.btnChat}><i className="fa-brands fa-rocketchat"></i></button>
+                          </Link>
                         </td>
                       </tr>
                     ))}

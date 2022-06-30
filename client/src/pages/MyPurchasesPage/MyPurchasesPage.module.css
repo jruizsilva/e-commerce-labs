@@ -173,3 +173,12 @@
 .image:hover {
   cursor: pointer;
 }
+.btnChat{
+  border-radius: 25px;
+  background-color: var(--primary);
+  border: none;
+  height: 35px;
+  width: 35px;
+  color: white;
+  cursor: pointer;
+}

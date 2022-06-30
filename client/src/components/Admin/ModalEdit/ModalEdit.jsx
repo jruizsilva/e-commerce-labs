@@ -30,8 +30,8 @@ export default function ModalEdit({show, onClose, user}){
   }
   function handleSubmit(e){
     e.preventDefault();
-    console.log(form)
     dispatch(updateUser(form));
+    onClose(false);
   }
 
   if(!show) return null;
