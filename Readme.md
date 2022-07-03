@@ -21,14 +21,15 @@
 Proyecto final del bootcamp de soyhenry.
 
 Dentro de la aplicación el usuario va a poder:
-Registrarse y iniciar sesión.
-Buscar, filtrar y ordenar productos.
-Realizar preguntas de un producto.
-Agregar productos al carrito y realizar la compra.
-Recibir notificaciones.
-Recibir mensajes al correo viendo el estado de su compra.
-Mandar mensajes al vendedor.
-Dejar un reseña del producto que se compro.
+
+- Registrarse y iniciar sesión.
+- Buscar, filtrar y ordenar productos.
+- Realizar preguntas de un producto.
+- Agregar productos al carrito y realizar la compra.
+- Recibir notificaciones.
+- Recibir mensajes al correo viendo el estado de su compra.
+- Mandar mensajes al vendedor.
+- Dejar un reseña del producto que se compro.
 
 ## _How To Use_
 
