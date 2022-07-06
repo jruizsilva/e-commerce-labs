@@ -5,7 +5,7 @@
 <details>
   <summary>Click to view!</summary>
   <img src="marketplace.gif">
-  <a href="https://www.youtube.com/watch?v=zFXTqD7GrNY">Ver demo completa</a>
+  <p><a href="https://www.youtube.com/watch?v=zFXTqD7GrNY">Ver demo completa</a></p>
 </details>
 
 ## _Built With_
