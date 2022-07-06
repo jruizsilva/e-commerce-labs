@@ -260,6 +260,7 @@ const getReviewsByProductId = async (req, res, next) => {
   });
 
   res.json(reviewsFormated);
+  // res.json(orders);
 };
 
 module.exports = {

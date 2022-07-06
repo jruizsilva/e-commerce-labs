@@ -4,17 +4,21 @@ const jwt = require("jsonwebtoken");
 const config = require("../utils/auth/index");
 require("dotenv").config();
 
-
 const forgotPassword = async (req, res) => {
-let verificationMail = "";
+  let verificationMail = "";
 
-if (process.env.NODE_ENV === "production"){
-  verificationMail += "https://e-commerce-labs.vercel.app";
-}
-else{ verificationMail += "http://localhost:3000";}
-  const { email } = req.body;
-  const { purchased = null, orderdetailsId = null , confirmation = null} = req.body;
-  
+  if (process.env.NODE_ENV === "production") {
+    verificationMail += "https://e-commerce-labs.vercel.app";
+  } else {
+    verificationMail += "http://localhost:3000";
+  }
+  const {
+    email,
+    purchased = null,
+    orderdetailsId = null,
+    confirmation = null,
+  } = req.body;
+
   // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 10 ~ forgotPassword ~ email", email);
 
   const user = await User.findOne({
@@ -22,6 +26,7 @@ else{ verificationMail += "http://localhost:3000";}
       email,
     },
   });
+
   // console.log("🚀 ~ file: forgotPassword.controller.js ~ line 17 ~ forgotPassword ~ user", user);
   // console.log("Id del usuario " + user.name + ":", user.id);
 
@@ -31,11 +36,11 @@ else{ verificationMail += "http://localhost:3000";}
     const token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: "10m",
     });
-    if(!confirmation){
-      console.log('entra en restore');
+    if (!confirmation) {
+      console.log("entra en restore");
       verificationMail += `/restore-password/${user.id}/${token}`;
-    } else{
-      console.log('entra a verification email',user.id,'  ',token);
+    } else {
+      console.log("entra a verification email", user.id, "  ", token);
       verificationMail += `/confirmation/${user.id}/${token}`;
     }
 
@@ -55,30 +60,30 @@ else{ verificationMail += "http://localhost:3000";}
         include: [{ model: Product }],
       });
     }
+    console.log(user);
+    console.log(order);
     const emailContent = { content: {} };
     if (purchased) {
       let items = order?.products
         .map((el) => {
           return `<div>
-                        <p style="text-align: center; font-weight: bold; font-size: 14px">
-                          ${el.name}
-                        </p>
+                    <p style="text-align: center; font-weight: bold; font-size: 14px">
+                      ${el.name}
+                    </p>
 
-                        <img
-                          style="width: 50%; width: 95px; height: 95px"
-                          src="${el.image}"
-                        />
-                        <span style="float: right">${el.orderdetail.quantity} x ${el.orderdetail.totalprice}</span>
+                    <img
+                      style="width: 50%; width: 95px; height: 95px"
+                      src="${el.image}"
+                    />
+                    <span style="float: right">${el.orderdetail.quantity} x ${el.orderdetail.totalprice}</span>
                   </div>`;
         })
         .join("");
-      console.log(items);
       emailContent.content = {
         from: '"Marketplace App" <creadordecaminos@gmail.com>',
         to: email,
         subject: "Your purchase was completed",
-        html:
-          `     <html>
+        html: `<html>
               <body>
                 <div style="display: block; margin-left: auto; margin-right: auto; width: 80%; align-items: center;">
                   <div style="background-color: #6ca4ed">
@@ -98,9 +103,9 @@ else{ verificationMail += "http://localhost:3000";}
                         order.payment_id
                       }</span>
                     </p>
-                    <div style="border: 1px solid; padding: 10px">` +
-          items +
-          `  
+                    <div style="border: 1px solid; padding: 10px"> 
+          ${items}
+            
                     </div>
                     <p
                       style="
@@ -208,8 +213,8 @@ else{ verificationMail += "http://localhost:3000";}
               </html>
             `,
       };
-    } else if(confirmation){
-       emailContent.content = {
+    } else if (confirmation) {
+      emailContent.content = {
         from: '"Marketplace App" <creadordecaminos@gmail.com>',
         to: email,
         subject: "Email Confirmation",
@@ -238,9 +243,8 @@ else{ verificationMail += "http://localhost:3000";}
             
             `,
       };
-    
-    }else {
-      console.log('entra a email');
+    } else {
+      console.log("entra a email");
       emailContent.content = {
         from: '"Marketplace App" <creadordecaminos@gmail.com>',
         to: email,
@@ -271,15 +275,9 @@ else{ verificationMail += "http://localhost:3000";}
             `,
       };
     }
-
     await transporter.sendMail(emailContent.content);
 
-    if (purchased)
-      return res.redirect(
-        process.env.NODE_ENV === "production"
-          ? "https://e-commerce-labs.vercel.app/home"
-          : "http://localhost:3000/home"
-      );
+    if (purchased) return res.json("Mail sended");
     return res.send("Email was sent successfully. Check your email inbox.");
   } else if (!user) {
     console.log("No existe ningún usuario con ese email");
