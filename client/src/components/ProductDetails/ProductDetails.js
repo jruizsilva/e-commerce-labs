@@ -21,6 +21,7 @@ export default function ProductDetails() {
   const { userPublications, user, productReviews } = useSelector(
     (state) => state
   );
+  console.log(productReviews);
 
   const isUserPublication = userPublications?.filter(
     (el) => el.userId === user?.id

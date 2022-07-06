@@ -51,11 +51,11 @@ const signUpUser = async (req, res, next) => {
       role,
       state,
     });
-    
+
     const token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: "365d",
     });
-      axios
+    axios
       .post(`/api/forgotpassword/`, {
         email: email,
         confirmation: true,
@@ -64,7 +64,12 @@ const signUpUser = async (req, res, next) => {
         const response = r.data;
         console.log(response);
       });
-        res.json({ message: "User created successfully, an Email was send to confirm your account", token, user });
+    res.json({
+      message:
+        "User created successfully, an Email was send to confirm your account",
+      token,
+      user,
+    });
   } catch (error) {
     next(error);
   }
@@ -87,8 +92,9 @@ const signInUser = async (req, res, next) => {
       return res.status(401).json({ message: "The email doesn't exists" });
     } else {
       const validate = await bcryptjs.compare(password, user.password);
-      if(user.state === "confirmation") return res.status(401).json({ message: "You must confirm your email" });
-      if (!validate ) {
+      if (user.state === "confirmation")
+        return res.status(401).json({ message: "You must confirm your email" });
+      if (!validate) {
         return res.status(401).json({ message: "Incorrect password" });
       }
       const token = jwt.sign({ id: user.id }, config.secret, {
@@ -111,7 +117,8 @@ const googleAuth = async (req, res, next) => {
 
     const { email } = ticket.getPayload();
     const user = await User.findOne({ where: { email: email } });
-    if(user.state === "confirmation") return res.status(401).json({ message: "You must confirm your email" });
+    if (user.state === "confirmation")
+      return res.status(401).json({ message: "You must confirm your email" });
 
     if (user && user.id) {
       const token = jwt.sign({ id: user.id }, config.secret, {
@@ -308,13 +315,21 @@ const addReview = async (req, res, next) => {
     where: {
       userId,
     },
+    include: [{ model: Product, where: { id: productId } }],
   });
-  await OrderDetail.update(review, {
-    where: {
-      productId,
-      orderId: order.id,
-    },
-  });
+  console.log(order);
+  try {
+    const res = await OrderDetail.update(review, {
+      where: {
+        productId,
+        orderId: order.id,
+      },
+    });
+    console.log(res);
+  } catch (error) {
+    console.log("addreviewerror", error);
+  }
+
   //console.log(order.toJSON())
   res.json({ message: "Review added successfully" });
 };
@@ -392,22 +407,19 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const changeUserState = async (req, res, next) =>{
+const changeUserState = async (req, res, next) => {
   const { userId } = req.params;
   let { state } = req.body;
-  if (state == "active") state = "inactive"
-  else state = "active"
+  if (state == "active") state = "inactive";
+  else state = "active";
   try {
-    await User.update(
-      {state},
-      {where: {id: userId} }
-    )
+    await User.update({ state }, { where: { id: userId } });
     res.json({ message: "State changed successfully" });
   } catch (error) {
     next(error);
-    res.send({message: "Error changing state"})
+    res.send({ message: "Error changing state" });
   }
-}
+};
 
 module.exports = {
   signUpUser,
@@ -423,5 +435,5 @@ module.exports = {
   getMySales,
   updateOrderdetailsState,
   getAllUsers,
-  changeUserState
+  changeUserState,
 };

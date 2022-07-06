@@ -172,12 +172,16 @@ const payment = async (req, res, next) => {
           console.info("redirect success");
 
           axios
-            .post(`/api/forgotpassword/`, {
+            .post(`/api/forgotpassword`, {
               email: order.user.email,
               purchased: payment_id,
             })
             .then((r) => {
               const response = r.data;
+              console.log(response.data);
+            })
+            .catch((err) => {
+              console.log("/api/forgotpassword", err);
             });
 
           return res.redirect(
