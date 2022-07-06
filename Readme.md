@@ -4,7 +4,8 @@
 
 <details>
   <summary>Click to view!</summary>
-  <img src="MarketplaceVideoPF.gif">
+  <img src="marketplace.gif">
+  <a href="https://www.youtube.com/watch?v=zFXTqD7GrNY">Ver demo completa</a>
 </details>
 
 ## _Built With_
@@ -20,7 +21,6 @@
 - [Firebase](https://firebase.google.com/)
 - [JSON Web Token](https://jwt.io/)
 - [Mercadopago](https://www.mercadopago.com.co/)
-
 
 ## _Description_
 
@@ -45,7 +45,7 @@ Marketplace functions:
 
 ## _How To Use_
 
-```bash
+````bash
 # Clone this repository
 $ git clone https://github.com/jruizsilva/e-commerce-labs
 
@@ -77,4 +77,4 @@ $ git clone https://github.com/jruizsilva/e-commerce-labs
  6. Once you finish step 5, open a terminal window, move to <strong>'api'</strong> folder, run ```npm i``` or ```npm install``` in order to install the dependencies. Then run, ```npm start``` to start the Back-end.
  7. Repeat step 6 on a new terminwl window, but located on <strong>'client'</strong> folder.
  8. The APP should start running on <em>localhost:3000</em> in your browser.
-```
+````
