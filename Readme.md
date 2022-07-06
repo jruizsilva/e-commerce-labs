@@ -45,10 +45,6 @@ Marketplace functions:
 
 ## _How To Use_
 
-```bash
-# Clone this repository
-$ git clone https://github.com/jruizsilva/e-commerce-labs
-
  1. Install the database system Postgresql. You can download it here https://www.postgresql.org/download/
  2. Clone the repository https://github.com/jruizsilva/e-commerce-labs
  3. On folder `api` create a file: `.env` with the folow information:
@@ -77,4 +73,3 @@ $ git clone https://github.com/jruizsilva/e-commerce-labs
  6. Once you finish step 5, open a terminal window, move to <strong>'api'</strong> folder, run ```npm i``` or ```npm install``` in order to install the dependencies. Then run, ```npm start``` to start the Back-end.
  7. Repeat step 6 on a new terminwl window, but located on <strong>'client'</strong> folder.
  8. The APP should start running on <em>localhost:3000</em> in your browser.
-```
