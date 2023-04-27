@@ -4,6 +4,7 @@ const {
   DB_HOST,
   DB_USER,
   DB_PASSWORD,
+  DB_PORT,
   LOCAL_DB_NAME,
   LOCAL_DB_USER,
   LOCAL_DB_PASSWORD,
@@ -24,7 +25,7 @@ const modelOrderDetail = require("./OrderDetail.js");
 
 const sequelize =
   process.env.NODE_ENV === "production"
-    ? new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+      ? new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
         host: DB_HOST,
         dialect: "postgres",
         logging: false,
@@ -33,6 +34,7 @@ const sequelize =
           min: 1,
           idle: 10000,
         },
+        port: DB_PORT,
         dialectOptions: {
           ssl: {
             require: true,

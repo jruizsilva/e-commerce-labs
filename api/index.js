@@ -19,7 +19,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 app.use(setHeaders);
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.default.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 //aca vamos a setear todas nuestras rutas
 app.use("/api", routes);
